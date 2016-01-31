@@ -26,29 +26,27 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Rol.findAll", query = "SELECT r FROM Rol r"),
-    @NamedQuery(name = "Rol.findByXeperCodigo", query = "SELECT r FROM Rol r WHERE r.rolPK.xeperCodigo = :xeperCodigo"),
-    @NamedQuery(name = "Rol.findByXeopcCodigo", query = "SELECT r FROM Rol r WHERE r.rolPK.xeopcCodigo = :xeopcCodigo"),
-    @NamedQuery(name = "Rol.findByXesisCodigo", query = "SELECT r FROM Rol r WHERE r.rolPK.xesisCodigo = :xesisCodigo"),
-    @NamedQuery(name = "Rol.findByRolInsert", query = "SELECT r FROM Rol r WHERE r.rolInsert = :rolInsert"),
-    @NamedQuery(name = "Rol.findByRolUpdate", query = "SELECT r FROM Rol r WHERE r.rolUpdate = :rolUpdate"),
-    @NamedQuery(name = "Rol.findByRolDelete", query = "SELECT r FROM Rol r WHERE r.rolDelete = :rolDelete"),
-    @NamedQuery(name = "Rol.findByRolSelect", query = "SELECT r FROM Rol r WHERE r.rolSelect = :rolSelect")})
+    @NamedQuery(name = "Rol.findByXeperCodigo", query = "SELECT r FROM Rol r WHERE r.rolPK.per_codigo = :per_codigo"),
+    @NamedQuery(name = "Rol.findByXeopcCodigo", query = "SELECT r FROM Rol r WHERE r.rolPK.opc_codigo = :opc_codigo"),
+    @NamedQuery(name = "Rol.findByRolInsert", query = "SELECT r FROM Rol r WHERE r.lIn_sert = :lIn_sert"),
+    @NamedQuery(name = "Rol.findByRolUpdate", query = "SELECT r FROM Rol r WHERE r.lUp_date = :lUp_date"),
+    @NamedQuery(name = "Rol.findByRolDelete", query = "SELECT r FROM Rol r WHERE r.lDe_lete = :lDe_lete"),
+    @NamedQuery(name = "Rol.findByRolSelect", query = "SELECT r FROM Rol r WHERE r.lSe_lect = :lSe_lect")})
 public class Rol implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected RolPK rolPK;
     @Column(name = "ROL_INSERT")
-    private Character rolInsert;
+    private Character lIn_sert;
     @Column(name = "ROL_UPDATE")
-    private Character rolUpdate;
+    private Character lUp_date;
     @Column(name = "ROL_DELETE")
-    private Character rolDelete;
+    private Character lDe_lete;
     @Column(name = "ROL_SELECT")
-    private Character rolSelect;
+    private Character lSe_lect;
     @JoinColumns({
         @JoinColumn(name = "XEPER_CODIGO", referencedColumnName = "XEPER_CODIGO", insertable = false, updatable = false),
-        @JoinColumn(name = "XEOPC_CODIGO", referencedColumnName = "XEOPC_CODIGO", insertable = false, updatable = false),
-        @JoinColumn(name = "XESIS_CODIGO", referencedColumnName = "XESIS_CODIGO", insertable = false, updatable = false)})
+        @JoinColumn(name = "XEOPC_CODIGO", referencedColumnName = "XEOPC_CODIGO", insertable = false, updatable = false)})
     @OneToOne(optional = false)
     private OpcionesPerfil opcionesPerfil;
 
@@ -59,8 +57,8 @@ public class Rol implements Serializable {
         this.rolPK = rolPK;
     }
 
-    public Rol(int xeperCodigo, int xeopcCodigo, int xesisCodigo) {
-        this.rolPK = new RolPK(xeperCodigo, xeopcCodigo, xesisCodigo);
+    public Rol(int per_codigo, int opc_codigo) {
+        this.rolPK = new RolPK(per_codigo, opc_codigo);
     }
 
     public RolPK getRolPK() {
@@ -71,36 +69,36 @@ public class Rol implements Serializable {
         this.rolPK = rolPK;
     }
 
-    public Character getRolInsert() {
-        return rolInsert;
+    public Character getLInsert() {
+        return lIn_sert;
     }
 
-    public void setRolInsert(Character rolInsert) {
-        this.rolInsert = rolInsert;
+    public void setLInsert(Character lIn_sert) {
+        this.lIn_sert = lIn_sert;
     }
 
-    public Character getRolUpdate() {
-        return rolUpdate;
+    public Character getLUpdate() {
+        return lUp_date;
     }
 
-    public void setRolUpdate(Character rolUpdate) {
-        this.rolUpdate = rolUpdate;
+    public void setLUpdate(Character lUp_date) {
+        this.lUp_date = lUp_date;
     }
 
-    public Character getRolDelete() {
-        return rolDelete;
+    public Character getLDelete() {
+        return lDe_lete;
     }
 
-    public void setRolDelete(Character rolDelete) {
-        this.rolDelete = rolDelete;
+    public void setLDelete(Character lDe_lete) {
+        this.lDe_lete = lDe_lete;
     }
 
-    public Character getRolSelect() {
-        return rolSelect;
+    public Character getLSelect() {
+        return lSe_lect;
     }
 
-    public void setRolSelect(Character rolSelect) {
-        this.rolSelect = rolSelect;
+    public void setLSelect(Character lSe_lect) {
+        this.lSe_lect = lSe_lect;
     }
 
     public OpcionesPerfil getOpcionesPerfil() {

@@ -43,7 +43,7 @@ public class Sistema implements Serializable {
     @Size(max = 100)
     @Column(name = "XESIS_DESCRIPCION")
     private String sis_descripcion;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sistema")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "sis_codigo")
     private Collection<Opciones> opcionesCollection;
 
     public Sistema() {
@@ -53,23 +53,21 @@ public class Sistema implements Serializable {
         this.sis_codigo = sis_codigo;
     }
 
-    public Integer getSis_codigo() {
+    public Integer getSisCodigo() {
         return sis_codigo;
     }
 
-    public void setSis_codigo(Integer sis_codigo) {
+    public void setSisCodigo(Integer sis_codigo) {
         this.sis_codigo = sis_codigo;
     }
 
-    public String getSis_descripcion() {
+    public String getSisDescripcion() {
         return sis_descripcion;
     }
 
-    public void setSis_descripcion(String sis_descripcion) {
+    public void setSisDescripcion(String sis_descripcion) {
         this.sis_descripcion = sis_descripcion;
     }
-
-    
 
     @XmlTransient
     public Collection<Opciones> getOpcionesCollection() {

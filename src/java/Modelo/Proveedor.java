@@ -32,73 +32,73 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Proveedor.findAll", query = "SELECT p FROM Proveedor p"),
-    @NamedQuery(name = "Proveedor.findBySeproCodigo", query = "SELECT p FROM Proveedor p WHERE p.seproCodigo = :seproCodigo"),
-    @NamedQuery(name = "Proveedor.findBySeproNombre", query = "SELECT p FROM Proveedor p WHERE p.seproNombre = :seproNombre"),
-    @NamedQuery(name = "Proveedor.findBySeproPorcentajeDeducible", query = "SELECT p FROM Proveedor p WHERE p.seproPorcentajeDeducible = :seproPorcentajeDeducible"),
-    @NamedQuery(name = "Proveedor.findBySeproAreaGeografica", query = "SELECT p FROM Proveedor p WHERE p.seproAreaGeografica = :seproAreaGeografica")})
+    @NamedQuery(name = "Proveedor.findBySeproCodigo", query = "SELECT p FROM Proveedor p WHERE p.pro_codigo = :pro_codigo"),
+    @NamedQuery(name = "Proveedor.findBySeproNombre", query = "SELECT p FROM Proveedor p WHERE p.pro_nombre = :pro_nombre"),
+    @NamedQuery(name = "Proveedor.findBySeproPorcentajeDeducible", query = "SELECT p FROM Proveedor p WHERE p.pro_porcentajededucible = :pro_porcentajededucible"),
+    @NamedQuery(name = "Proveedor.findBySeproAreaGeografica", query = "SELECT p FROM Proveedor p WHERE p.pro_areageografica = :pro_areageografica")})
 public class Proveedor implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "SEPRO_CODIGO")
-    private Integer seproCodigo;
+    private Integer pro_codigo;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "SEPRO_NOMBRE")
-    private String seproNombre;
+    private String pro_nombre;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "SEPRO_PORCENTAJE_DEDUCIBLE")
-    private Float seproPorcentajeDeducible;
+    private Float pro_porcentajededucible;
     @Size(max = 100)
     @Column(name = "SEPRO_AREA_GEOGRAFICA")
-    private String seproAreaGeografica;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "seproCodigo")
+    private String pro_areageografica;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pro_codigo")
     private Collection<TipoServicio> tipoServicioCollection;
 
     public Proveedor() {
     }
 
-    public Proveedor(Integer seproCodigo) {
-        this.seproCodigo = seproCodigo;
+    public Proveedor(Integer pro_codigo) {
+        this.pro_codigo = pro_codigo;
     }
 
-    public Proveedor(Integer seproCodigo, String seproNombre) {
-        this.seproCodigo = seproCodigo;
-        this.seproNombre = seproNombre;
+    public Proveedor(Integer pro_codigo, String pro_nombre) {
+        this.pro_codigo = pro_codigo;
+        this.pro_nombre = pro_nombre;
     }
 
-    public Integer getSeproCodigo() {
-        return seproCodigo;
+    public Integer getProCodigo() {
+        return pro_codigo;
     }
 
-    public void setSeproCodigo(Integer seproCodigo) {
-        this.seproCodigo = seproCodigo;
+    public void setProCodigo(Integer pro_codigo) {
+        this.pro_codigo = pro_codigo;
     }
 
-    public String getSeproNombre() {
-        return seproNombre;
+    public String getProNombre() {
+        return pro_nombre;
     }
 
-    public void setSeproNombre(String seproNombre) {
-        this.seproNombre = seproNombre;
+    public void setProNombre(String pro_nombre) {
+        this.pro_nombre = pro_nombre;
     }
 
-    public Float getSeproPorcentajeDeducible() {
-        return seproPorcentajeDeducible;
+    public Float getProPorcentajeDeducible() {
+        return pro_porcentajededucible;
     }
 
-    public void setSeproPorcentajeDeducible(Float seproPorcentajeDeducible) {
-        this.seproPorcentajeDeducible = seproPorcentajeDeducible;
+    public void setProPorcentajeDeducible(Float pro_porcentajededucible) {
+        this.pro_porcentajededucible = pro_porcentajededucible;
     }
 
-    public String getSeproAreaGeografica() {
-        return seproAreaGeografica;
+    public String getProAreaGeografica() {
+        return pro_areageografica;
     }
 
-    public void setSeproAreaGeografica(String seproAreaGeografica) {
-        this.seproAreaGeografica = seproAreaGeografica;
+    public void setProAreaGeografica(String pro_areageografica) {
+        this.pro_areageografica = pro_areageografica;
     }
 
     @XmlTransient
@@ -113,7 +113,7 @@ public class Proveedor implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (seproCodigo != null ? seproCodigo.hashCode() : 0);
+        hash += (pro_codigo != null ? pro_codigo.hashCode() : 0);
         return hash;
     }
 
@@ -124,7 +124,7 @@ public class Proveedor implements Serializable {
             return false;
         }
         Proveedor other = (Proveedor) object;
-        if ((this.seproCodigo == null && other.seproCodigo != null) || (this.seproCodigo != null && !this.seproCodigo.equals(other.seproCodigo))) {
+        if ((this.pro_codigo == null && other.pro_codigo != null) || (this.pro_codigo != null && !this.pro_codigo.equals(other.pro_codigo))) {
             return false;
         }
         return true;
@@ -132,7 +132,7 @@ public class Proveedor implements Serializable {
 
     @Override
     public String toString() {
-        return "Modelo.Proveedor[ seproCodigo=" + seproCodigo + " ]";
+        return "Modelo.Proveedor[ pro_codigo=" + pro_codigo + " ]";
     }
     
 }

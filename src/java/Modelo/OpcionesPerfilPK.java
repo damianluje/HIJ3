@@ -20,55 +20,41 @@ public class OpcionesPerfilPK implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "XEPER_CODIGO")
-    private int xeperCodigo;
+    private int per_codigo;
     @Basic(optional = false)
     @NotNull
     @Column(name = "XEOPC_CODIGO")
-    private int xeopcCodigo;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "XESIS_CODIGO")
-    private int xesisCodigo;
+    private int opc_codigo;
 
     public OpcionesPerfilPK() {
     }
 
-    public OpcionesPerfilPK(int xeperCodigo, int xeopcCodigo, int xesisCodigo) {
-        this.xeperCodigo = xeperCodigo;
-        this.xeopcCodigo = xeopcCodigo;
-        this.xesisCodigo = xesisCodigo;
+    public OpcionesPerfilPK(int per_codigo, int opc_codigo) {
+        this.per_codigo = per_codigo;
+        this.opc_codigo = opc_codigo;
     }
 
-    public int getXeperCodigo() {
-        return xeperCodigo;
+    public int getPerCodigo() {
+        return per_codigo;
     }
 
-    public void setXeperCodigo(int xeperCodigo) {
-        this.xeperCodigo = xeperCodigo;
+    public void setPerCodigo(int per_codigo) {
+        this.per_codigo = per_codigo;
     }
 
-    public int getXeopcCodigo() {
-        return xeopcCodigo;
+    public int getOpcCodigo() {
+        return opc_codigo;
     }
 
-    public void setXeopcCodigo(int xeopcCodigo) {
-        this.xeopcCodigo = xeopcCodigo;
-    }
-
-    public int getXesisCodigo() {
-        return xesisCodigo;
-    }
-
-    public void setXesisCodigo(int xesisCodigo) {
-        this.xesisCodigo = xesisCodigo;
+    public void setOpcCodigo(int opc_codigo) {
+        this.opc_codigo = opc_codigo;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (int) xeperCodigo;
-        hash += (int) xeopcCodigo;
-        hash += (int) xesisCodigo;
+        hash += (int) per_codigo;
+        hash += (int) opc_codigo;
         return hash;
     }
 
@@ -79,13 +65,10 @@ public class OpcionesPerfilPK implements Serializable {
             return false;
         }
         OpcionesPerfilPK other = (OpcionesPerfilPK) object;
-        if (this.xeperCodigo != other.xeperCodigo) {
+        if (this.per_codigo != other.per_codigo) {
             return false;
         }
-        if (this.xeopcCodigo != other.xeopcCodigo) {
-            return false;
-        }
-        if (this.xesisCodigo != other.xesisCodigo) {
+        if (this.opc_codigo != other.opc_codigo) {
             return false;
         }
         return true;
@@ -93,7 +76,7 @@ public class OpcionesPerfilPK implements Serializable {
 
     @Override
     public String toString() {
-        return "Modelo.OpcionesPerfilPK[ xeperCodigo=" + xeperCodigo + ", xeopcCodigo=" + xeopcCodigo + ", xesisCodigo=" + xesisCodigo + " ]";
+        return "Modelo.OpcionesPerfilPK[ per_codigo=" + per_codigo + ", opc_codigo=" + opc_codigo + " ]";
     }
     
 }

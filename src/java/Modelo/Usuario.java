@@ -70,47 +70,46 @@ public class Usuario implements Serializable {
         this.usu_password = usu_password;
     }
 
-    public Integer getUsu_codigo() {
+    public Integer getUsuCodigo() {
         return usu_codigo;
     }
 
-    public void setUsu_codigo(Integer usu_codigo) {
+    public void setUsuCodigo(Integer usu_codigo) {
         this.usu_codigo = usu_codigo;
     }
 
-    public String getUsu_id() {
+    public String getUsuId() {
         return usu_id;
     }
 
-    public void setUsu_id(String usu_id) {
+    public void setUsuId(String usu_id) {
         this.usu_id = usu_id;
     }
 
-    public String getUsu_password() {
+    public String getUsuPassword() {
         return usu_password;
     }
 
-    public void setUsu_password(String usu_password) {
+    public void setUsuPassword(String usu_password) {
         this.usu_password = usu_password;
     }
 
-    public Empleado getEmp_codigo() {
+    public Empleado getEmpCodigo() {
         return emp_codigo;
     }
 
-    public void setEmp_codigo(Empleado emp_codigo) {
+    public void setEmpCodigo(Empleado emp_codigo) {
         this.emp_codigo = emp_codigo;
     }
 
-    public Perfil getPer_codigo() {
+    public Perfil getPerCodigo() {
         return per_codigo;
     }
 
-    public void setPer_codigo(Perfil per_codigo) {
+    public void setPerCodigo(Perfil per_codigo) {
         this.per_codigo = per_codigo;
     }
 
-   
     @Override
     public int hashCode() {
         int hash = 0;

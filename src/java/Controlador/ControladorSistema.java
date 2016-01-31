@@ -72,7 +72,7 @@ public class ControladorSistema implements Serializable {
         
         for (int i = 0; i < sistemas.size(); i++) {
             Sistema sis = sistemas.get(i);
-            if (sis.getSis_codigo()==Integer.parseInt(e.getNewValue().toString())) {
+            if (sis.getSisCodigo()==Integer.parseInt(e.getNewValue().toString())) {
                 sistema=sis;
             }
         }

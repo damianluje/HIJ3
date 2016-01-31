@@ -12,7 +12,6 @@ import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -31,23 +30,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "OpcionesPerfil.findAll", query = "SELECT o FROM OpcionesPerfil o"),
-    @NamedQuery(name = "OpcionesPerfil.findByXeperCodigo", query = "SELECT o FROM OpcionesPerfil o WHERE o.opcionesPerfilPK.xeperCodigo = :xeperCodigo"),
-    @NamedQuery(name = "OpcionesPerfil.findByXeopcCodigo", query = "SELECT o FROM OpcionesPerfil o WHERE o.opcionesPerfilPK.xeopcCodigo = :xeopcCodigo"),
-    @NamedQuery(name = "OpcionesPerfil.findByXesisCodigo", query = "SELECT o FROM OpcionesPerfil o WHERE o.opcionesPerfilPK.xesisCodigo = :xesisCodigo"),
-    @NamedQuery(name = "OpcionesPerfil.findByXeoppFechaAsignacion", query = "SELECT o FROM OpcionesPerfil o WHERE o.xeoppFechaAsignacion = :xeoppFechaAsignacion"),
-    @NamedQuery(name = "OpcionesPerfil.findByXeoppActivo", query = "SELECT o FROM OpcionesPerfil o WHERE o.xeoppActivo = :xeoppActivo")})
+    @NamedQuery(name = "OpcionesPerfil.findByXeperCodigo", query = "SELECT o FROM OpcionesPerfil o WHERE o.opcionesPerfilPK.per_codigo = :per_codigo"),
+    @NamedQuery(name = "OpcionesPerfil.findByXeopcCodigo", query = "SELECT o FROM OpcionesPerfil o WHERE o.opcionesPerfilPK.opc_codigo = :opc_codigo"),
+    @NamedQuery(name = "OpcionesPerfil.findByXeoppFechaAsignacion", query = "SELECT o FROM OpcionesPerfil o WHERE o.opp_fechaasignacion = :opp_fechaasignacion"),
+    @NamedQuery(name = "OpcionesPerfil.findByXeoppActivo", query = "SELECT o FROM OpcionesPerfil o WHERE o.opp_activo = :opp_activo")})
 public class OpcionesPerfil implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected OpcionesPerfilPK opcionesPerfilPK;
     @Column(name = "XEOPP_FECHA_ASIGNACION")
     @Temporal(TemporalType.DATE)
-    private Date xeoppFechaAsignacion;
+    private Date opp_fechaasignacion;
     @Column(name = "XEOPP_ACTIVO")
-    private Character xeoppActivo;
-    @JoinColumns({
-        @JoinColumn(name = "XEOPC_CODIGO", referencedColumnName = "XEOPC_CODIGO", insertable = false, updatable = false),
-        @JoinColumn(name = "XESIS_CODIGO", referencedColumnName = "XESIS_CODIGO", insertable = false, updatable = false)})
+    private Character opp_activo;
+    @JoinColumn(name = "XEOPC_CODIGO", referencedColumnName = "XEOPC_CODIGO", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Opciones opciones;
     @JoinColumn(name = "XEPER_CODIGO", referencedColumnName = "XEPER_CODIGO", insertable = false, updatable = false)
@@ -63,8 +59,8 @@ public class OpcionesPerfil implements Serializable {
         this.opcionesPerfilPK = opcionesPerfilPK;
     }
 
-    public OpcionesPerfil(int xeperCodigo, int xeopcCodigo, int xesisCodigo) {
-        this.opcionesPerfilPK = new OpcionesPerfilPK(xeperCodigo, xeopcCodigo, xesisCodigo);
+    public OpcionesPerfil(int per_codigo, int opc_codigo) {
+        this.opcionesPerfilPK = new OpcionesPerfilPK(per_codigo, opc_codigo);
     }
 
     public OpcionesPerfilPK getOpcionesPerfilPK() {
@@ -75,20 +71,20 @@ public class OpcionesPerfil implements Serializable {
         this.opcionesPerfilPK = opcionesPerfilPK;
     }
 
-    public Date getXeoppFechaAsignacion() {
-        return xeoppFechaAsignacion;
+    public Date getOppFechaAsignacion() {
+        return opp_fechaasignacion;
     }
 
-    public void setXeoppFechaAsignacion(Date xeoppFechaAsignacion) {
-        this.xeoppFechaAsignacion = xeoppFechaAsignacion;
+    public void setOppFechaAsignacion(Date opp_fechaasignacion) {
+        this.opp_fechaasignacion = opp_fechaasignacion;
     }
 
-    public Character getXeoppActivo() {
-        return xeoppActivo;
+    public Character getOppActivo() {
+        return opp_activo;
     }
 
-    public void setXeoppActivo(Character xeoppActivo) {
-        this.xeoppActivo = xeoppActivo;
+    public void setOppActivo(Character opp_activo) {
+        this.opp_activo = opp_activo;
     }
 
     public Opciones getOpciones() {

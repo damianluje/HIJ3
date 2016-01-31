@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Perfil.findAll", query = "SELECT p FROM Perfil p"),
     @NamedQuery(name = "Perfil.findByXeperCodigo", query = "SELECT p FROM Perfil p WHERE p.per_codigo = :per_codigo"),
-    @NamedQuery(name = "Perfil.findByXeperDescripcion", query = "SELECT p FROM Perfil p WHERE p.xeperDescripcion = :xeperDescripcion")})
+    @NamedQuery(name = "Perfil.findByXeperDescripcion", query = "SELECT p FROM Perfil p WHERE p.per_descripcion = :per_descripcion")})
 public class Perfil implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -42,7 +42,7 @@ public class Perfil implements Serializable {
     private Integer per_codigo;
     @Size(max = 100)
     @Column(name = "XEPER_DESCRIPCION")
-    private String xeperDescripcion;
+    private String per_descripcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "perfil")
     private Collection<OpcionesPerfil> opcionesPerfilCollection;
     @OneToMany(mappedBy = "per_codigo")
@@ -55,20 +55,20 @@ public class Perfil implements Serializable {
         this.per_codigo = per_codigo;
     }
 
-    public Integer getXeperCodigo() {
+    public Integer getPerCodigo() {
         return per_codigo;
     }
 
-    public void setXeperCodigo(Integer per_codigo) {
+    public void setPerCodigo(Integer per_codigo) {
         this.per_codigo = per_codigo;
     }
 
-    public String getXeperDescripcion() {
-        return xeperDescripcion;
+    public String getPerDescripcion() {
+        return per_descripcion;
     }
 
-    public void setXeperDescripcion(String xeperDescripcion) {
-        this.xeperDescripcion = xeperDescripcion;
+    public void setPerDescripcion(String per_descripcion) {
+        this.per_descripcion = per_descripcion;
     }
 
     @XmlTransient

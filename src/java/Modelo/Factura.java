@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Factura.findAll", query = "SELECT f FROM Factura f"),
-    @NamedQuery(name = "Factura.findBySefacCodigo", query = "SELECT f FROM Factura f WHERE f.sefacCodigo = :sefacCodigo"),
+    @NamedQuery(name = "Factura.findBySefacCodigo", query = "SELECT f FROM Factura f WHERE f.fac_codigo = :fac_codigo"),
     @NamedQuery(name = "Factura.findBySefacFecha", query = "SELECT f FROM Factura f WHERE f.sefacFecha = :sefacFecha"),
     @NamedQuery(name = "Factura.findBySefacDireccion", query = "SELECT f FROM Factura f WHERE f.sefacDireccion = :sefacDireccion"),
     @NamedQuery(name = "Factura.findBySefacSubtotal", query = "SELECT f FROM Factura f WHERE f.sefacSubtotal = :sefacSubtotal"),
@@ -48,7 +48,7 @@ public class Factura implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "SEFAC_CODIGO")
-    private Integer sefacCodigo;
+    private Integer fac_codigo;
     @Column(name = "SEFAC_FECHA")
     @Temporal(TemporalType.DATE)
     private Date sefacFecha;
@@ -67,26 +67,26 @@ public class Factura implements Serializable {
     private String sefacFormaPago;
     @JoinColumn(name = "SEPAC_CODIGO", referencedColumnName = "SEPAC_CODIGO")
     @ManyToOne
-    private Paciente sepacCodigo;
+    private Paciente pac_codigo;
     @JoinColumn(name = "PEEMP_CODIGO", referencedColumnName = "PEEMP_CODIGO")
     @ManyToOne
     private Empleado emp_codigo;
-    @OneToMany(mappedBy = "sefacCodigo")
+    @OneToMany(mappedBy = "fac_codigo")
     private Collection<DetalleFactura> detalleFacturaCollection;
 
     public Factura() {
     }
 
-    public Factura(Integer sefacCodigo) {
-        this.sefacCodigo = sefacCodigo;
+    public Factura(Integer fac_codigo) {
+        this.fac_codigo = fac_codigo;
     }
 
-    public Integer getSefacCodigo() {
-        return sefacCodigo;
+    public Integer getFacCodigo() {
+        return fac_codigo;
     }
 
-    public void setSefacCodigo(Integer sefacCodigo) {
-        this.sefacCodigo = sefacCodigo;
+    public void setFacCodigo(Integer fac_codigo) {
+        this.fac_codigo = fac_codigo;
     }
 
     public Date getSefacFecha() {
@@ -137,19 +137,19 @@ public class Factura implements Serializable {
         this.sefacFormaPago = sefacFormaPago;
     }
 
-    public Paciente getSepacCodigo() {
-        return sepacCodigo;
+    public Paciente getPacCodigo() {
+        return pac_codigo;
     }
 
-    public void setSepacCodigo(Paciente sepacCodigo) {
-        this.sepacCodigo = sepacCodigo;
+    public void setPacCodigo(Paciente pac_codigo) {
+        this.pac_codigo = pac_codigo;
     }
 
-    public Empleado getPeempCodigo() {
+    public Empleado getEmpCodigo() {
         return emp_codigo;
     }
 
-    public void setPeempCodigo(Empleado emp_codigo) {
+    public void setEmpCodigo(Empleado emp_codigo) {
         this.emp_codigo = emp_codigo;
     }
 
@@ -165,7 +165,7 @@ public class Factura implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (sefacCodigo != null ? sefacCodigo.hashCode() : 0);
+        hash += (fac_codigo != null ? fac_codigo.hashCode() : 0);
         return hash;
     }
 
@@ -176,7 +176,7 @@ public class Factura implements Serializable {
             return false;
         }
         Factura other = (Factura) object;
-        if ((this.sefacCodigo == null && other.sefacCodigo != null) || (this.sefacCodigo != null && !this.sefacCodigo.equals(other.sefacCodigo))) {
+        if ((this.fac_codigo == null && other.fac_codigo != null) || (this.fac_codigo != null && !this.fac_codigo.equals(other.fac_codigo))) {
             return false;
         }
         return true;
@@ -184,7 +184,7 @@ public class Factura implements Serializable {
 
     @Override
     public String toString() {
-        return "Modelo.Factura[ sefacCodigo=" + sefacCodigo + " ]";
+        return "Modelo.Factura[ fac_codigo=" + fac_codigo + " ]";
     }
     
 }

@@ -31,75 +31,75 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Paciente.findAll", query = "SELECT p FROM Paciente p"),
-    @NamedQuery(name = "Paciente.findBySepacCodigo", query = "SELECT p FROM Paciente p WHERE p.sepacCodigo = :sepacCodigo"),
-    @NamedQuery(name = "Paciente.findBySepacNombre", query = "SELECT p FROM Paciente p WHERE p.sepacNombre = :sepacNombre"),
-    @NamedQuery(name = "Paciente.findBySepacAreaGeografica", query = "SELECT p FROM Paciente p WHERE p.sepacAreaGeografica = :sepacAreaGeografica"),
-    @NamedQuery(name = "Paciente.findBySepacSeguro", query = "SELECT p FROM Paciente p WHERE p.sepacSeguro = :sepacSeguro")})
+    @NamedQuery(name = "Paciente.findBySepacCodigo", query = "SELECT p FROM Paciente p WHERE p.pac_codigo = :pac_codigo"),
+    @NamedQuery(name = "Paciente.findBySepacNombre", query = "SELECT p FROM Paciente p WHERE p.pac_nombre = :pac_nombre"),
+    @NamedQuery(name = "Paciente.findBySepacAreaGeografica", query = "SELECT p FROM Paciente p WHERE p.pac_areageografica = :pac_areageografica"),
+    @NamedQuery(name = "Paciente.findBySepacSeguro", query = "SELECT p FROM Paciente p WHERE p.pac_seguro = :pac_seguro")})
 public class Paciente implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "SEPAC_CODIGO")
-    private Integer sepacCodigo;
+    private Integer pac_codigo;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "SEPAC_NOMBRE")
-    private String sepacNombre;
+    private String pac_nombre;
     @Size(max = 100)
     @Column(name = "SEPAC_AREA_GEOGRAFICA")
-    private String sepacAreaGeografica;
+    private String pac_areageografica;
     @Basic(optional = false)
     @NotNull
     @Column(name = "SEPAC_SEGURO")
-    private int sepacSeguro;
-    @OneToMany(mappedBy = "sepacCodigo")
+    private int pac_seguro;
+    @OneToMany(mappedBy = "pac_codigo")
     private Collection<Factura> facturaCollection;
 
     public Paciente() {
     }
 
-    public Paciente(Integer sepacCodigo) {
-        this.sepacCodigo = sepacCodigo;
+    public Paciente(Integer pac_codigo) {
+        this.pac_codigo = pac_codigo;
     }
 
-    public Paciente(Integer sepacCodigo, String sepacNombre, int sepacSeguro) {
-        this.sepacCodigo = sepacCodigo;
-        this.sepacNombre = sepacNombre;
-        this.sepacSeguro = sepacSeguro;
+    public Paciente(Integer pac_codigo, String pac_nombre, int pac_seguro) {
+        this.pac_codigo = pac_codigo;
+        this.pac_nombre = pac_nombre;
+        this.pac_seguro = pac_seguro;
     }
 
-    public Integer getSepacCodigo() {
-        return sepacCodigo;
+    public Integer getPacCodigo() {
+        return pac_codigo;
     }
 
-    public void setSepacCodigo(Integer sepacCodigo) {
-        this.sepacCodigo = sepacCodigo;
+    public void setPacCodigo(Integer pac_codigo) {
+        this.pac_codigo = pac_codigo;
     }
 
-    public String getSepacNombre() {
-        return sepacNombre;
+    public String getPacNombre() {
+        return pac_nombre;
     }
 
-    public void setSepacNombre(String sepacNombre) {
-        this.sepacNombre = sepacNombre;
+    public void setPacNombre(String pac_nombre) {
+        this.pac_nombre = pac_nombre;
     }
 
-    public String getSepacAreaGeografica() {
-        return sepacAreaGeografica;
+    public String getPacAreaGeografica() {
+        return pac_areageografica;
     }
 
-    public void setSepacAreaGeografica(String sepacAreaGeografica) {
-        this.sepacAreaGeografica = sepacAreaGeografica;
+    public void setPacAreaGeografica(String pac_areageografica) {
+        this.pac_areageografica = pac_areageografica;
     }
 
-    public int getSepacSeguro() {
-        return sepacSeguro;
+    public int getPacSeguro() {
+        return pac_seguro;
     }
 
-    public void setSepacSeguro(int sepacSeguro) {
-        this.sepacSeguro = sepacSeguro;
+    public void setPacSeguro(int pac_seguro) {
+        this.pac_seguro = pac_seguro;
     }
 
     @XmlTransient
@@ -114,7 +114,7 @@ public class Paciente implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (sepacCodigo != null ? sepacCodigo.hashCode() : 0);
+        hash += (pac_codigo != null ? pac_codigo.hashCode() : 0);
         return hash;
     }
 
@@ -125,7 +125,7 @@ public class Paciente implements Serializable {
             return false;
         }
         Paciente other = (Paciente) object;
-        if ((this.sepacCodigo == null && other.sepacCodigo != null) || (this.sepacCodigo != null && !this.sepacCodigo.equals(other.sepacCodigo))) {
+        if ((this.pac_codigo == null && other.pac_codigo != null) || (this.pac_codigo != null && !this.pac_codigo.equals(other.pac_codigo))) {
             return false;
         }
         return true;
@@ -133,7 +133,7 @@ public class Paciente implements Serializable {
 
     @Override
     public String toString() {
-        return "Modelo.Paciente[ sepacCodigo=" + sepacCodigo + " ]";
+        return "Modelo.Paciente[ pac_codigo=" + pac_codigo + " ]";
     }
     
 }

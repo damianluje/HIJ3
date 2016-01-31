@@ -28,67 +28,67 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "DetalleFactura.findAll", query = "SELECT d FROM DetalleFactura d"),
-    @NamedQuery(name = "DetalleFactura.findBySedfaCodigo", query = "SELECT d FROM DetalleFactura d WHERE d.sedfaCodigo = :sedfaCodigo"),
-    @NamedQuery(name = "DetalleFactura.findBySedfaCantidad", query = "SELECT d FROM DetalleFactura d WHERE d.sedfaCantidad = :sedfaCantidad")})
+    @NamedQuery(name = "DetalleFactura.findBySedfaCodigo", query = "SELECT d FROM DetalleFactura d WHERE d.dfa_codigo = :dfa_codigo"),
+    @NamedQuery(name = "DetalleFactura.findBySedfaCantidad", query = "SELECT d FROM DetalleFactura d WHERE d.dfa_cantidad = :dfa_cantidad")})
 public class DetalleFactura implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "SEDFA_CODIGO")
-    private Integer sedfaCodigo;
+    private Integer dfa_codigo;
     @Column(name = "SEDFA_CANTIDAD")
-    private Integer sedfaCantidad;
+    private Integer dfa_cantidad;
     @JoinColumn(name = "SETSV_CODIGO", referencedColumnName = "SETSV_CODIGO")
     @ManyToOne
-    private TipoServicio setsvCodigo;
+    private TipoServicio setCodigo;
     @JoinColumn(name = "SEFAC_CODIGO", referencedColumnName = "SEFAC_CODIGO")
     @ManyToOne
-    private Factura sefacCodigo;
+    private Factura fac_codigo;
 
     public DetalleFactura() {
     }
 
-    public DetalleFactura(Integer sedfaCodigo) {
-        this.sedfaCodigo = sedfaCodigo;
+    public DetalleFactura(Integer dfa_codigo) {
+        this.dfa_codigo = dfa_codigo;
     }
 
-    public Integer getSedfaCodigo() {
-        return sedfaCodigo;
+    public Integer getDfaCodigo() {
+        return dfa_codigo;
     }
 
-    public void setSedfaCodigo(Integer sedfaCodigo) {
-        this.sedfaCodigo = sedfaCodigo;
+    public void setDfaCodigo(Integer dfa_codigo) {
+        this.dfa_codigo = dfa_codigo;
     }
 
-    public Integer getSedfaCantidad() {
-        return sedfaCantidad;
+    public Integer getDfaCantidad() {
+        return dfa_cantidad;
     }
 
-    public void setSedfaCantidad(Integer sedfaCantidad) {
-        this.sedfaCantidad = sedfaCantidad;
+    public void setDfaCantidad(Integer dfa_cantidad) {
+        this.dfa_cantidad = dfa_cantidad;
     }
 
-    public TipoServicio getSetsvCodigo() {
-        return setsvCodigo;
+    public TipoServicio getTsvCodigo() {
+        return setCodigo;
     }
 
-    public void setSetsvCodigo(TipoServicio setsvCodigo) {
-        this.setsvCodigo = setsvCodigo;
+    public void setTsvCodigo(TipoServicio setCodigo) {
+        this.setCodigo = setCodigo;
     }
 
-    public Factura getSefacCodigo() {
-        return sefacCodigo;
+    public Factura getFacCodigo() {
+        return fac_codigo;
     }
 
-    public void setSefacCodigo(Factura sefacCodigo) {
-        this.sefacCodigo = sefacCodigo;
+    public void setFacCodigo(Factura fac_codigo) {
+        this.fac_codigo = fac_codigo;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (sedfaCodigo != null ? sedfaCodigo.hashCode() : 0);
+        hash += (dfa_codigo != null ? dfa_codigo.hashCode() : 0);
         return hash;
     }
 
@@ -99,7 +99,7 @@ public class DetalleFactura implements Serializable {
             return false;
         }
         DetalleFactura other = (DetalleFactura) object;
-        if ((this.sedfaCodigo == null && other.sedfaCodigo != null) || (this.sedfaCodigo != null && !this.sedfaCodigo.equals(other.sedfaCodigo))) {
+        if ((this.dfa_codigo == null && other.dfa_codigo != null) || (this.dfa_codigo != null && !this.dfa_codigo.equals(other.dfa_codigo))) {
             return false;
         }
         return true;
@@ -107,7 +107,7 @@ public class DetalleFactura implements Serializable {
 
     @Override
     public String toString() {
-        return "Modelo.DetalleFactura[ sedfaCodigo=" + sedfaCodigo + " ]";
+        return "Modelo.DetalleFactura[ dfa_codigo=" + dfa_codigo + " ]";
     }
     
 }

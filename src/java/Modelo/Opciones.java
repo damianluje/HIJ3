@@ -7,10 +7,13 @@ package Modelo;
 
 import java.io.Serializable;
 import java.util.Collection;
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -30,47 +33,45 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Opciones.findAll", query = "SELECT o FROM Opciones o"),
-    @NamedQuery(name = "Opciones.findByXeopcCodigo", query = "SELECT o FROM Opciones o WHERE o.opcionesPK.xeopcCodigo = :xeopcCodigo"),
-    @NamedQuery(name = "Opciones.findByXesisCodigo", query = "SELECT o FROM Opciones o WHERE o.opcionesPK.xesisCodigo = :xesisCodigo"),
-    @NamedQuery(name = "Opciones.findByXeopcDescipcion", query = "SELECT o FROM Opciones o WHERE o.xeopcDescipcion = :xeopcDescipcion")})
+    @NamedQuery(name = "Opciones.findByXeopcCodigo", query = "SELECT o FROM Opciones o WHERE o.opc_codigo = :opc_codigo"),
+    @NamedQuery(name = "Opciones.findByXeopcDescipcion", query = "SELECT o FROM Opciones o WHERE o.opc_descipcion = :opc_descipcion")})
 public class Opciones implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected OpcionesPK opcionesPK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "XEOPC_CODIGO")
+    private Integer opc_codigo;
     @Size(max = 100)
     @Column(name = "XEOPC_DESCIPCION")
-    private String xeopcDescipcion;
+    private String opc_descipcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "opciones")
     private Collection<OpcionesPerfil> opcionesPerfilCollection;
-    @JoinColumn(name = "XESIS_CODIGO", referencedColumnName = "XESIS_CODIGO", insertable = false, updatable = false)
+    @JoinColumn(name = "XESIS_CODIGO", referencedColumnName = "XESIS_CODIGO")
     @ManyToOne(optional = false)
-    private Sistema sistema;
+    private Sistema sis_codigo;
 
     public Opciones() {
     }
 
-    public Opciones(OpcionesPK opcionesPK) {
-        this.opcionesPK = opcionesPK;
+    public Opciones(Integer opc_codigo) {
+        this.opc_codigo = opc_codigo;
     }
 
-    public Opciones(int xeopcCodigo, int xesisCodigo) {
-        this.opcionesPK = new OpcionesPK(xeopcCodigo, xesisCodigo);
+    public Integer getOpcCodigo() {
+        return opc_codigo;
     }
 
-    public OpcionesPK getOpcionesPK() {
-        return opcionesPK;
-    }
-
-    public void setOpcionesPK(OpcionesPK opcionesPK) {
-        this.opcionesPK = opcionesPK;
+    public void setOpcCodigo(Integer opc_codigo) {
+        this.opc_codigo = opc_codigo;
     }
 
     public String getXeopcDescipcion() {
-        return xeopcDescipcion;
+        return opc_descipcion;
     }
 
-    public void setXeopcDescipcion(String xeopcDescipcion) {
-        this.xeopcDescipcion = xeopcDescipcion;
+    public void setXeopcDescipcion(String opc_descipcion) {
+        this.opc_descipcion = opc_descipcion;
     }
 
     @XmlTransient
@@ -82,18 +83,18 @@ public class Opciones implements Serializable {
         this.opcionesPerfilCollection = opcionesPerfilCollection;
     }
 
-    public Sistema getSistema() {
-        return sistema;
+    public Sistema getSisCodigo() {
+        return sis_codigo;
     }
 
-    public void setSistema(Sistema sistema) {
-        this.sistema = sistema;
+    public void setSisCodigo(Sistema sis_codigo) {
+        this.sis_codigo = sis_codigo;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (opcionesPK != null ? opcionesPK.hashCode() : 0);
+        hash += (opc_codigo != null ? opc_codigo.hashCode() : 0);
         return hash;
     }
 
@@ -104,7 +105,7 @@ public class Opciones implements Serializable {
             return false;
         }
         Opciones other = (Opciones) object;
-        if ((this.opcionesPK == null && other.opcionesPK != null) || (this.opcionesPK != null && !this.opcionesPK.equals(other.opcionesPK))) {
+        if ((this.opc_codigo == null && other.opc_codigo != null) || (this.opc_codigo != null && !this.opc_codigo.equals(other.opc_codigo))) {
             return false;
         }
         return true;
@@ -112,7 +113,7 @@ public class Opciones implements Serializable {
 
     @Override
     public String toString() {
-        return "Modelo.Opciones[ opcionesPK=" + opcionesPK + " ]";
+        return "Modelo.Opciones[ opc_codigo=" + opc_codigo + " ]";
     }
     
 }

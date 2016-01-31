@@ -67,7 +67,7 @@ public class ControladorLogin implements Serializable {
         
         for (int i = 0; i < lista.size(); i++) {
             Usuario usuario = lista.get(i);
-            if (usuario.getUsu_id().equals(user) && usuario.getUsu_password().equals(pwd)) {
+            if (usuario.getUsuId().equals(user) && usuario.getUsuPassword().equals(pwd)) {
                 valid=true;
                 break;
             }

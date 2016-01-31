@@ -33,86 +33,86 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TipoServicio.findAll", query = "SELECT t FROM TipoServicio t"),
-    @NamedQuery(name = "TipoServicio.findBySetsvCodigo", query = "SELECT t FROM TipoServicio t WHERE t.setsvCodigo = :setsvCodigo"),
-    @NamedQuery(name = "TipoServicio.findBySetsvNombre", query = "SELECT t FROM TipoServicio t WHERE t.setsvNombre = :setsvNombre"),
-    @NamedQuery(name = "TipoServicio.findBySetsvCosto", query = "SELECT t FROM TipoServicio t WHERE t.setsvCosto = :setsvCosto"),
-    @NamedQuery(name = "TipoServicio.findBySetsvDescripcion", query = "SELECT t FROM TipoServicio t WHERE t.setsvDescripcion = :setsvDescripcion")})
+    @NamedQuery(name = "TipoServicio.findBySetsvCodigo", query = "SELECT t FROM TipoServicio t WHERE t.setCodigo = :setCodigo"),
+    @NamedQuery(name = "TipoServicio.findBySetsvNombre", query = "SELECT t FROM TipoServicio t WHERE t.setNombre = :setNombre"),
+    @NamedQuery(name = "TipoServicio.findBySetsvCosto", query = "SELECT t FROM TipoServicio t WHERE t.setCosto = :setCosto"),
+    @NamedQuery(name = "TipoServicio.findBySetsvDescripcion", query = "SELECT t FROM TipoServicio t WHERE t.setDescripcion = :setDescripcion")})
 public class TipoServicio implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "SETSV_CODIGO")
-    private Integer setsvCodigo;
+    private Integer setCodigo;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "SETSV_NOMBRE")
-    private String setsvNombre;
+    private String setNombre;
     @Basic(optional = false)
     @NotNull
     @Column(name = "SETSV_COSTO")
-    private float setsvCosto;
+    private float setCosto;
     @Size(max = 100)
     @Column(name = "SETSV_DESCRIPCION")
-    private String setsvDescripcion;
+    private String setDescripcion;
     @JoinColumn(name = "SEPRO_CODIGO", referencedColumnName = "SEPRO_CODIGO")
     @ManyToOne(optional = false)
-    private Proveedor seproCodigo;
-    @OneToMany(mappedBy = "setsvCodigo")
+    private Proveedor pro_codigo;
+    @OneToMany(mappedBy = "setCodigo")
     private Collection<DetalleFactura> detalleFacturaCollection;
 
     public TipoServicio() {
     }
 
-    public TipoServicio(Integer setsvCodigo) {
-        this.setsvCodigo = setsvCodigo;
+    public TipoServicio(Integer setCodigo) {
+        this.setCodigo = setCodigo;
     }
 
-    public TipoServicio(Integer setsvCodigo, String setsvNombre, float setsvCosto) {
-        this.setsvCodigo = setsvCodigo;
-        this.setsvNombre = setsvNombre;
-        this.setsvCosto = setsvCosto;
+    public TipoServicio(Integer setCodigo, String setNombre, float setCosto) {
+        this.setCodigo = setCodigo;
+        this.setNombre = setNombre;
+        this.setCosto = setCosto;
     }
 
-    public Integer getSetsvCodigo() {
-        return setsvCodigo;
+    public Integer getTsvCodigo() {
+        return setCodigo;
     }
 
-    public void setSetsvCodigo(Integer setsvCodigo) {
-        this.setsvCodigo = setsvCodigo;
+    public void setTsvCodigo(Integer setCodigo) {
+        this.setCodigo = setCodigo;
     }
 
-    public String getSetsvNombre() {
-        return setsvNombre;
+    public String getTsvNombre() {
+        return setNombre;
     }
 
-    public void setSetsvNombre(String setsvNombre) {
-        this.setsvNombre = setsvNombre;
+    public void setTsvNombre(String setNombre) {
+        this.setNombre = setNombre;
     }
 
-    public float getSetsvCosto() {
-        return setsvCosto;
+    public float getTsvCosto() {
+        return setCosto;
     }
 
-    public void setSetsvCosto(float setsvCosto) {
-        this.setsvCosto = setsvCosto;
+    public void setTsvCosto(float setCosto) {
+        this.setCosto = setCosto;
     }
 
-    public String getSetsvDescripcion() {
-        return setsvDescripcion;
+    public String getTsvDescripcion() {
+        return setDescripcion;
     }
 
-    public void setSetsvDescripcion(String setsvDescripcion) {
-        this.setsvDescripcion = setsvDescripcion;
+    public void setTsvDescripcion(String setDescripcion) {
+        this.setDescripcion = setDescripcion;
     }
 
-    public Proveedor getSeproCodigo() {
-        return seproCodigo;
+    public Proveedor getProCodigo() {
+        return pro_codigo;
     }
 
-    public void setSeproCodigo(Proveedor seproCodigo) {
-        this.seproCodigo = seproCodigo;
+    public void setProCodigo(Proveedor pro_codigo) {
+        this.pro_codigo = pro_codigo;
     }
 
     @XmlTransient
@@ -127,7 +127,7 @@ public class TipoServicio implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (setsvCodigo != null ? setsvCodigo.hashCode() : 0);
+        hash += (setCodigo != null ? setCodigo.hashCode() : 0);
         return hash;
     }
 
@@ -138,7 +138,7 @@ public class TipoServicio implements Serializable {
             return false;
         }
         TipoServicio other = (TipoServicio) object;
-        if ((this.setsvCodigo == null && other.setsvCodigo != null) || (this.setsvCodigo != null && !this.setsvCodigo.equals(other.setsvCodigo))) {
+        if ((this.setCodigo == null && other.setCodigo != null) || (this.setCodigo != null && !this.setCodigo.equals(other.setCodigo))) {
             return false;
         }
         return true;
@@ -146,7 +146,7 @@ public class TipoServicio implements Serializable {
 
     @Override
     public String toString() {
-        return "Modelo.TipoServicio[ setsvCodigo=" + setsvCodigo + " ]";
+        return "Modelo.TipoServicio[ setCodigo=" + setCodigo + " ]";
     }
     
 }

@@ -33,10 +33,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Empleado.findAll", query = "SELECT e FROM Empleado e"),
     @NamedQuery(name = "Empleado.findByPeempCodigo", query = "SELECT e FROM Empleado e WHERE e.emp_codigo = :emp_codigo"),
-    @NamedQuery(name = "Empleado.findByPeempNombres", query = "SELECT e FROM Empleado e WHERE e.peempNombres = :peempNombres"),
-    @NamedQuery(name = "Empleado.findByPeempApellidos", query = "SELECT e FROM Empleado e WHERE e.peempApellidos = :peempApellidos"),
-    @NamedQuery(name = "Empleado.findByPeempCedula", query = "SELECT e FROM Empleado e WHERE e.peempCedula = :peempCedula"),
-    @NamedQuery(name = "Empleado.findByPeempPasaporte", query = "SELECT e FROM Empleado e WHERE e.peempPasaporte = :peempPasaporte")})
+    @NamedQuery(name = "Empleado.findByPeempNombres", query = "SELECT e FROM Empleado e WHERE e.emp_nombres = :emp_nombres"),
+    @NamedQuery(name = "Empleado.findByPeempApellidos", query = "SELECT e FROM Empleado e WHERE e.emp_apellidos = :emp_apellidos"),
+    @NamedQuery(name = "Empleado.findByPeempCedula", query = "SELECT e FROM Empleado e WHERE e.emp_cedula = :emp_cedula"),
+    @NamedQuery(name = "Empleado.findByPeempPasaporte", query = "SELECT e FROM Empleado e WHERE e.emp_pasaporte = :emp_pasaporte")})
 public class Empleado implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -46,18 +46,18 @@ public class Empleado implements Serializable {
     private Integer emp_codigo;
     @Size(max = 100)
     @Column(name = "PEEMP_NOMBRES")
-    private String peempNombres;
+    private String emp_nombres;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "PEEMP_APELLIDOS")
-    private String peempApellidos;
+    private String emp_apellidos;
     @Size(max = 10)
     @Column(name = "PEEMP_CEDULA")
-    private String peempCedula;
+    private String emp_cedula;
     @Size(max = 10)
     @Column(name = "PEEMP_PASAPORTE")
-    private String peempPasaporte;
+    private String emp_pasaporte;
     @OneToMany(mappedBy = "emp_codigo")
     private Collection<Factura> facturaCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "emp_codigo")
@@ -70,49 +70,49 @@ public class Empleado implements Serializable {
         this.emp_codigo = emp_codigo;
     }
 
-    public Empleado(Integer emp_codigo, String peempApellidos) {
+    public Empleado(Integer emp_codigo, String emp_apellidos) {
         this.emp_codigo = emp_codigo;
-        this.peempApellidos = peempApellidos;
+        this.emp_apellidos = emp_apellidos;
     }
 
-    public Integer getPeempCodigo() {
+    public Integer getEmpCodigo() {
         return emp_codigo;
     }
 
-    public void setPeempCodigo(Integer emp_codigo) {
+    public void setEmpCodigo(Integer emp_codigo) {
         this.emp_codigo = emp_codigo;
     }
 
-    public String getPeempNombres() {
-        return peempNombres;
+    public String getEmpNombres() {
+        return emp_nombres;
     }
 
-    public void setPeempNombres(String peempNombres) {
-        this.peempNombres = peempNombres;
+    public void setEmpNombres(String emp_nombres) {
+        this.emp_nombres = emp_nombres;
     }
 
-    public String getPeempApellidos() {
-        return peempApellidos;
+    public String getEmpApellidos() {
+        return emp_apellidos;
     }
 
-    public void setPeempApellidos(String peempApellidos) {
-        this.peempApellidos = peempApellidos;
+    public void setEmpApellidos(String emp_apellidos) {
+        this.emp_apellidos = emp_apellidos;
     }
 
-    public String getPeempCedula() {
-        return peempCedula;
+    public String getEmpCedula() {
+        return emp_cedula;
     }
 
-    public void setPeempCedula(String peempCedula) {
-        this.peempCedula = peempCedula;
+    public void setEmpCedula(String emp_cedula) {
+        this.emp_cedula = emp_cedula;
     }
 
-    public String getPeempPasaporte() {
-        return peempPasaporte;
+    public String getEmpPasaporte() {
+        return emp_pasaporte;
     }
 
-    public void setPeempPasaporte(String peempPasaporte) {
-        this.peempPasaporte = peempPasaporte;
+    public void setEmpPasaporte(String emp_pasaporte) {
+        this.emp_pasaporte = emp_pasaporte;
     }
 
     @XmlTransient
