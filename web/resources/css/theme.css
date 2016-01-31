@@ -1,0 +1,73 @@
+body{margin:0px; height:100%; overflow-x:hidden; overflow-y:auto; background-color:#20272a; font-family: 'exoregular', "Trebuchet MS", Arial, Helvetica, sans-serif;}
+
+#MENUSIDE{width:85px; float:left; background-color:#313b3f; border-right:solid 1px #151d21; overflow:hidden; width: 235px; position: fixed;}
+		#MENUSIDEindent{width:100%; height:auto;}
+			#LOGO{height:87px; display:block; padding:27px 0 5px 10px; z-index:997; background-color:#313b3f;margin-left:100px}
+				#LOGO img{width:62px; height:auto; }
+			.MenuSideMainLink{width:100%; height:45px; display:block; padding:15px 0px 0px 27px; cursor:pointer;}
+				.MenuSideMainLink input{ padding:6px; background-color:#354044; outline:none; border:0px; border:none; color:#9ba5ac; border-radius:20px;
+				-webkit-box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.5); -moz-box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.5); box-shadow: inset 0px 0px 3px 0px rgba(0,0,0,0.5);}
+			.MenuSideMainLinkDark{background-color:#20282b !important; -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
+			.MenuSideMainLink:hover{background-color:#20282b; -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
+				.MenuSideMainLink img{width:30px; height:auto; float:left;}
+				.MainLinkText{color:#9ba5ac; font-size:20px; margin:2px 0px 0px 60px; display:block;}
+				
+			.SubMenuLinkContainer{width:auto; padding:20px; overflow:hidden; background-color:#20282b; display: none;}
+				.SubMenuLink{width:50%; display:inline-block; float:left; padding:6px 0px; cursor:pointer; border-radius:4px; -webkit-border-radius:4px; color:#659eb3; font-size:14px;
+				}
+				.SubMenuLink:hover{background-color:#101517; color:#8dc5d9;}
+						
+	.selectmenu{width:auto; max-width:120px; float:right; padding:5px; outline:none; font-size:16px; display:block; overflow:hidden;}
+		.LEVEL1{color:#25aae1; padding-left:10px;}
+			.LEVEL2{font-size:12px; color:#25aae1; padding-left:10px;}
+				.selectmenu option{ font-size:12px;}
+				
+				
+	
+	/* content side style*/
+	#CONTENTSIDE{width:auto; overflow:hidden; z-index:1; margin-left:235px; background-color:#eff3f6;}
+		#CONTENTSIDEindent{width:100%; height:auto;}
+			.ContentSideSections{display:block; border-bottom:solid 1px #bcc7cf; padding:30px;}
+			.MOBILE .ContentSideSections{padding:14px 24px;}
+			#PFTopLinksCover{background-color:#eff3f6;}
+			#PFMobileTopLinksCover{ position:inherit;}
+				.PFTopLinks{width:80px; display:inline-block; text-align:center; padding:5px; border-radius:5px;  font-size:12px; -webkit-border-radius:5px; margin-top:-10px; -webkit-transition: all 0.5s ease; 
+							-moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease; overflow:hidden;}
+				.PFTopLinks:hover, .PFTopLinksMobile:hover{background-color:#e0e5e9;
+				-webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
+				.PFTopLinksMobile{width:20%; display:inline-block; text-align:center; padding:1%; border-radius:5px;  font-size:11px; -webkit-border-radius:5px;
+				-webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease; overflow:hidden;}
+					.PFTopLinks img, .PFTopLinksMobile img{width:80%; height:55px;}
+					.PFGrayText{color:#aab7c1;}
+					.PFDarkText{color:#313b3f;}
+					
+				.PropertyBox{width:27%; height:280px; float:left; padding:3%; overflow:hidden; text-align:center; border-radius:5px; -webkit-border-radius:5px; display:block;
+				-webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
+				.PropertyBox:hover, .MOBILE .PropertyBox:hover{background-color:#e0e5e9;
+				-webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
+					.PropertyBox img{width:80%;}
+					.PropertyBox .PropertyTopic{display:block; color:#25aae1; font-size:18px;}
+					.PropertyBox .PropertyText{display:block; color:#8c9aa5; font-size:14px;}
+					
+				.MOBILE .PropertyBox{width:27%; height:250px; float:left; padding:3%; overflow:hidden; text-align:center; border-radius:5px; -webkit-border-radius:5px; display:block;
+				-webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
+					.MOBILE .PropertyBox img{width:80%;}
+					.MOBILE .PropertyBox .PropertyTopic{display:block; color:#25aae1; font-size:12px;}
+					.MOBILE .PropertyBox .PropertyText{display:block; color:#8c9aa5; font-size:11px;}
+				
+				.widgetsLink{width:90%; height:auto; background-position:top; background-repeat:no-repeat; background-size:contain; display:table;
+							 text-align:center; padding:5%;}
+					.widgetsLink img{width:40%; height:auto; margin-top:5%;}
+					.widgetsLink span{ width:100%; margin-top:10px; overflow:hidden; height:50px; display:table; font-size:14px;}
+				.widgetsLink:hover span{color:#fdd106; -webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -ms-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
+				
+					.MOBILE .widgetsLink img{width:40%; height:auto; margin-top:1%;}
+					.MOBILE .widgetsLink span{ width:100%; margin-top:0px; overflow:hidden; height:50px; display:table; font-size:11px;}
+				
+			.BoxesIndent{width:85%; float:right; padding-top:30px;}
+				.brandLogo{  background-repeat:no-repeat; background-position:center; background-size:contain; width:70px; height:70px; display:block;
+				margin:10px 10px 10px 0px; float:left;}
+				
+			.MOBILE .BoxesIndent{width:85%; float:none; margin:0px auto; padding-top:30px;}
+
+.mymenu{width:100%;height:45px;}
