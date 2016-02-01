@@ -7,6 +7,7 @@ package Modelo;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -44,7 +45,7 @@ public class Sistema implements Serializable {
     @Column(name = "XESIS_DESCRIPCION")
     private String sis_descripcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sis_codigo")
-    private Collection<Opciones> opcionesCollection;
+    private List<Opciones> opcionesCollection;
 
     public Sistema() {
     }
@@ -70,11 +71,11 @@ public class Sistema implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Opciones> getOpcionesCollection() {
+    public List<Opciones> getOpcionesCollection() {
         return opcionesCollection;
     }
 
-    public void setOpcionesCollection(Collection<Opciones> opcionesCollection) {
+    public void setOpcionesCollection(List<Opciones> opcionesCollection) {
         this.opcionesCollection = opcionesCollection;
     }
 

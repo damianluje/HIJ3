@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+        <ui:composition template="/templates/template1.xhtml">
+            <ui:define name="contenido">
+
+                <f:view>
+
+                    <h:form>
+                        <p:growl id="mensaje" autoUpdate="true" showSummary="true" showDetail="true"/>
+                        <p:messages autoUpdate="true" />
+                        <h3><h:outputText value="OpcionesPerfil"/></h3>
+                        <p:dataList value="#{controladorOpcionesPerfil.sistemas}" var="sistem">
+                            <f:facet name="header">
+                                Basic
+                            </f:facet>
+                            #{sistem.sisCodigo}, #{sistem.sisDescripcion}
+                            
+                            <p:dataList value="#{sistem.opcionesCollection}" var="opci">
+                                
+                                #{opci.opcCodigo}-#{opci.opcDescipcion}
+                                <p:selectManyCheckbox id="basic#{sistem.sisCodigo}" value="#{checkboxView.selectedConsoles}">
+                                    <f:selectItem itemLabel="Insertar" itemValue="Insertar" />
+                                    <f:selectItem itemLabel="Modificar" itemValue="Modificar" />
+                                    <f:selectItem itemLabel="Eliminar" itemValue="Eliminar" />
+                                    <f:selectItem itemLabel="Visualizar" itemValue="Visualizar" />
+                                </p:selectManyCheckbox>
+                            </p:dataList>
+                        </p:dataList>
+                        asdasdasd
+
+                        <p:commandButton action="#{controladorOpcionesPerfil.createUI()}" value="Insertar" update="@form " ></p:commandButton>
+                        <p:commandButton action="#{controladorOpciones.actualizarOpcion()}" value="Modificar" update="@form "></p:commandButton>
+                        <p:commandButton action="#{controladorOpciones.eliminarOpcion()}" value="Eliminar" update="@form "></p:commandButton>
+
+
+
+
+
+                    </h:form>
+                </f:view>
+
+
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
