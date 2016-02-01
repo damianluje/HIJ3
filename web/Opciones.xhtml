@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+        <ui:composition template="/templates/template1.xhtml">
+            <ui:define name="contenido">
+
+                <f:view>
+
+                    <h:form>
+                        <p:growl id="mensaje" autoUpdate="true" showSummary="true" showDetail="true"/>
+                        <p:messages autoUpdate="true" />
+                        <h3><h:outputText value="Sistemas"/></h3>
+                        
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Código:" />
+                            <p:selectOneMenu value="#{controladorOpciones.opcion.opcCodigo}" valueChangeListener="#{controladorOpciones.valueChangeMethod}" id="selectCodigo">
+                                <f:ajax event="change" render="@form"/>
+                                <f:selectItems value="#{controladorOpciones.opciones}" var="varOpcion" itemValue="#{varOpcion.opcCodigo}" itemLabel="#{varOpcion.opcCodigo}-#{varOpcion.opcDescipcion}" />
+                            </p:selectOneMenu>
+
+
+                            <p:outputLabel value="XeopcDescipcion:"  />
+                            <p:inputText id="xeopcDescipcion" value="#{controladorOpciones.opcion.opcDescipcion}" title="Descipcion" />
+
+                            <p:outputLabel value="SisCodigo:" />
+                            <p:selectOneMenu  valueChangeListener="#{controladorOpciones.valueChangeMethod1}" id="selectSis">
+                                <f:selectItem itemLabel=""/>
+                                <f:selectItems value="#{controladorSistema.sistemas}" var="sistems" itemValue="#{sistems.sisCodigo}" itemLabel="#{sistems.sisCodigo}-#{sistems.sisDescripcion}" />
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+
+                        <p:commandButton action="#{controladorOpciones.ingresarOpcion()}" value="Insertar" update="tabla selectCodigo" ></p:commandButton>
+                        <p:commandButton action="#{controladorOpciones.actualizarOpcion()}" value="Modificar" update="tabla selectCodigo"></p:commandButton>
+                        <p:commandButton action="#{controladorOpciones.eliminarOpcion()}" value="Eliminar" update="tabla selectCodigo"></p:commandButton>
+
+                        <h1><h:outputText value="Lista de Sistemas"/></h1>
+
+                        <p:dataTable value="#{controladorOpciones.opciones}" var="item" id="tabla" >
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="OpcCodigo"/>
+                                </f:facet>
+                                <h:outputText value="#{item.opcCodigo}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="OpcDescipcion"/>
+                                </f:facet>
+                                <h:outputText value="#{item.opcDescipcion}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="SisCodigo"/>
+                                </f:facet>
+                                <h:outputText value="#{item.sisCodigo.sisCodigo}"/>
+                            </p:column>
+                            
+                        </p:dataTable>
+
+                    </h:form>
+                </f:view>
+
+
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -17,12 +17,12 @@
                         <h3><h:outputText value="Sistemas"/></h3>
                         <p:panelGrid columns="2">
                             <p:outputLabel value="Código:" />
-                            <p:selectOneMenu value="#{controladorSistema.sistema.sis_codigo}" valueChangeListener="#{controladorSistema.valueChangeMethod}" id="selectCodigo">
+                            <p:selectOneMenu value="#{controladorSistema.sistema.sisCodigo}" valueChangeListener="#{controladorSistema.valueChangeMethod}" id="selectCodigo">
                                 <f:ajax event="change" render="@form"/>
-                                <f:selectItems value="#{controladorSistema.sistemas}" var="sistema" itemValue="#{sistema.sis_codigo}" itemLabel="#{sistema.sis_codigo}-#{sistema.sis_descripcion}" />
+                                <f:selectItems value="#{controladorSistema.sistemas}" var="sistema" itemValue="#{sistema.sisCodigo}" itemLabel="#{sistema.sisCodigo}-#{sistema.sisDescripcion}" />
                             </p:selectOneMenu>
-                            <p:outputLabel value="Descripción:" for="sis_descripcion" />
-                            <p:inputText id="sis_descripcion" value="#{controladorSistema.sistema.sis_descripcion}" title="Sis_descripcion" />
+                            <p:outputLabel value="Descripción:"  />
+                            <p:inputText id="sis_descripcion" value="#{controladorSistema.sistema.sisDescripcion}" title="Sis_descripcion" />
                         </p:panelGrid>
                         <p:commandButton action="#{controladorSistema.ingresarSistema()}" value="Insertar" update="tabla selectCodigo" ></p:commandButton>
                         <p:commandButton action="#{controladorSistema.actualizarSistema()}" value="Modificar" update="tabla selectCodigo"></p:commandButton>
@@ -34,13 +34,13 @@
                                 <f:facet name="header">
                                     <h:outputText value="Código"/>
                                 </f:facet>
-                                <h:outputText value="#{item.sis_codigo}"/>
+                                <h:outputText value="#{item.sisCodigo}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="Descipción"/>
                                 </f:facet>
-                                <h:outputText value="#{item.sis_descripcion}"/>
+                                <h:outputText value="#{item.sisDescripcion}"/>
                             </p:column>
                         </p:dataTable>
                     </h:form>

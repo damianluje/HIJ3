@@ -181,7 +181,9 @@ word_dic = [
         'getPeempCodigo',
         'setPeempCodigo',
         'getXeperCodigo',
-        'setXeperCodigo']
+        'setXeperCodigo',
+        'getXeopcDescipcion',
+        'setXeopcDescipcion']
 
 wd={}
 for word in word_dic:

@@ -52,6 +52,8 @@ public class Opciones implements Serializable {
     private Sistema sis_codigo;
 
     public Opciones() {
+        opc_codigo=0;
+        opc_descipcion="";
     }
 
     public Opciones(Integer opc_codigo) {
@@ -66,21 +68,12 @@ public class Opciones implements Serializable {
         this.opc_codigo = opc_codigo;
     }
 
-    public String getXeopcDescipcion() {
+    public String getOpcDescipcion() {
         return opc_descipcion;
     }
 
-    public void setXeopcDescipcion(String opc_descipcion) {
+    public void setOpcDescipcion(String opc_descipcion) {
         this.opc_descipcion = opc_descipcion;
-    }
-
-    @XmlTransient
-    public Collection<OpcionesPerfil> getOpcionesPerfilCollection() {
-        return opcionesPerfilCollection;
-    }
-
-    public void setOpcionesPerfilCollection(Collection<OpcionesPerfil> opcionesPerfilCollection) {
-        this.opcionesPerfilCollection = opcionesPerfilCollection;
     }
 
     public Sistema getSisCodigo() {
@@ -90,6 +83,20 @@ public class Opciones implements Serializable {
     public void setSisCodigo(Sistema sis_codigo) {
         this.sis_codigo = sis_codigo;
     }
+
+   
+   
+    
+    @XmlTransient
+    public Collection<OpcionesPerfil> getOpcionesPerfilCollection() {
+        return opcionesPerfilCollection;
+    }
+
+    public void setOpcionesPerfilCollection(Collection<OpcionesPerfil> opcionesPerfilCollection) {
+        this.opcionesPerfilCollection = opcionesPerfilCollection;
+    }
+
+   
 
     @Override
     public int hashCode() {

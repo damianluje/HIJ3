@@ -7,6 +7,7 @@
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Facelet Title</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
     </h:head>
     <h:body>
         Hello from Facelets<f:view>
@@ -14,10 +15,16 @@
 
 
 
-            
+
 
         </f:view>
 
+        <br />
+        <h:link outcome="/opciones/List" value="Show All Opciones Items"/>
+        <br />
+        <h:link outcome="/sistema/List" value="Show All Sistema Items"/>
     </h:body>
+
+
 </html>
 
