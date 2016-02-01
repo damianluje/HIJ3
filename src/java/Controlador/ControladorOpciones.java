@@ -17,6 +17,9 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import Modelo.Sistema;
 import Servicios.OpcionesFacade;
+import Servicios.SistemaFacade;
+import javax.el.ELContext;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.event.ValueChangeEvent;
 
 /**
@@ -30,6 +33,8 @@ public class ControladorOpciones implements Serializable {
     @EJB
     private OpcionesFacade serOpc;
 
+    @EJB
+    private SistemaFacade serSis;
     private Opciones opcion;
     private List<Opciones> opciones;
 
@@ -37,6 +42,7 @@ public class ControladorOpciones implements Serializable {
         opcion = new Opciones();
         opcion.setSisCodigo(new Sistema());
         opciones = new ArrayList<>();
+        
     }
 
     @PostConstruct
@@ -44,6 +50,8 @@ public class ControladorOpciones implements Serializable {
         opciones = serOpc.findAll();
 //        System.out.println(opciones);
     }
+
+    
 
     public void limpiar() {
         opcion = new Opciones();
@@ -69,37 +77,30 @@ public class ControladorOpciones implements Serializable {
         limpiar();
 
     }
-    
+
     public void valueChangeMethod(ValueChangeEvent e) {
 
-        
         for (int i = 0; i < opciones.size(); i++) {
             Opciones opc = opciones.get(i);
-            if (opc.getOpcCodigo()==Integer.parseInt(e.getNewValue().toString())) {
-                opcion=opc;
+            if (opc.getOpcCodigo() == Integer.parseInt(e.getNewValue().toString())) {
+                opcion = opc;
             }
         }
-        
-    }
-    public void valueChangeMethod1(ValueChangeEvent e) {
 
-//        ControladorSistema cs=new ControladorSistema();
-//        for (int i = 0; i < cs.getSistemas().size(); i++) {
-//            Sistema sis = cs.getSistemas().get(i);
-//            if (sis.getSisCodigo()==Integer.parseInt(e.getNewValue().toString())) {
-//                opcion.setSisCodigo(sis);
-//                System.out.println("Seleccionado:"+sis);
-//                break;
-//            }
-//        }
-        
-        
     }
-    
+
+    public void valueChangeMethod1(ValueChangeEvent e) {
+        System.out.println(Integer.parseInt(e.getNewValue().toString()));
+        
+        Sistema sis=serSis.find(Integer.parseInt(e.getNewValue().toString()));
+        
+        opcion.setSisCodigo(sis);
+
+    }
 
     public void ingresarOpcion() {
         try {
-            System.out.println("Opcion:"+opcion);
+            System.out.println("Opcion:" + opcion);
             serOpc.create(opcion);
             this.opciones = serOpc.findAll();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sistema Ingresada", ""));
@@ -135,10 +136,10 @@ public class ControladorOpciones implements Serializable {
         this.opciones = opciones;
     }
 
-    public void setSistema(int cod){
+    public void setSistema(int cod) {
 //        ControladorSistema asd=new ControladorSistema();
 //        
 //        this.opcion.setSisCodigo(asd.getSistema(cod));
     }
-    
+
 }

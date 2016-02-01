@@ -29,6 +29,7 @@
 
                             <p:outputLabel value="SisCodigo:" />
                             <p:selectOneMenu  valueChangeListener="#{controladorOpciones.valueChangeMethod1}" id="selectSis">
+                                <f:ajax event="change" />
                                 <f:selectItem itemLabel=""/>
                                 <f:selectItems value="#{controladorSistema.sistemas}" var="sistems" itemValue="#{sistems.sisCodigo}" itemLabel="#{sistems.sisCodigo}-#{sistems.sisDescripcion}" />
                             </p:selectOneMenu>
