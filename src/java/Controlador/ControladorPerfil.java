@@ -35,7 +35,7 @@ public class ControladorPerfil implements Serializable {
     public ControladorPerfil() {
         perfil = new Perfil();
         perfiles = new ArrayList<>();
-        
+        perfil.setOpcionesPerfilList(new ArrayList<>());
     }
 
     @PostConstruct
@@ -83,6 +83,7 @@ public class ControladorPerfil implements Serializable {
 
     public void ingresarPerfil() {
         try {
+            perfil.setPerCodigo(null);
             serPer.create(perfil);
             this.perfiles = serPer.findAll();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Perfil Ingresada", ""));

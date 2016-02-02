@@ -63,7 +63,7 @@ public class ControladorOpcionesPerfil implements Serializable {
     private SistemaFacade serSis;
 
     private Perfil perfil;
-    private OpcionesPerfil opcionPerfil;
+    //private OpcionesPerfil opcionPerfil;
     private Opciones opcion;
     private List<Opciones> opciones;
     private List<OpcionesPerfil> opcionesPerfil;
@@ -73,7 +73,6 @@ public class ControladorOpcionesPerfil implements Serializable {
 
     public ControladorOpcionesPerfil() {
         opcion = new Opciones();
-        opcion.setSisCodigo(new Sistema());
         opciones = new ArrayList<>();
 
     }
@@ -96,8 +95,8 @@ public class ControladorOpcionesPerfil implements Serializable {
             ArrayList<OpcionesPerfil> opcionesPerfilAux = new ArrayList<>();
 
             for (OpcionesPerfil oppl : opcionesPerfil) {
-                System.out.println("[DEBUG] oppl:"+oppl+oppl.getPerfil());
-                int a = oppl.getPerfil().getPerCodigo();
+                System.out.println("[DEBUG] oppl:" + oppl + oppl.getPerfil());
+                int a = oppl.getOpcionesPerfilPK().getPerCodigo();
                 int b = perfil.getPerCodigo();
                 if (a == b) {
                     opcionesPerfilAux.add(oppl);
@@ -130,6 +129,8 @@ public class ControladorOpcionesPerfil implements Serializable {
                         r.setLSelect(false);
                         r.setLUpdate(false);
                         obj.setRol(r);
+                         
+                        obj.setOpciones(opc);
                         opcionesPerfil.add(obj);
                     }
 
@@ -137,6 +138,8 @@ public class ControladorOpcionesPerfil implements Serializable {
             }
             System.out.println("[Debug] OpcionesPerfil:" + opcionesPerfil);
             guardar();
+            cargarOpcionesPerfil();
+
 //            for (Sistema sistema : sistemas) {
 //                System.out.println("Sistema: " + sistema);
 //                for (Opciones opcion : opciones) {
@@ -195,7 +198,6 @@ public class ControladorOpcionesPerfil implements Serializable {
 
     public void limpiar() {
         opcion = new Opciones();
-        opcion.setSisCodigo(new Sistema());
     }
 
     public void actualizarOpcion() {
@@ -248,13 +250,7 @@ public class ControladorOpcionesPerfil implements Serializable {
         this.oppSer = oppSer;
     }
 
-    public OpcionesPerfil getOpcionPerfil() {
-        return opcionPerfil;
-    }
-
-    public void setOpcionPerfil(OpcionesPerfil opcionPerfil) {
-        this.opcionPerfil = opcionPerfil;
-    }
+    
 
     public List<OpcionesPerfil> getOpcionesPerfil() {
         return opcionesPerfil;
@@ -278,24 +274,33 @@ public class ControladorOpcionesPerfil implements Serializable {
         int n = 0;
         for (OpcionesPerfil opp : opcionesPerfil) {
             try {
-
-                if (oppSer.find(opp.getOpcionesPerfilPK()) == null) {
+                oppSer.findAll();
+                OpcionesPerfil o = oppSer.find(opp.getOpcionesPerfilPK());
+                System.out.println("[DEBUG]o:" + o);
+                if (o == null) {
 
                     oppSer.create(opp);
                     n++;
                 } else {
                     System.out.println("Ya existe");
-                    oppSer.edit(opp);
+                    //if (!opp.equals(o)) {
+                        oppSer.edit(opp);
+                    //}
                     n++;
                 }
                 oppSer.flush();
+                //oppSer.clear();
             } catch (EntityExistsException e) {
                 e.printStackTrace();
 
             }
             System.out.println("OpcionesPerfil:" + opp);
         }
+        cargarDatos();
         System.out.println("Guardado: " + n);
+        FacesContext ctxt = FacesContext.getCurrentInstance(); //get your hands on the current request context
+
+        ctxt.getPartialViewContext().getRenderIds().add("datos");
     }
 
     public OpcionesFacade getSerOpc() {
@@ -306,6 +311,18 @@ public class ControladorOpcionesPerfil implements Serializable {
         this.serOpc = serOpc;
     }
 
+    public Perfil getPerfilByID(int cod){
+        return serPer.find(cod);
+    }
+    
+    public Opciones getOpcionByID(int cod){
+        return serOpc.find(cod);
+    }
+    
+    public Sistema getSistemaByIDOpc(int codOpc){
+        return getOpcionByID(codOpc).getSisCodigo();
+    }
+    
     public Opciones getOpcion() {
         return opcion;
     }

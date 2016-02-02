@@ -26,38 +26,32 @@
                             <f:facet name="header">
                                 Basic
                             </f:facet>
-                            #{opp.opciones.opcCodigo}-#{opp.opciones.opcDescipcion}
+                            <b>#{controladorOpcionesPerfil.getSistemaByIDOpc(opp.opcionesPerfilPK.opcCodigo).sisDescripcion}</b><br/>
+                            #{controladorOpcionesPerfil.getOpcionByID(opp.opcionesPerfilPK.opcCodigo).opcDescipcion}
                             Select
                             <p:selectBooleanCheckbox  value="#{opp.rol.LSelect}">
-                               
+
 <!--<p:ajax listener="#{selectBooleanView.addMessage}" />-->
                             </p:selectBooleanCheckbox>
                             Create
                             <p:selectBooleanCheckbox  value="#{opp.rol.LInsert}">
-                               
+
 <!--<p:ajax listener="#{selectBooleanView.addMessage}" />-->
                             </p:selectBooleanCheckbox>
                             Update
                             <p:selectBooleanCheckbox  value="#{opp.rol.LUpdate}">
-                               
+
 <!--<p:ajax listener="#{selectBooleanView.addMessage}" />-->
                             </p:selectBooleanCheckbox>
                             Delete
                             <p:selectBooleanCheckbox  value="#{opp.rol.LDelete}">
-                               
+
 <!--<p:ajax listener="#{selectBooleanView.addMessage}" />-->
                             </p:selectBooleanCheckbox>
-                           
 
                         </p:dataList>
                         asdasdasd
-
                         <p:commandButton action="#{controladorOpcionesPerfil.guardar()}" value="Guardar" update="@form " ></p:commandButton>
-
-
-
-
-
 
                     </h:form>
                 </f:view>

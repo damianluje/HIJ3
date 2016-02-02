@@ -37,6 +37,7 @@ public class ControladorOpciones implements Serializable {
     private SistemaFacade serSis;
     private Opciones opcion;
     private List<Opciones> opciones;
+    private int codSis;
 
     public ControladorOpciones() {
         opcion = new Opciones();
@@ -61,6 +62,7 @@ public class ControladorOpciones implements Serializable {
     public void actualizarOpcion() {
         //System.out.println("*************" + opcion.getCodigoSistema());
         serOpc.edit(opcion);
+        System.out.println("Actualizando Opcion: "+opcion+opcion.getSisCodigo());
         limpiar();
     }
 
@@ -84,23 +86,25 @@ public class ControladorOpciones implements Serializable {
             Opciones opc = opciones.get(i);
             if (opc.getOpcCodigo() == Integer.parseInt(e.getNewValue().toString())) {
                 opcion = opc;
+                setCodSis(opc.getSisCodigo().getSisCodigo());
             }
         }
 
     }
 
     public void valueChangeMethod1(ValueChangeEvent e) {
-        System.out.println(Integer.parseInt(e.getNewValue().toString()));
+        //System.out.println(Integer.parseInt(e.getNewValue().toString()));
         
         Sistema sis=serSis.find(Integer.parseInt(e.getNewValue().toString()));
         
         opcion.setSisCodigo(sis);
+        System.out.println("Sistema: "+sis.getSisCodigo());
 
     }
 
     public void ingresarOpcion() {
         try {
-            System.out.println("Opcion:" + opcion);
+            System.out.println("Opcion:" + opcion+opcion.getSisCodigo());
             serOpc.create(opcion);
             this.opciones = serOpc.findAll();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sistema Ingresada", ""));
@@ -140,6 +144,25 @@ public class ControladorOpciones implements Serializable {
 //        ControladorSistema asd=new ControladorSistema();
 //        
 //        this.opcion.setSisCodigo(asd.getSistema(cod));
+    }
+
+    public SistemaFacade getSerSis() {
+        return serSis;
+    }
+
+    public void setSerSis(SistemaFacade serSis) {
+        this.serSis = serSis;
+    }
+
+    public int getCodSis() {
+        return codSis;
+    }
+
+    public void setCodSis(int codSis) {
+        this.codSis = codSis;
+        Sistema sis=serSis.find(codSis);
+        
+        opcion.setSisCodigo(sis);
     }
 
 }
