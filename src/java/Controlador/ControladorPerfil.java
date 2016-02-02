@@ -36,7 +36,7 @@ public class ControladorPerfil implements Serializable {
         perfil = new Perfil();
         perfiles = new ArrayList<>();
         perfil.setOpcionesPerfilList(new ArrayList<>());
-    }
+    } 
 
     @PostConstruct
     public void cargarDatos() {

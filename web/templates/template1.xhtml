@@ -20,23 +20,22 @@
                     <div id="MENUSIDEindent">
                         <h3>MENU</h3>
                         <p:menu toggleable="true" >
-                            <p:submenu label="Ajax" >
-                                <p:menuitem value="Save" actionListener="#{menuView.save}" update="messages" icon="ui-icon-disk"/>
-                                <p:menuitem value="Update" actionListener="#{menuView.update}" update="messages" icon="ui-icon-arrowrefresh-1-w" />
+                            
+                            <p:submenu label="Seguridades">
+                                <p:menuitem value="Sistemas" url="Sistemas.xhtml" icon="ui-icon-home"/>
+                                <p:menuitem value="Opciones" url="Opciones.xhtml" icon="ui-icon-home"/>
+                                <p:menuitem value="Perfiles" url="Perfiles.xhtml" icon="ui-icon-home"/>
+                                <p:menuitem value="Roles" url="OpcionesPerfil.xhtml" icon="ui-icon-home"/>
                             </p:submenu>
-                            <p:submenu label="Non-Ajax">
-                                <p:menuitem value="Delete" actionListener="#{menuView.delete}" update="messages" ajax="false" icon="ui-icon-close"/>
-                            </p:submenu>
-                            <p:submenu label="Navigations">
-                                <p:menuitem value="External" url="http://www.primefaces.org" icon="ui-icon-home"/>
-                                <p:menuitem value="Internal"  icon="ui-icon-star"/>
+                            <p:submenu label="Acceso">
+                                <p:menuitem value="Admin" url="admin.xhtml" icon="ui-icon-home"/>
                             </p:submenu>
                         </p:menu>
                     </div>
                 </div>
 
                 <div id="CONTENTSIDE">
-                    Test
+                    
                     <div id="CONTENTSIDEindent">
                         <ui:insert name="contenido">
                         </ui:insert>
