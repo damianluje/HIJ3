@@ -15,28 +15,45 @@
                         <p:growl id="mensaje" autoUpdate="true" showSummary="true" showDetail="true"/>
                         <p:messages autoUpdate="true" />
                         <h3><h:outputText value="OpcionesPerfil"/></h3>
-                        <p:dataList value="#{controladorOpcionesPerfil.sistemas}" var="sistem">
+
+                        <p:selectOneMenu  valueChangeListener="#{controladorOpcionesPerfil.valueChangeMethod1}" id="selectPer">
+                            <f:ajax event="change" render="datos"/>
+                            <f:selectItem itemLabel=""/>
+                            <f:selectItems value="#{controladorPerfil.perfils}" var="perfil" itemValue="#{perfil.perCodigo}" itemLabel="#{perfil.perCodigo}-#{perfil.perDescripcion}" />
+                        </p:selectOneMenu>
+
+                        <p:dataList value="#{controladorOpcionesPerfil.opcionesPerfil}" var="opp" id="datos">
                             <f:facet name="header">
                                 Basic
                             </f:facet>
-                            #{sistem.sisCodigo}, #{sistem.sisDescripcion}
-                            
-                            <p:dataList value="#{sistem.opcionesCollection}" var="opci">
-                                
-                                #{opci.opcCodigo}-#{opci.opcDescipcion}
-                                <p:selectManyCheckbox id="basic#{sistem.sisCodigo}" value="#{checkboxView.selectedConsoles}">
-                                    <f:selectItem itemLabel="Insertar" itemValue="Insertar" />
-                                    <f:selectItem itemLabel="Modificar" itemValue="Modificar" />
-                                    <f:selectItem itemLabel="Eliminar" itemValue="Eliminar" />
-                                    <f:selectItem itemLabel="Visualizar" itemValue="Visualizar" />
-                                </p:selectManyCheckbox>
-                            </p:dataList>
+                            #{opp.opciones.opcCodigo}-#{opp.opciones.opcDescipcion}
+                            Select
+                            <p:selectBooleanCheckbox  value="#{opp.rol.LSelect}">
+                               
+<!--<p:ajax listener="#{selectBooleanView.addMessage}" />-->
+                            </p:selectBooleanCheckbox>
+                            Create
+                            <p:selectBooleanCheckbox  value="#{opp.rol.LInsert}">
+                               
+<!--<p:ajax listener="#{selectBooleanView.addMessage}" />-->
+                            </p:selectBooleanCheckbox>
+                            Update
+                            <p:selectBooleanCheckbox  value="#{opp.rol.LUpdate}">
+                               
+<!--<p:ajax listener="#{selectBooleanView.addMessage}" />-->
+                            </p:selectBooleanCheckbox>
+                            Delete
+                            <p:selectBooleanCheckbox  value="#{opp.rol.LDelete}">
+                               
+<!--<p:ajax listener="#{selectBooleanView.addMessage}" />-->
+                            </p:selectBooleanCheckbox>
+                           
+
                         </p:dataList>
                         asdasdasd
 
-                        <p:commandButton action="#{controladorOpcionesPerfil.createUI()}" value="Insertar" update="@form " ></p:commandButton>
-                        <p:commandButton action="#{controladorOpciones.actualizarOpcion()}" value="Modificar" update="@form "></p:commandButton>
-                        <p:commandButton action="#{controladorOpciones.eliminarOpcion()}" value="Eliminar" update="@form "></p:commandButton>
+                        <p:commandButton action="#{controladorOpcionesPerfil.guardar()}" value="Guardar" update="@form " ></p:commandButton>
+
 
 
 

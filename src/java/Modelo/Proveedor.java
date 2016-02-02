@@ -6,7 +6,7 @@
 package Modelo;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -55,7 +55,7 @@ public class Proveedor implements Serializable {
     @Column(name = "SEPRO_AREA_GEOGRAFICA")
     private String pro_areageografica;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "pro_codigo")
-    private Collection<TipoServicio> tipoServicioCollection;
+    private List<TipoServicio> tipoServicioList;
 
     public Proveedor() {
     }
@@ -102,12 +102,12 @@ public class Proveedor implements Serializable {
     }
 
     @XmlTransient
-    public Collection<TipoServicio> getTipoServicioCollection() {
-        return tipoServicioCollection;
+    public List<TipoServicio> getTipoServicioList() {
+        return tipoServicioList;
     }
 
-    public void setTipoServicioCollection(Collection<TipoServicio> tipoServicioCollection) {
-        this.tipoServicioCollection = tipoServicioCollection;
+    public void setTipoServicioList(List<TipoServicio> tipoServicioList) {
+        this.tipoServicioList = tipoServicioList;
     }
 
     @Override

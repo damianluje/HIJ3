@@ -30,6 +30,7 @@ import Servicios.OpcionesPerfilFacade;
 import Servicios.PerfilFacade;
 import Servicios.RolFacade;
 import Servicios.SistemaFacade;
+import java.util.HashMap;
 import javax.el.ELContext;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.component.UIComponent;
@@ -59,6 +60,7 @@ public class ControladorOpcionesPerfil implements Serializable {
     @EJB
     private SistemaFacade serSis;
 
+    private Perfil perfil;
     private OpcionesPerfil opcionPerfil;
     private Opciones opcion;
     private List<Opciones> opciones;
@@ -82,40 +84,65 @@ public class ControladorOpcionesPerfil implements Serializable {
         sistemas = serSis.findAll();
         opcionesPerfil = oppSer.findAll();
 //        System.out.println(opciones);
-        crearListaVacia();
+        //crearListaVacia();
         opcionesPerfil = oppSer.findAll();
     }
 
+    public void cargarOpcionesPerfil(Perfil per) {
+        opcionesPerfil = oppSer.findAll();
+        ArrayList<OpcionesPerfil> opcionesPerfilAux = new ArrayList<>();
+        for (OpcionesPerfil oppl : opcionesPerfil) {
+            if (oppl.getPerfil().getPerCodigo() == per.getPerCodigo()) {
+                opcionesPerfilAux.add(oppl);
+            }
+        }
+        opcionesPerfil = opcionesPerfilAux;
+    }
+
     public void crearListaVacia() {
-        for (int x = 0; x < perfiles.size(); x++) {
-            Perfil perfil = perfiles.get(x);
+
+        if (perfil != null) {
+            cargarOpcionesPerfil(perfil);
             for (int i = 0; i < sistemas.size(); i++) {
                 Sistema sistema = sistemas.get(i);
 
-                for (int j = 0; j < sistema.getOpcionesCollection().size(); j++) {
-                    Opciones opc = sistema.getOpcionesCollection().get(j);
+                for (int j = 0; j < sistema.getOpcionesList().size(); j++) {
+                    Opciones opc = sistema.getOpcionesList().get(j);
 
-                    if (exist(perfil.getPerCodigo(), opc.getOpcCodigo())) {
-                        break;
-                    } else {
+                    if (!exist(perfil.getPerCodigo(), opc.getOpcCodigo())) {
+
                         OpcionesPerfil obj = new OpcionesPerfil(perfil.getPerCodigo(), opc.getOpcCodigo());
 
                         Rol r = new Rol(perfil.getPerCodigo(), opc.getOpcCodigo());
-                        r.setLDelete('0');
-                        r.setLInsert('0');
-                        r.setLSelect('0');
-                        r.setLUpdate('0');
+                        r.setLDelete(false);
+                        r.setLInsert(false);
+                        r.setLSelect(false);
+                        r.setLUpdate(false);
                         obj.setRol(r);
+                        opcionesPerfil.add(obj);
+                    }
+
+                }
+            }
+            guardar();
+            for (Sistema sistema : sistemas) {
+                System.out.println("Sistema: " + sistema);
+                for (Opciones opcion : opciones) {
+                    System.out.println("  Opcion: " + opcion);
+                    for (OpcionesPerfil opp : opcionesPerfil) {
+                        System.out.println("   OpcionesPerfil: " + opp);
+                        System.out.println("    " + opp.getRol().getLSelect() + opp.getRol().getLInsert());
                     }
                 }
-
             }
+        } else {
+            System.out.println("Perfil no seleccionado");
         }
     }
 
     public boolean exist(int codPer, int codOpc) {
 
-        opcionesPerfil = oppSer.findAll();
+        //opcionesPerfil = oppSer.findAll();
         for (int i = 0; i < opcionesPerfil.size(); i++) {
             OpcionesPerfil opp = opcionesPerfil.get(i);
             if (opp.getOpcionesPerfilPK().getOpcCodigo() == codOpc && opp.getOpcionesPerfilPK().getPerCodigo() == codPer) {
@@ -123,6 +150,17 @@ public class ControladorOpcionesPerfil implements Serializable {
             }
         }
         return false;
+    }
+
+    public OpcionesPerfil getOpp(int codPer, int codOpc) {
+        opcionesPerfil = oppSer.findAll();
+        for (int i = 0; i < opcionesPerfil.size(); i++) {
+            OpcionesPerfil opp = opcionesPerfil.get(i);
+            if (opp.getOpcionesPerfilPK().getOpcCodigo() == codOpc && opp.getOpcionesPerfilPK().getPerCodigo() == codPer) {
+                return opp;
+            }
+        }
+        return null;
     }
 
     public void createUI() {
@@ -182,10 +220,10 @@ public class ControladorOpcionesPerfil implements Serializable {
     public void valueChangeMethod1(ValueChangeEvent e) {
         System.out.println(Integer.parseInt(e.getNewValue().toString()));
 
-        Sistema sis = serSis.find(Integer.parseInt(e.getNewValue().toString()));
-
-        opcion.setSisCodigo(sis);
-
+        perfil = serPer.find(Integer.parseInt(e.getNewValue().toString()));
+        if (perfil != null) {
+            crearListaVacia();
+        }
     }
 
     public OpcionesPerfilFacade getOppSer() {
@@ -211,9 +249,26 @@ public class ControladorOpcionesPerfil implements Serializable {
     public void setOpcionesPerfil(List<OpcionesPerfil> opcionesPerfil) {
         this.opcionesPerfil = opcionesPerfil;
     }
-    
-    public void guardar(){
-        
+
+    public Perfil getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(Perfil perfil) {
+        this.perfil = perfil;
+    }
+
+    public void guardar() {
+
+        System.out.println("Guardando...");
+        for (OpcionesPerfil opp : opcionesPerfil) {
+            try {
+                oppSer.edit(opp);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            System.out.println("OpcionesPerfil:" + opp);
+        }
     }
 
     public void ingresarOpcion() {

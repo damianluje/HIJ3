@@ -6,7 +6,7 @@
 package Modelo;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -59,9 +59,9 @@ public class Empleado implements Serializable {
     @Column(name = "PEEMP_PASAPORTE")
     private String emp_pasaporte;
     @OneToMany(mappedBy = "emp_codigo")
-    private Collection<Factura> facturaCollection;
+    private List<Factura> facturaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "emp_codigo")
-    private Collection<Usuario> usuarioCollection;
+    private List<Usuario> usuarioList;
 
     public Empleado() {
     }
@@ -116,21 +116,21 @@ public class Empleado implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Factura> getFacturaCollection() {
-        return facturaCollection;
+    public List<Factura> getFacturaList() {
+        return facturaList;
     }
 
-    public void setFacturaCollection(Collection<Factura> facturaCollection) {
-        this.facturaCollection = facturaCollection;
+    public void setFacturaList(List<Factura> facturaList) {
+        this.facturaList = facturaList;
     }
 
     @XmlTransient
-    public Collection<Usuario> getUsuarioCollection() {
-        return usuarioCollection;
+    public List<Usuario> getUsuarioList() {
+        return usuarioList;
     }
 
-    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
-        this.usuarioCollection = usuarioCollection;
+    public void setUsuarioList(List<Usuario> usuarioList) {
+        this.usuarioList = usuarioList;
     }
 
     @Override

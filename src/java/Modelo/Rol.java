@@ -37,13 +37,13 @@ public class Rol implements Serializable {
     @EmbeddedId
     protected RolPK rolPK;
     @Column(name = "ROL_INSERT")
-    private Character lIn_sert;
+    private Boolean lIn_sert;
     @Column(name = "ROL_UPDATE")
-    private Character lUp_date;
+    private Boolean lUp_date;
     @Column(name = "ROL_DELETE")
-    private Character lDe_lete;
+    private Boolean lDe_lete;
     @Column(name = "ROL_SELECT")
-    private Character lSe_lect;
+    private Boolean lSe_lect;
     @JoinColumns({
         @JoinColumn(name = "XEPER_CODIGO", referencedColumnName = "XEPER_CODIGO", insertable = false, updatable = false),
         @JoinColumn(name = "XEOPC_CODIGO", referencedColumnName = "XEOPC_CODIGO", insertable = false, updatable = false)})
@@ -69,35 +69,35 @@ public class Rol implements Serializable {
         this.rolPK = rolPK;
     }
 
-    public Character getLInsert() {
+    public Boolean getLInsert() {
         return lIn_sert;
     }
 
-    public void setLInsert(Character lIn_sert) {
+    public void setLInsert(Boolean lIn_sert) {
         this.lIn_sert = lIn_sert;
     }
 
-    public Character getLUpdate() {
+    public Boolean getLUpdate() {
         return lUp_date;
     }
 
-    public void setLUpdate(Character lUp_date) {
+    public void setLUpdate(Boolean lUp_date) {
         this.lUp_date = lUp_date;
     }
 
-    public Character getLDelete() {
+    public Boolean getLDelete() {
         return lDe_lete;
     }
 
-    public void setLDelete(Character lDe_lete) {
+    public void setLDelete(Boolean lDe_lete) {
         this.lDe_lete = lDe_lete;
     }
 
-    public Character getLSelect() {
+    public Boolean getLSelect() {
         return lSe_lect;
     }
 
-    public void setLSelect(Character lSe_lect) {
+    public void setLSelect(Boolean lSe_lect) {
         this.lSe_lect = lSe_lect;
     }
 

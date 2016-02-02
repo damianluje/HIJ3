@@ -6,7 +6,7 @@
 package Modelo;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -55,7 +55,7 @@ public class Paciente implements Serializable {
     @Column(name = "SEPAC_SEGURO")
     private int pac_seguro;
     @OneToMany(mappedBy = "pac_codigo")
-    private Collection<Factura> facturaCollection;
+    private List<Factura> facturaList;
 
     public Paciente() {
     }
@@ -103,12 +103,12 @@ public class Paciente implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Factura> getFacturaCollection() {
-        return facturaCollection;
+    public List<Factura> getFacturaList() {
+        return facturaList;
     }
 
-    public void setFacturaCollection(Collection<Factura> facturaCollection) {
-        this.facturaCollection = facturaCollection;
+    public void setFacturaList(List<Factura> facturaList) {
+        this.facturaList = facturaList;
     }
 
     @Override

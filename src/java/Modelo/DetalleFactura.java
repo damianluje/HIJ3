@@ -41,7 +41,7 @@ public class DetalleFactura implements Serializable {
     private Integer dfa_cantidad;
     @JoinColumn(name = "SETSV_CODIGO", referencedColumnName = "SETSV_CODIGO")
     @ManyToOne
-    private TipoServicio setCodigo;
+    private TipoServicio tsvCodigo;
     @JoinColumn(name = "SEFAC_CODIGO", referencedColumnName = "SEFAC_CODIGO")
     @ManyToOne
     private Factura fac_codigo;
@@ -70,11 +70,11 @@ public class DetalleFactura implements Serializable {
     }
 
     public TipoServicio getTsvCodigo() {
-        return setCodigo;
+        return tsvCodigo;
     }
 
-    public void setTsvCodigo(TipoServicio setCodigo) {
-        this.setCodigo = setCodigo;
+    public void setTsvCodigo(TipoServicio tsvCodigo) {
+        this.tsvCodigo = tsvCodigo;
     }
 
     public Factura getFacCodigo() {

@@ -6,7 +6,7 @@
 package Modelo;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -44,9 +44,9 @@ public class Perfil implements Serializable {
     @Column(name = "XEPER_DESCRIPCION")
     private String per_descripcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "perfil")
-    private Collection<OpcionesPerfil> opcionesPerfilCollection;
+    private List<OpcionesPerfil> opcionesPerfilList;
     @OneToMany(mappedBy = "per_codigo")
-    private Collection<Usuario> usuarioCollection;
+    private List<Usuario> usuarioList;
 
     public Perfil() {
     }
@@ -72,21 +72,21 @@ public class Perfil implements Serializable {
     }
 
     @XmlTransient
-    public Collection<OpcionesPerfil> getOpcionesPerfilCollection() {
-        return opcionesPerfilCollection;
+    public List<OpcionesPerfil> getOpcionesPerfilList() {
+        return opcionesPerfilList;
     }
 
-    public void setOpcionesPerfilCollection(Collection<OpcionesPerfil> opcionesPerfilCollection) {
-        this.opcionesPerfilCollection = opcionesPerfilCollection;
+    public void setOpcionesPerfilList(List<OpcionesPerfil> opcionesPerfilList) {
+        this.opcionesPerfilList = opcionesPerfilList;
     }
 
     @XmlTransient
-    public Collection<Usuario> getUsuarioCollection() {
-        return usuarioCollection;
+    public List<Usuario> getUsuarioList() {
+        return usuarioList;
     }
 
-    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
-        this.usuarioCollection = usuarioCollection;
+    public void setUsuarioList(List<Usuario> usuarioList) {
+        this.usuarioList = usuarioList;
     }
 
     @Override

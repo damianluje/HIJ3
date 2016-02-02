@@ -6,7 +6,7 @@
 package Modelo;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -46,14 +46,12 @@ public class Opciones implements Serializable {
     @Column(name = "XEOPC_DESCIPCION")
     private String opc_descipcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "opciones")
-    private Collection<OpcionesPerfil> opcionesPerfilCollection;
+    private List<OpcionesPerfil> opcionesPerfilList;
     @JoinColumn(name = "XESIS_CODIGO", referencedColumnName = "XESIS_CODIGO")
     @ManyToOne(optional = false)
     private Sistema sis_codigo;
 
     public Opciones() {
-        opc_codigo=0;
-        opc_descipcion="";
     }
 
     public Opciones(Integer opc_codigo) {
@@ -76,6 +74,15 @@ public class Opciones implements Serializable {
         this.opc_descipcion = opc_descipcion;
     }
 
+    @XmlTransient
+    public List<OpcionesPerfil> getOpcionesPerfilList() {
+        return opcionesPerfilList;
+    }
+
+    public void setOpcionesPerfilList(List<OpcionesPerfil> opcionesPerfilList) {
+        this.opcionesPerfilList = opcionesPerfilList;
+    }
+
     public Sistema getSisCodigo() {
         return sis_codigo;
     }
@@ -83,20 +90,6 @@ public class Opciones implements Serializable {
     public void setSisCodigo(Sistema sis_codigo) {
         this.sis_codigo = sis_codigo;
     }
-
-   
-   
-    
-    @XmlTransient
-    public Collection<OpcionesPerfil> getOpcionesPerfilCollection() {
-        return opcionesPerfilCollection;
-    }
-
-    public void setOpcionesPerfilCollection(Collection<OpcionesPerfil> opcionesPerfilCollection) {
-        this.opcionesPerfilCollection = opcionesPerfilCollection;
-    }
-
-   
 
     @Override
     public int hashCode() {

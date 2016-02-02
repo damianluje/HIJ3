@@ -6,7 +6,7 @@
 package Modelo;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "TipoServicio.findAll", query = "SELECT t FROM TipoServicio t"),
-    @NamedQuery(name = "TipoServicio.findBySetsvCodigo", query = "SELECT t FROM TipoServicio t WHERE t.setCodigo = :setCodigo"),
+    @NamedQuery(name = "TipoServicio.findBySetsvCodigo", query = "SELECT t FROM TipoServicio t WHERE t.tsvCodigo = :tsvCodigo"),
     @NamedQuery(name = "TipoServicio.findBySetsvNombre", query = "SELECT t FROM TipoServicio t WHERE t.setNombre = :setNombre"),
     @NamedQuery(name = "TipoServicio.findBySetsvCosto", query = "SELECT t FROM TipoServicio t WHERE t.setCosto = :setCosto"),
     @NamedQuery(name = "TipoServicio.findBySetsvDescripcion", query = "SELECT t FROM TipoServicio t WHERE t.setDescripcion = :setDescripcion")})
@@ -43,7 +43,7 @@ public class TipoServicio implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "SETSV_CODIGO")
-    private Integer setCodigo;
+    private Integer tsvCodigo;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -59,28 +59,28 @@ public class TipoServicio implements Serializable {
     @JoinColumn(name = "SEPRO_CODIGO", referencedColumnName = "SEPRO_CODIGO")
     @ManyToOne(optional = false)
     private Proveedor pro_codigo;
-    @OneToMany(mappedBy = "setCodigo")
-    private Collection<DetalleFactura> detalleFacturaCollection;
+    @OneToMany(mappedBy = "tsvCodigo")
+    private List<DetalleFactura> detalleFacturaList;
 
     public TipoServicio() {
     }
 
-    public TipoServicio(Integer setCodigo) {
-        this.setCodigo = setCodigo;
+    public TipoServicio(Integer tsvCodigo) {
+        this.tsvCodigo = tsvCodigo;
     }
 
-    public TipoServicio(Integer setCodigo, String setNombre, float setCosto) {
-        this.setCodigo = setCodigo;
+    public TipoServicio(Integer tsvCodigo, String setNombre, float setCosto) {
+        this.tsvCodigo = tsvCodigo;
         this.setNombre = setNombre;
         this.setCosto = setCosto;
     }
 
     public Integer getTsvCodigo() {
-        return setCodigo;
+        return tsvCodigo;
     }
 
-    public void setTsvCodigo(Integer setCodigo) {
-        this.setCodigo = setCodigo;
+    public void setTsvCodigo(Integer tsvCodigo) {
+        this.tsvCodigo = tsvCodigo;
     }
 
     public String getTsvNombre() {
@@ -116,18 +116,18 @@ public class TipoServicio implements Serializable {
     }
 
     @XmlTransient
-    public Collection<DetalleFactura> getDetalleFacturaCollection() {
-        return detalleFacturaCollection;
+    public List<DetalleFactura> getDetalleFacturaList() {
+        return detalleFacturaList;
     }
 
-    public void setDetalleFacturaCollection(Collection<DetalleFactura> detalleFacturaCollection) {
-        this.detalleFacturaCollection = detalleFacturaCollection;
+    public void setDetalleFacturaList(List<DetalleFactura> detalleFacturaList) {
+        this.detalleFacturaList = detalleFacturaList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (setCodigo != null ? setCodigo.hashCode() : 0);
+        hash += (tsvCodigo != null ? tsvCodigo.hashCode() : 0);
         return hash;
     }
 
@@ -138,7 +138,7 @@ public class TipoServicio implements Serializable {
             return false;
         }
         TipoServicio other = (TipoServicio) object;
-        if ((this.setCodigo == null && other.setCodigo != null) || (this.setCodigo != null && !this.setCodigo.equals(other.setCodigo))) {
+        if ((this.tsvCodigo == null && other.tsvCodigo != null) || (this.tsvCodigo != null && !this.tsvCodigo.equals(other.tsvCodigo))) {
             return false;
         }
         return true;
@@ -146,7 +146,7 @@ public class TipoServicio implements Serializable {
 
     @Override
     public String toString() {
-        return "Modelo.TipoServicio[ setCodigo=" + setCodigo + " ]";
+        return "Modelo.TipoServicio[ tsvCodigo=" + tsvCodigo + " ]";
     }
     
 }
