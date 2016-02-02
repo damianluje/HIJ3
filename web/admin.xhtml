@@ -14,7 +14,7 @@
             <ui:define name="contenido">
                 <h:form>
                     <p>Welcome #{controladorLogin.user}</p>
-                    <h:commandLink action="#{controladorLogin.logout}" value="Logout"></h:commandLink>
+                    <p:commandButton action="#{controladorLogin.logout}" value="Logout"/>
                 </h:form>
             </ui:define>
         </ui:composition>
