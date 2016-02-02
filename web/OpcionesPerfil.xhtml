@@ -18,7 +18,6 @@
 
                         <p:selectOneMenu  valueChangeListener="#{controladorOpcionesPerfil.valueChangeMethod1}" id="selectPer">
                             <f:ajax event="change" render="datos"/>
-                            <f:selectItem itemLabel=""/>
                             <f:selectItems value="#{controladorPerfil.perfils}" var="perfil" itemValue="#{perfil.perCodigo}" itemLabel="#{perfil.perCodigo}-#{perfil.perDescripcion}" />
                         </p:selectOneMenu>
 
@@ -26,8 +25,9 @@
                             <f:facet name="header">
                                 Basic
                             </f:facet>
-                            <b>#{controladorOpcionesPerfil.getSistemaByIDOpc(opp.opcionesPerfilPK.opcCodigo).sisDescripcion}</b><br/>
-                            #{controladorOpcionesPerfil.getOpcionByID(opp.opcionesPerfilPK.opcCodigo).opcDescipcion}
+                            <b>#{controladorOpcionesPerfil.getOpcionByID(opp.opcionesPerfilPK.opcCodigo).opcDescipcion}</b>
+                            <br/>
+                            
                             Select
                             <p:selectBooleanCheckbox  value="#{opp.rol.LSelect}">
 
