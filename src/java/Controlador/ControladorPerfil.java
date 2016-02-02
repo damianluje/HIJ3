@@ -20,7 +20,7 @@ import javax.faces.event.ValueChangeEvent;
 
 /**
  *
- * @author homer
+ * @author Damian
  */
 @ManagedBean
 @ViewScoped

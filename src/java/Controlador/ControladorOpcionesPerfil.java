@@ -13,6 +13,7 @@ package Controlador;
  */
 import Modelo.Opciones;
 import Modelo.OpcionesPerfil;
+import Modelo.OpcionesPerfilPK;
 import Modelo.Perfil;
 import Modelo.Rol;
 import java.io.Serializable;
@@ -35,6 +36,7 @@ import javax.el.ELContext;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.component.UIComponent;
 import javax.faces.event.ValueChangeEvent;
+import javax.persistence.EntityExistsException;
 import org.primefaces.component.panel.Panel;
 
 /**
@@ -85,24 +87,33 @@ public class ControladorOpcionesPerfil implements Serializable {
         opcionesPerfil = oppSer.findAll();
 //        System.out.println(opciones);
         //crearListaVacia();
-        opcionesPerfil = oppSer.findAll();
     }
 
-    public void cargarOpcionesPerfil(Perfil per) {
-        opcionesPerfil = oppSer.findAll();
-        ArrayList<OpcionesPerfil> opcionesPerfilAux = new ArrayList<>();
-        for (OpcionesPerfil oppl : opcionesPerfil) {
-            if (oppl.getPerfil().getPerCodigo() == per.getPerCodigo()) {
-                opcionesPerfilAux.add(oppl);
+    public void cargarOpcionesPerfil() {
+        if (perfil != null) {
+            System.out.println("[I]Cargando OpcionesPerfil del perfil:" + perfil.getPerDescripcion());
+            opcionesPerfil = oppSer.findAll();
+            ArrayList<OpcionesPerfil> opcionesPerfilAux = new ArrayList<>();
+
+            for (OpcionesPerfil oppl : opcionesPerfil) {
+                System.out.println("[DEBUG] oppl:"+oppl+oppl.getPerfil());
+                int a = oppl.getPerfil().getPerCodigo();
+                int b = perfil.getPerCodigo();
+                if (a == b) {
+                    opcionesPerfilAux.add(oppl);
+                }
             }
+            System.out.println("[Info] Cargados " + opcionesPerfilAux.size() + " opcionesPerfil");
+            opcionesPerfil = opcionesPerfilAux;
+        } else {
+            System.out.println("Perfil null en cargarOpcionesPerfil");
         }
-        opcionesPerfil = opcionesPerfilAux;
     }
 
     public void crearListaVacia() {
 
         if (perfil != null) {
-            cargarOpcionesPerfil(perfil);
+            cargarOpcionesPerfil();
             for (int i = 0; i < sistemas.size(); i++) {
                 Sistema sistema = sistemas.get(i);
 
@@ -124,17 +135,18 @@ public class ControladorOpcionesPerfil implements Serializable {
 
                 }
             }
+            System.out.println("[Debug] OpcionesPerfil:" + opcionesPerfil);
             guardar();
-            for (Sistema sistema : sistemas) {
-                System.out.println("Sistema: " + sistema);
-                for (Opciones opcion : opciones) {
-                    System.out.println("  Opcion: " + opcion);
-                    for (OpcionesPerfil opp : opcionesPerfil) {
-                        System.out.println("   OpcionesPerfil: " + opp);
-                        System.out.println("    " + opp.getRol().getLSelect() + opp.getRol().getLInsert());
-                    }
-                }
-            }
+//            for (Sistema sistema : sistemas) {
+//                System.out.println("Sistema: " + sistema);
+//                for (Opciones opcion : opciones) {
+//                    System.out.println("  Opcion: " + opcion);
+//                    for (OpcionesPerfil opp : opcionesPerfil) {
+//                        System.out.println("   OpcionesPerfil: " + opp);
+//                        System.out.println("    " + opp.getRol().getLSelect() + opp.getRol().getLInsert());
+//                    }
+//                }
+//            }
         } else {
             System.out.println("Perfil no seleccionado");
         }
@@ -153,7 +165,7 @@ public class ControladorOpcionesPerfil implements Serializable {
     }
 
     public OpcionesPerfil getOpp(int codPer, int codOpc) {
-        opcionesPerfil = oppSer.findAll();
+//        opcionesPerfil = oppSer.findAll();
         for (int i = 0; i < opcionesPerfil.size(); i++) {
             OpcionesPerfil opp = opcionesPerfil.get(i);
             if (opp.getOpcionesPerfilPK().getOpcCodigo() == codOpc && opp.getOpcionesPerfilPK().getPerCodigo() == codPer) {
@@ -223,7 +235,9 @@ public class ControladorOpcionesPerfil implements Serializable {
         perfil = serPer.find(Integer.parseInt(e.getNewValue().toString()));
         if (perfil != null) {
             crearListaVacia();
+            //cargarOpcionesPerfil(perfil);
         }
+
     }
 
     public OpcionesPerfilFacade getOppSer() {
@@ -261,28 +275,27 @@ public class ControladorOpcionesPerfil implements Serializable {
     public void guardar() {
 
         System.out.println("Guardando...");
+        int n = 0;
         for (OpcionesPerfil opp : opcionesPerfil) {
             try {
-                oppSer.edit(opp);
-            } catch (Exception e) {
+
+                if (oppSer.find(opp.getOpcionesPerfilPK()) == null) {
+
+                    oppSer.create(opp);
+                    n++;
+                } else {
+                    System.out.println("Ya existe");
+                    oppSer.edit(opp);
+                    n++;
+                }
+                oppSer.flush();
+            } catch (EntityExistsException e) {
                 e.printStackTrace();
+
             }
             System.out.println("OpcionesPerfil:" + opp);
         }
-    }
-
-    public void ingresarOpcion() {
-        try {
-            System.out.println("Opcion:" + opcion);
-            serOpc.create(opcion);
-            this.opciones = serOpc.findAll();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sistema Ingresada", ""));
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
-        }
-        limpiar();
+        System.out.println("Guardado: " + n);
     }
 
     public OpcionesFacade getSerOpc() {
