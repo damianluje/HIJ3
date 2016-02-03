@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import Modelo.OpcionesPerfil;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +36,7 @@ public class ControladorPerfil implements Serializable {
     public ControladorPerfil() {
         perfil = new Perfil();
         perfiles = new ArrayList<>();
-        perfil.setOpcionesPerfilList(new ArrayList<>());
+        perfil.setOpcionesPerfilList(new ArrayList<OpcionesPerfil>());
     } 
 
     @PostConstruct
