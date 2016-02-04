@@ -92,8 +92,26 @@ public class ControladorOP implements Serializable {
 
         }
     }
-    
-    public void guardar(){
+
+    public Rol getRol(int codOpc) {
+
+        if (perfil != null) {
+            for (Sistema sis : listaSis) {
+                for (Opciones opc : sis.getOpcionesList()) {
+                    for (OpcionesPerfil opp : opc.getOpcionesPerfilList()) {
+                        if (opp.getOpcionesPerfilPK().getPerCodigo() == perfil.getPerCodigo()
+                                && opp.getOpcionesPerfilPK().getOpcCodigo() == codOpc) {
+                            return opp.getRol();
+                        }
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public void guardar() {
         for (Sistema sis : listaSis) {
             serSis.edit(sis);
         }

@@ -14,7 +14,7 @@
                     <h:form>
                         <p:growl id="mensaje" autoUpdate="true" showSummary="true" showDetail="true"/>
                         <p:messages autoUpdate="true" />
-                        <h3><h:outputText value="Sistemas"/></h3>
+                        <h3><h:outputText value="Perfiles"/></h3>
                         <p:panelGrid columns="2">
                             <p:outputLabel value="Código:" />
                             <p:selectOneMenu value="#{controladorPerfil.perfil.perCodigo}" valueChangeListener="#{controladorPerfil.valueChangeMethod}" id="selectCodigo">
@@ -29,7 +29,7 @@
                         <p:commandButton action="#{controladorPerfil.actualizarPerfil()}" value="Modificar" update="tabla selectCodigo"></p:commandButton>
                         <p:commandButton action="#{controladorPerfil.eliminarPerfil()}" value="Eliminar" update="tabla selectCodigo"></p:commandButton>
                    
-                        <h1><h:outputText value="Lista de Sistemas"/></h1>
+                        <h1><h:outputText value="Lista de Perfiles"/></h1>
                         <p:dataTable value="#{controladorPerfil.perfils}" var="item" id="tabla">
                             <p:column>
                                 <f:facet name="header">

@@ -28,15 +28,21 @@
                             <f:facet name="header">
                                 Basic
                             </f:facet>
-                            #{opc.opcCodigo}-#{opc.opcDescripcion}
-                            
-                             <p:selectBooleanCheckbox  value="#{opp.rol.LDelete}"/>
+                            #{opc.opcCodigo}-#{opc.opcDescripcion}<br/>
+                            Select
+                            <p:selectBooleanCheckbox  value="#{controladorOP.getRol(opc.opcCodigo).LSelect}"/>
+                            insert
+                            <p:selectBooleanCheckbox  value="#{controladorOP.getRol(opc.opcCodigo).LInsert}"/>
+                            Update
+                            <p:selectBooleanCheckbox  value="#{controladorOP.getRol(opc.opcCodigo).LUpdate}"/>
+                            Delete
+                            <p:selectBooleanCheckbox  value="#{controladorOP.getRol(opc.opcCodigo).LDelete}"/>
 
 
                         </p:dataList>
 
                     </p:dataList>
-                    <p:commandButton action="#{controladorOP.guardar()}" value="Logout"/>
+                    <p:commandButton action="#{controladorOP.guardar()}" value="Guardar"/>
                 </h:form>
             </ui:define>
         </ui:composition>
