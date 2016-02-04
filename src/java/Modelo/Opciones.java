@@ -66,11 +66,11 @@ public class Opciones implements Serializable {
         this.opc_codigo = opc_codigo;
     }
 
-    public String getOpcDescipcion() {
+    public String getOpcDescripcion() {
         return opc_descipcion;
     }
 
-    public void setOpcDescipcion(String opc_descipcion) {
+    public void setOpcDescripcion(String opc_descipcion) {
         this.opc_descipcion = opc_descipcion;
     }
 

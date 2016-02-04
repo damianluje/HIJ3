@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/templates/template1.xhtml">
+            <ui:define name="contenido">
+                <h:form>
+                    <p:selectOneMenu  valueChangeListener="#{controladorOP.valueChangeMethod}" id="selectPer" value="#{controladorOP.codPerfil}">
+                        <f:ajax event="change" render="datos"/>
+                        <f:selectItems value="#{controladorPerfil.perfils}" var="perfil" itemValue="#{perfil.perCodigo}" itemLabel="#{perfil.perCodigo}-#{perfil.perDescripcion}" />
+                    </p:selectOneMenu>
+
+                    <p:dataList value="#{controladorOP.listaSis}" var="sis" id="datos">
+                        <f:facet name="header">
+                            Basic
+                        </f:facet>
+                        <b>#{sis.sisCodigo}-#{sis.sisDescripcion}</b><br/>
+
+                        <p:dataList value="#{sis.opcionesList}" var="opc" id="datos1">
+                            <f:facet name="header">
+                                Basic
+                            </f:facet>
+                            #{opc.opcCodigo}-#{opc.opcDescripcion}
+                            
+                             <p:selectBooleanCheckbox  value="#{opp.rol.LDelete}"/>
+
+
+                        </p:dataList>
+
+                    </p:dataList>
+                    <p:commandButton action="#{controladorOP.guardar()}" value="Logout"/>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
