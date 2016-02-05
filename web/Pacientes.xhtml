@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+        <ui:composition template="/templates/template1.xhtml">
+            <ui:define name="contenido">
+
+                <f:view>
+
+                    <h:form>
+                        <p:growl id="mensaje" autoUpdate="true" showSummary="true" showDetail="true"/>
+                        <p:messages autoUpdate="true" />
+                        <h3><h:outputText value="Paciente"/></h3>
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Código:" />
+                            <p:selectOneMenu value="#{controladorPaciente.paciente.pacCodigo}" valueChangeListener="#{controladorPaciente.valueChangeMethod}" id="selectCodigo">
+                                <f:ajax event="change" render="@form"/>
+                                <f:selectItems value="#{controladorPaciente.pacientes}" var="paciente" itemValue="#{paciente.pacCodigo}" itemLabel="#{paciente.pacCodigo}-#{paciente.pacNombre}" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Nombre:"  />
+                            <p:inputText id="pro_nombre" value="#{controladorPaciente.paciente.pacNombre}" title="pro_nombre" />
+                            <p:outputLabel value="Área Geográfica:"  />
+                            <p:inputText id="pro_area_geografica" value="#{controladorPaciente.paciente.pacAreaGeografica}" title="pro_area_geografica" />
+                           
+                            <p:outputLabel value="Seguro:"  />
+                            <p:inputText id="pro_seguro" value="#{controladorPaciente.paciente.pacSeguro}" title="pro_seguro" />
+                             </p:panelGrid>
+                        <p:commandButton action="#{controladorPaciente.ingresarPaciente()}" value="Insertar" update="tabla selectCodigo" ></p:commandButton>
+                        <p:commandButton action="#{controladorPaciente.actualizarPaciente()}" value="Modificar" update="tabla selectCodigo"></p:commandButton>
+                        <p:commandButton action="#{controladorPaciente.eliminarPaciente()}" value="Eliminar" update="tabla selectCodigo"></p:commandButton>
+                   
+                        <h1><h:outputText value="Lista de Pacientes"/></h1>
+                        <p:dataTable value="#{controladorPaciente.pacientes}" var="item" id="tabla">
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Código"/>
+                                </f:facet>
+                                <h:outputText value="#{item.pacCodigo}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{item.pacNombre}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Seguro"/>
+                                </f:facet>
+                                <h:outputText value="#{item.pacSeguro}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Área Geográfica"/>
+                                </f:facet>
+                                <h:outputText value="#{item.pacAreaGeografica}"/>
+                            </p:column>
+                            </p:dataTable>
+                    </h:form>
+                </f:view>
+
+
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
