@@ -1,0 +1,166 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package Controlador;
+
+import Modelo.Opciones;
+import Modelo.OpcionesPerfil;
+import Modelo.Perfil;
+import Modelo.Rol;
+import Modelo.Sistema;
+import Modelo.Usuario;
+import Servicios.OpcionesFacade;
+import Servicios.OpcionesPerfilFacade;
+import Servicios.PerfilFacade;
+import Servicios.SistemaFacade;
+import Servicios.UsuarioFacade;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.ejb.Stateful;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+/**
+ *
+ * @author Damian
+ */
+@ManagedBean
+@SessionScoped
+public class ControladorPermisos {
+
+    @EJB
+    private SistemaFacade serSis;
+    @EJB
+    private PerfilFacade serPer;
+    @EJB
+    private OpcionesFacade serOpc;
+    @EJB
+    private OpcionesPerfilFacade serOP;
+
+    private List<Sistema> listaSis;
+    private List<Perfil> listaPer;
+    private List<Usuario> listaUsu;
+
+    private Perfil perfil;
+    private Integer codPerfil;
+    private String username;
+    private Usuario usuario;
+
+    @EJB
+    private UsuarioFacade serUsu;
+
+    public ControladorPermisos() {
+        listaSis = new ArrayList<>();
+    }
+
+    @PostConstruct
+    public void cargarDatos() {
+        listaSis = serSis.findAll();
+    }
+
+    public String cargarUsuarioActual() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
+        Object objUser = session.getAttribute("username");
+        if (objUser == null) {
+            System.out.println("No se ha iniciado sesion");
+            return "No se ha iniciado sesion";
+        }
+        username = objUser.toString();
+        System.out.println("Usuario:" + username);
+        getPerfilByUsername();
+        crearOPvacios();
+        return username;
+
+    }
+
+    public Rol getRol(String mod) {
+        if (perfil != null) {
+            for (Sistema sis : listaSis) {
+                for (Opciones opc : sis.getOpcionesList()) {
+                    if (opc.getOpcDescripcion().equals(mod)) {
+                        for (OpcionesPerfil opp : opc.getOpcionesPerfilList()) {
+                            if (opp.getOpcionesPerfilPK().getPerCodigo() == perfil.getPerCodigo()) {
+                                return opp.getRol();
+                            }
+                        }
+                    }
+                }
+            }
+        }else{
+            System.out.println("Perfil null en getRol");
+        }
+
+        return null;
+    }
+
+    public Perfil getPerfilByUsername() {
+        if (username != null) {
+            listaPer = serPer.findAll();
+            listaUsu = serUsu.findAll();
+            for (Usuario usu : listaUsu) {
+                if (usu.getUsuId().equals(username)) {
+                    usuario = usu;
+                    break;
+                }
+            }
+            if (usuario != null) {
+                for (Perfil per : listaPer) {
+                    if (per.getPerCodigo() == usuario.getPerCodigo().getPerCodigo()) {
+                        perfil = per;
+                        return perfil;
+                    }
+                }
+            }else{
+                System.out.println("usuario null en getPerfilByUsername");
+            }
+            return null;
+        }
+        else{
+            System.out.println("username null en getPerfilByUsername");
+        }
+        return null;
+    }
+
+    public void crearOPvacios() {
+        if (perfil != null) {
+            for (Sistema sistema : listaSis) {
+                for (Opciones opcion : sistema.getOpcionesList()) {
+
+                    if (opcion.getOpcionesPerfilList() == null) {
+                        opcion.setOpcionesPerfilList(new ArrayList<>());
+                    }
+                    boolean exist = false;
+                    for (OpcionesPerfil opl : opcion.getOpcionesPerfilList()) {
+                        if (opl.getOpcionesPerfilPK().getPerCodigo() == perfil.getPerCodigo()
+                                && opl.getOpcionesPerfilPK().getOpcCodigo() == opcion.getOpcCodigo()) {
+                            exist = true;
+                        }
+                    }
+                    if (!exist) {
+                        OpcionesPerfil op = new OpcionesPerfil(perfil.getPerCodigo(), opcion.getOpcCodigo());
+                        Rol rol = new Rol(perfil.getPerCodigo(), opcion.getOpcCodigo());
+                        rol.setLSelect(Boolean.FALSE);
+                        rol.setLInsert(Boolean.FALSE);
+                        rol.setLUpdate(Boolean.FALSE);
+                        rol.setLDelete(Boolean.FALSE);
+                        op.setRol(rol);
+                        op.setPerfil(perfil);
+                        opcion.getOpcionesPerfilList().add(op);
+                    }
+
+                }
+            }
+
+        }
+    }
+
+}

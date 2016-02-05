@@ -105,6 +105,7 @@ public class ControladorOpciones implements Serializable {
     public void ingresarOpcion() {
         try {
             System.out.println("Opcion:" + opcion+opcion.getSisCodigo());
+            opcion.setOpcionesPerfilList(new ArrayList<>());
             serOpc.create(opcion);
             this.opciones = serOpc.findAll();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sistema Ingresada", ""));
@@ -163,6 +164,7 @@ public class ControladorOpciones implements Serializable {
         Sistema sis=serSis.find(codSis);
         
         opcion.setSisCodigo(sis);
+        System.out.println("[DEBUG] Asignando sistema:"+codSis);
     }
 
 }

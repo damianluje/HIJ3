@@ -10,7 +10,10 @@
             <ui:define name="contenido">
 
                 <f:view>
-
+                    Permiso en el modulo: C:#{controladorPermisos.getRol("Administrar Sistemas").LInsert}
+                    R:#{controladorPermisos.getRol("Administrar Sistemas").LSelect} 
+                    U:#{controladorPermisos.getRol("Administrar Sistemas").LUpdate} 
+                    D:#{controladorPermisos.getRol("Administrar Sistemas").LDelete}
                     <h:form>
                         <p:growl id="mensaje" autoUpdate="true" showSummary="true" showDetail="true"/>
                         <p:messages autoUpdate="true" />
@@ -24,7 +27,7 @@
                             <p:outputLabel value="Descripción:"  />
                             <p:inputText id="sis_descripcion" value="#{controladorSistema.sistema.sisDescripcion}" title="Sis_descripcion" />
                         </p:panelGrid>
-                        <p:commandButton action="#{controladorSistema.ingresarSistema()}" value="Insertar" update="tabla selectCodigo" ></p:commandButton>
+                        <p:commandButton action="#{controladorSistema.ingresarSistema()}" value="Insertar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol("Administrar Sistemas").LInsert}"></p:commandButton>
                         <p:commandButton action="#{controladorSistema.actualizarSistema()}" value="Modificar" update="tabla selectCodigo"></p:commandButton>
                         <p:commandButton action="#{controladorSistema.eliminarSistema()}" value="Eliminar" update="tabla selectCodigo"></p:commandButton>
                    

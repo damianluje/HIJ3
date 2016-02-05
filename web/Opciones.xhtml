@@ -20,12 +20,13 @@
                             <p:outputLabel value="Código:" />
                             <p:selectOneMenu value="#{controladorOpciones.opcion.opcCodigo}" valueChangeListener="#{controladorOpciones.valueChangeMethod}" id="selectCodigo">
                                 <f:ajax event="change" render="@form"/>
-                                <f:selectItems value="#{controladorOpciones.opciones}" var="varOpcion" itemValue="#{varOpcion.opcCodigo}" itemLabel="#{varOpcion.opcCodigo}-#{varOpcion.opcDescipcion}" />
+                                <f:selectItem itemLabel=""/>
+                                <f:selectItems value="#{controladorOpciones.opciones}" var="varOpcion" itemValue="#{varOpcion.opcCodigo}" itemLabel="#{varOpcion.opcCodigo}-#{varOpcion.opcDescripcion}" />
                             </p:selectOneMenu>
 
 
                             <p:outputLabel value="XeopcDescipcion:"  />
-                            <p:inputText id="xeopcDescipcion" value="#{controladorOpciones.opcion.opcDescipcion}" title="Descipcion" />
+                            <p:inputText id="xeopcDescipcion" value="#{controladorOpciones.opcion.opcDescripcion}" title="Descipcion" />
 
                             <p:outputLabel value="SisCodigo:" />
                             <p:selectOneMenu  valueChangeListener="#{controladorOpciones.valueChangeMethod1}" id="selectSis" value="#{controladorOpciones.codSis}">
@@ -52,7 +53,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="OpcDescipcion"/>
                                 </f:facet>
-                                <h:outputText value="#{item.opcDescipcion}"/>
+                                <h:outputText value="#{item.opcDescripcion}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
