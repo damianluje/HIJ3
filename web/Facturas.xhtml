@@ -35,7 +35,14 @@
                             <p:outputLabel value="Dirección:"  />
                             <p:inputText id="fac_dir" value="#{controladorFactura.factura.sefacDireccion}" title="fac_dir" />
                             <p:outputLabel value="Forma de Pago:"  />
-                            <p:inputText id="fac_forma" value="#{controladorFactura.factura.sefacFormaPago}" title="fac_forma" />
+                            <p:selectOneMenu value="#{controladorFactura.factura.sefacFormaPago}" id="selectFormaPago">
+                                
+                                <f:selectItem itemValue="cheque" itemLabel="cheque"/>
+                                <f:selectItem itemValue="efectivo" itemLabel="efectivo"/>
+                                <f:selectItem itemValue="tarjeta de crédito" itemLabel="tarjeta de crédito"/>
+                                <f:selectItem itemValue="tarjeta de débito" itemLabel="tarjeta de débito"/>
+                                <f:ajax event="valueChange" render="@form"/>
+                            </p:selectOneMenu>
                             <p:outputLabel value="Fecha:"  />
                             <p:calendar id="popup" value="#{controladorFactura.factura.sefacFecha}" pattern="dd/MM/yyyy" >
                             <f:convertDateTime pattern="dd/MM/yyyy" />
