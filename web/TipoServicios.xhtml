@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+        <ui:composition template="/templates/template1.xhtml">
+            <ui:define name="contenido">
+
+                <f:view>
+
+                    <h:form>
+                        <p:growl id="mensaje" autoUpdate="true" showSummary="true" showDetail="true"/>
+                        <p:messages autoUpdate="true" />
+                        <h3><h:outputText value="Tipo de Servicio"/></h3>
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Código:" />
+                            <p:selectOneMenu value="#{controladorTipoServicio.tipoServicio.tsvCodigo}" valueChangeListener="#{controladorTipoServicio.valueChangeMethod}" id="selectCodigo">
+                                <f:ajax event="change" render="@form"/>
+                                <f:selectItems value="#{controladorTipoServicio.tipoServicios}" var="tipoServicio" itemValue="#{tipoServicio.tsvCodigo}" itemLabel="#{tipoServicio.tsvCodigo}-#{tipoServicio.tsvNombre}" />
+                            </p:selectOneMenu>
+                            
+                            <p:outputLabel value="Proveedor:" />
+                            <p:selectOneMenu value="#{controladorTipoServicio.codPro}" valueChangeListener="#{controladorTipoServicio.valueChangeMethod1}" id="selectCodigoProveedor">
+                                <f:ajax event="change" render="@form"/>
+                                <f:selectItems value="#{controladorProveedor.proveedors}" var="proveedor" itemValue="#{proveedor.proCodigo}" itemLabel="#{proveedor.proCodigo}-#{proveedor.proNombre}" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Nombre:"  />
+                            <p:inputText id="tsv_nombre" value="#{controladorTipoServicio.tipoServicio.tsvNombre}" title="tsv_nombre" />
+                            <p:outputLabel value="Costo:"  />
+                            <p:inputText id="tsv_costo" value="#{controladorTipoServicio.tipoServicio.tsvCosto}" title="tsv_costo" />
+                            <p:outputLabel value="Descripción:"  />
+                            <p:inputText id="tsv_descripcion" value="#{controladorTipoServicio.tipoServicio.tsvDescripcion}" title="tsv_descripcion" />
+                            </p:panelGrid>
+                        <p:commandButton action="#{controladorTipoServicio.ingresarTipoServicio()}" value="Insertar" update="tabla selectCodigo" ></p:commandButton>
+                        <p:commandButton action="#{controladorTipoServicio.actualizarTipoServicio()}" value="Modificar" update="tabla selectCodigo"></p:commandButton>
+                        <p:commandButton action="#{controladorTipoServicio.eliminarTipoServicio()}" value="Eliminar" update="tabla selectCodigo"></p:commandButton>
+                   
+                        <h1><h:outputText value="Lista de Tipo de Servicios"/></h1>
+                        <p:dataTable value="#{controladorTipoServicio.tipoServicios}" var="item" id="tabla">
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Código"/>
+                                </f:facet>
+                                <h:outputText value="#{item.tsvCodigo}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Proveedor"/>
+                                </f:facet>
+                                <h:outputText value="#{item.proCodigo.proNombre}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{item.tsvNombre}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Costo"/>
+                                </f:facet>
+                                <h:outputText value="#{item.tsvCodigo}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Descripción"/>
+                                </f:facet>
+                                <h:outputText value="#{item.tsvDescripcion}"/>
+                            </p:column>
+                            </p:dataTable>
+                    </h:form>
+                </f:view>
+
+
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
