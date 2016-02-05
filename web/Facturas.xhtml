@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:body>
+        <ui:composition template="/templates/template1.xhtml">
+            <ui:define name="contenido">
+
+                <f:view>
+
+                    <h:form>
+                        <p:growl id="mensaje" autoUpdate="true" showSummary="true" showDetail="true"/>
+                        <p:messages autoUpdate="true" />
+                        <h3><h:outputText value="Factura"/></h3>
+                        <p:panelGrid columns="6">
+                            <p:outputLabel value="Número:" />
+                            <p:selectOneMenu value="#{controladorFactura.factura.facCodigo}" valueChangeListener="#{controladorFactura.valueChangeMethod}" id="selectCodigo">
+                                <f:ajax event="change" render="@form"/>
+                                <f:selectItems value="#{controladorFactura.facturas}" var="factura" itemValue="#{factura.facCodigo}" itemLabel="N:#{factura.facCodigo}" />
+                            </p:selectOneMenu>
+                            
+                            <p:outputLabel value="Paciente:" />
+                            <p:selectOneMenu value="#{controladorFactura.codPac}" valueChangeListener="#{controladorFactura.valueChangeMethodPaciente}" id="selectCodigoPaciente">
+                                <f:ajax event="change" render="@form"/>
+                                <f:selectItems value="#{controladorPaciente.pacientes}" var="paciente" itemValue="#{paciente.pacCodigo}" itemLabel="#{paciente.pacCodigo}-#{paciente.pacNombre}" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Empleado:" />
+                            <p:selectOneMenu value="#{controladorFactura.codEmp}" valueChangeListener="#{controladorFactura.valueChangeMethodEmpleado}" id="selectCodigoEmpleado">
+                                <f:ajax event="change" render="@form"/>
+                                <f:selectItems value="#{controladorEmpleado.empleados}" var="empleado" itemValue="#{empleado.empCodigo}" itemLabel="#{empleado.empNombres}" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Dirección:"  />
+                            <p:inputText id="fac_dir" value="#{controladorFactura.factura.sefacDireccion}" title="fac_dir" />
+                            <p:outputLabel value="Forma de Pago:"  />
+                            <p:inputText id="fac_forma" value="#{controladorFactura.factura.sefacFormaPago}" title="fac_forma" />
+                            <p:outputLabel value="Fecha:"  />
+                            <p:calendar id="popup" value="#{controladorFactura.factura.sefacFecha}" pattern="dd/MM/yyyy" >
+                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                            </p:calendar>
+                            </p:panelGrid>
+                        <p:commandButton action="#{controladorFactura.ingresarFactura()}" value="Insertar" update="tabla selectCodigo" ></p:commandButton>
+                        <p:commandButton action="#{controladorFactura.actualizarFactura()}" value="Modificar" update="tabla selectCodigo"></p:commandButton>
+                        <p:commandButton action="#{controladorFactura.eliminarFactura()}" value="Eliminar" update="tabla selectCodigo"></p:commandButton>
+                   
+                        <h1><h:outputText value="Lista de Facturas"/></h1>
+                        <p:dataTable value="#{controladorFactura.facturas}" var="item" id="tabla">
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Número:"/>
+                                </f:facet>
+                                <h:outputText value="N:#{item.facCodigo}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Paciente"/>
+                                </f:facet>
+                                <h:outputText value="#{item.pacCodigo.pacCodigo}-#{item.pacCodigo.pacNombre}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Empleado"/>
+                                </f:facet>
+                                <h:outputText value="#{item.empCodigo.empNombres}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Fecha"/>
+                                </f:facet>
+                                <h:outputText value="#{item.sefacFecha}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Dirección"/>
+                                </f:facet>
+                                <h:outputText value="#{item.sefacDireccion}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Forma de Pago"/>
+                                </f:facet>
+                                <h:outputText value="#{item.sefacFormaPago}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Subtotal"/>
+                                </f:facet>
+                                <h:outputText value="#{item.sefacSubtotal}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Iva"/>
+                                </f:facet>
+                                <h:outputText value="#{item.sefacIva}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Total"/>
+                                </f:facet>
+                                <h:outputText value="#{item.sefacTotal}"/>
+                            </p:column>
+                            </p:dataTable>
+                    </h:form>
+                </f:view>
+
+
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
