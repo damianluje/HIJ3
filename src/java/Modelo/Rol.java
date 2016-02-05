@@ -131,7 +131,10 @@ public class Rol implements Serializable {
 
     @Override
     public String toString() {
-        return "Modelo.Rol[ rolPK=" + rolPK + " ]";
+        return "Rol{" + "rolPK=" + rolPK + ", lIn_sert=" + lIn_sert + ", lUp_date=" + lUp_date + ", lDe_lete=" + lDe_lete + ", lSe_lect=" + lSe_lect + '}';
     }
+
+    
+    
     
 }

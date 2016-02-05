@@ -31,6 +31,7 @@ public class ControladorSistema implements Serializable {
 
     private Sistema sistema;
     private List<Sistema> sistemas;
+    private Integer codSistema;
 
     public ControladorSistema() {
         sistema = new Sistema();
@@ -79,6 +80,22 @@ public class ControladorSistema implements Serializable {
         }
         
     }
+
+    public Integer getCodSistema() {
+        return codSistema;
+    }
+
+    public void setCodSistema(Integer codSistema) {
+        this.codSistema = codSistema;
+        for (int i = 0; i < sistemas.size(); i++) {
+            Sistema sis = sistemas.get(i);
+            if (sis.getSisCodigo()==codSistema) {
+                sistema=sis;
+            }
+        }
+    }
+    
+    
     
 
     public void ingresarSistema() {

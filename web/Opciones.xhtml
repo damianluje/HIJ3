@@ -20,6 +20,7 @@
                             <p:outputLabel value="Código:" />
                             <p:selectOneMenu value="#{controladorOpciones.opcion.opcCodigo}" valueChangeListener="#{controladorOpciones.valueChangeMethod}" id="selectCodigo">
                                 <f:ajax event="change" render="@form"/>
+                                <f:selectItem itemLabel=""/>
                                 <f:selectItems value="#{controladorOpciones.opciones}" var="varOpcion" itemValue="#{varOpcion.opcCodigo}" itemLabel="#{varOpcion.opcCodigo}-#{varOpcion.opcDescripcion}" />
                             </p:selectOneMenu>
 

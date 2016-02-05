@@ -15,6 +15,7 @@
                 <h:form>
                     <p:selectOneMenu  valueChangeListener="#{controladorOP.valueChangeMethod}" id="selectPer" value="#{controladorOP.codPerfil}">
                         <f:ajax event="change" render="datos"/>
+                        <f:selectItem itemLabel=""/>
                         <f:selectItems value="#{controladorPerfil.perfils}" var="perfil" itemValue="#{perfil.perCodigo}" itemLabel="#{perfil.perCodigo}-#{perfil.perDescripcion}" />
                     </p:selectOneMenu>
 
