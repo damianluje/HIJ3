@@ -61,7 +61,7 @@ public class Factura implements Serializable {
     @Column(name = "SEFAC_TOTAL")
     private Double sefacTotal;
     @Column(name = "SEFAC_IVA")
-    private Double sefacIva;
+    private Double sefacIva=0.12;
     @Size(max = 100)
     @Column(name = "SEFAC_FORMA_PAGO")
     private String sefacFormaPago;

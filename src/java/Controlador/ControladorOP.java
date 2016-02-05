@@ -66,7 +66,7 @@ public class ControladorOP implements Serializable {
                 for (Opciones opcion : sistema.getOpcionesList()) {
 
                     if (opcion.getOpcionesPerfilList() == null) {
-                        opcion.setOpcionesPerfilList(new ArrayList<>());
+                        opcion.setOpcionesPerfilList(new ArrayList<OpcionesPerfil>());
                     }
                     boolean exist = false;
                     for (OpcionesPerfil opl : opcion.getOpcionesPerfilList()) {

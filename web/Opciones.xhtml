@@ -14,18 +14,18 @@
                     <h:form>
                         <p:growl id="mensaje" autoUpdate="true" showSummary="true" showDetail="true"/>
                         <p:messages autoUpdate="true" />
-                        <h3><h:outputText value="Sistemas"/></h3>
+                        <h3><h:outputText value="Opción"/></h3>
                         
                         <p:panelGrid columns="2">
                             <p:outputLabel value="Código:" />
                             <p:selectOneMenu value="#{controladorOpciones.opcion.opcCodigo}" valueChangeListener="#{controladorOpciones.valueChangeMethod}" id="selectCodigo">
                                 <f:ajax event="change" render="@form"/>
-                                <f:selectItems value="#{controladorOpciones.opciones}" var="varOpcion" itemValue="#{varOpcion.opcCodigo}" itemLabel="#{varOpcion.opcCodigo}-#{varOpcion.opcDescipcion}" />
+                                <f:selectItems value="#{controladorOpciones.opciones}" var="varOpcion" itemValue="#{varOpcion.opcCodigo}" itemLabel="#{varOpcion.opcCodigo}-#{varOpcion.opcDescripcion}" />
                             </p:selectOneMenu>
 
 
                             <p:outputLabel value="XeopcDescipcion:"  />
-                            <p:inputText id="xeopcDescipcion" value="#{controladorOpciones.opcion.opcDescipcion}" title="Descipcion" />
+                            <p:inputText id="xeopcDescipcion" value="#{controladorOpciones.opcion.opcDescripcion}" title="Descipcion" />
 
                             <p:outputLabel value="SisCodigo:" />
                             <p:selectOneMenu  valueChangeListener="#{controladorOpciones.valueChangeMethod1}" id="selectSis" value="#{controladorOpciones.codSis}">
@@ -39,7 +39,7 @@
                         <p:commandButton action="#{controladorOpciones.actualizarOpcion()}" value="Modificar" update="tabla selectCodigo"></p:commandButton>
                         <p:commandButton action="#{controladorOpciones.eliminarOpcion()}" value="Eliminar" update="tabla selectCodigo"></p:commandButton>
 
-                        <h1><h:outputText value="Lista de Sistemas"/></h1>
+                        <h1><h:outputText value="Lista de Opciones"/></h1>
 
                         <p:dataTable value="#{controladorOpciones.opciones}" var="item" id="tabla" >
                             <p:column>
@@ -52,7 +52,7 @@
                                 <f:facet name="header">
                                     <h:outputText value="OpcDescipcion"/>
                                 </f:facet>
-                                <h:outputText value="#{item.opcDescipcion}"/>
+                                <h:outputText value="#{item.opcDescripcion}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
