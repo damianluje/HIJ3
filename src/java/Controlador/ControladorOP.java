@@ -56,12 +56,15 @@ public class ControladorOP implements Serializable {
 
     @PostConstruct
     public void cargarDatos() {
+        System.out.println("[DEBUG ControladorOP] serSis hash:"+serSis.hashCode());
+        
         listaOP = serOP.findAll();
         listaSis = serSis.findAll();
     }
 
     public void crearOPvacios() {
         if (perfil != null) {
+            cargarDatos();
             for (Sistema sistema : listaSis) {
                 for (Opciones opcion : sistema.getOpcionesList()) {
 
@@ -115,7 +118,6 @@ public class ControladorOP implements Serializable {
         for (Sistema sis : listaSis) {
             serSis.edit(sis);
         }
-        serSis.flush();
     }
 
     public void valueChangeMethod(ValueChangeEvent e) {

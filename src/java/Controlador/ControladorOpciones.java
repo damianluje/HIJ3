@@ -107,6 +107,7 @@ public class ControladorOpciones implements Serializable {
             System.out.println("Opcion:" + opcion+opcion.getSisCodigo());
             opcion.setOpcionesPerfilList(new ArrayList<>());
             serOpc.create(opcion);
+            
             this.opciones = serOpc.findAll();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sistema Ingresada", ""));
         } catch (Exception e) {

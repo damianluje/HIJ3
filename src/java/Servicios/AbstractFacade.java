@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
  * @author Damian
  */
 public abstract class AbstractFacade<T> {
+
     private Class<T> entityClass;
 
     public AbstractFacade(Class<T> entityClass) {
@@ -22,35 +23,51 @@ public abstract class AbstractFacade<T> {
 
     protected abstract EntityManager getEntityManager();
 
-    public void create(T entity) {
-        getEntityManager().persist(entity);
+    public boolean contains(T entity) {
+        return getEntityManager().contains(entity);
     }
 
-    public void edit(T entity) {
-        getEntityManager().merge(entity);
+    public void clearAll() {
+        getEntityManager().getEntityManagerFactory().getCache().evictAll();
     }
-    
-    public void flush(){
+
+    public void create(T entity) {
+        getEntityManager().persist(entity);
+        flush();
+
+    }
+
+    public T edit(T entity) {
+        T res=getEntityManager().merge(entity);
+        flush();
+        return res;
+    }
+
+    public void flush() {
         getEntityManager().flush();
+        //clear();
     }
-    
-    public void commit(){
+
+    public void commit() {
         getEntityManager().getTransaction().commit();
     }
 
     public void remove(T entity) {
         getEntityManager().remove(getEntityManager().merge(entity));
+        flush();
     }
 
     public T find(Object id) {
         return getEntityManager().find(entityClass, id);
     }
-    
-    public void clear(){
+
+    public void clear() {
         getEntityManager().clear();
+
     }
 
     public List<T> findAll() {
+        clearAll();
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));
         return getEntityManager().createQuery(cq).getResultList();
@@ -72,5 +89,5 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
-    
+
 }

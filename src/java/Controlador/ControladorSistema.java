@@ -41,6 +41,7 @@ public class ControladorSistema implements Serializable {
 
     @PostConstruct
     public void cargarDatos() {
+        System.out.println("[DEBUG ControladorSistema] serSis hash:"+serPer.hashCode());
         sistemas = serPer.findAll();
 //        System.out.println(sistemas);
     }
@@ -100,6 +101,7 @@ public class ControladorSistema implements Serializable {
 
     public void ingresarSistema() {
         try {
+            sistema.setOpcionesList(new ArrayList<>());
             serPer.create(sistema);
             this.sistemas = serPer.findAll();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sistema Ingresada", ""));

@@ -21,24 +21,24 @@
 
                     <p:dataList value="#{controladorOP.listaSis}" var="sis" id="datos">
                         <f:facet name="header">
-                            Basic
+                            Sistemas
                         </f:facet>
                         <b>#{sis.sisCodigo}-#{sis.sisDescripcion}</b><br/>
 
                         <p:dataList value="#{sis.opcionesList}" var="opc" id="datos1">
                             <f:facet name="header">
-                                Basic
+                                #{sis.sisDescripcion}
                             </f:facet>
                             #{opc.opcCodigo}-#{opc.opcDescripcion}<br/>
-                            Select
+                            
                             <p:selectBooleanCheckbox  value="#{controladorOP.getRol(opc.opcCodigo).LSelect}"/>
-                            insert
+                            Select   
                             <p:selectBooleanCheckbox  value="#{controladorOP.getRol(opc.opcCodigo).LInsert}"/>
-                            Update
+                            Insert   
                             <p:selectBooleanCheckbox  value="#{controladorOP.getRol(opc.opcCodigo).LUpdate}"/>
-                            Delete
+                            Update   
                             <p:selectBooleanCheckbox  value="#{controladorOP.getRol(opc.opcCodigo).LDelete}"/>
-
+                            Delete   
 
                         </p:dataList>
 

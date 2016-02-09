@@ -40,10 +40,6 @@ public class ControladorPermisos {
     private SistemaFacade serSis;
     @EJB
     private PerfilFacade serPer;
-    @EJB
-    private OpcionesFacade serOpc;
-    @EJB
-    private OpcionesPerfilFacade serOP;
 
     private List<Sistema> listaSis;
     private List<Perfil> listaPer;
@@ -63,7 +59,10 @@ public class ControladorPermisos {
 
     @PostConstruct
     public void cargarDatos() {
+        System.out.println("[DEBUG ControladorPermisos] serSis hash:"+serSis.hashCode());
+        
         listaSis = serSis.findAll();
+        
     }
 
     public String cargarUsuarioActual() {
@@ -77,6 +76,7 @@ public class ControladorPermisos {
         username = objUser.toString();
         System.out.println("Usuario:" + username);
         getPerfilByUsername();
+        cargarDatos();
         crearOPvacios();
         return username;
 
@@ -90,7 +90,7 @@ public class ControladorPermisos {
                     if (opc.getOpcDescripcion().equals(mod)) {
                         for (OpcionesPerfil opp : opc.getOpcionesPerfilList()) {
                             if (opp.getOpcionesPerfilPK().getPerCodigo() == perfil.getPerCodigo()) {
-                                System.out.println("[DEBUG] "+opp.getRol());
+                                System.out.println("[DEBUG ControladorPermisos] "+opp.getRol());
                                 return opp.getRol();
                             }
                         }
@@ -134,9 +134,14 @@ public class ControladorPermisos {
 
     public void crearOPvacios() {
         if (perfil != null) {
+            serSis.clear();
+            cargarDatos();
+            
             for (Sistema sistema : listaSis) {
+                //System.out.println("**[DEBUG ControladorPermisos] contains "+serSis.contains(sistema));
+                System.out.println("[DEBUG ControladorPermisos] Sistema:"+sistema.getSisDescripcion());
                 for (Opciones opcion : sistema.getOpcionesList()) {
-
+                    System.out.println("[DEBUG ControladorPermisos] "+opcion.getOpcDescripcion());
                     if (opcion.getOpcionesPerfilList() == null) {
                         opcion.setOpcionesPerfilList(new ArrayList<>());
                     }
@@ -160,8 +165,13 @@ public class ControladorPermisos {
                     }
 
                 }
+                serSis.edit(sistema);
+                //System.out.println("**[DEBUG ControladorPermisos] contains "+sistema.getSisDescripcion()+" "+serSis.contains(sistema));
             }
-
+            System.out.println("-----------------------------------------------");
+            //serSis.clear();
+        }else{
+            System.out.println("perfil null en crearOPvacios");
         }
     }
 
