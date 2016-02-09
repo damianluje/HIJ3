@@ -41,7 +41,7 @@ public class ControladorSistema implements Serializable {
 
     @PostConstruct
     public void cargarDatos() {
-        System.out.println("[DEBUG ControladorSistema] serSis hash:"+serPer.hashCode());
+        //System.out.println("[DEBUG ControladorSistema] serSis hash:"+serPer.hashCode());
         sistemas = serPer.findAll();
 //        System.out.println(sistemas);
     }

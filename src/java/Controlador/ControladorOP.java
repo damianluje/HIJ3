@@ -56,7 +56,7 @@ public class ControladorOP implements Serializable {
 
     @PostConstruct
     public void cargarDatos() {
-        System.out.println("[DEBUG ControladorOP] serSis hash:"+serSis.hashCode());
+        //System.out.println("[DEBUG ControladorOP] serSis hash:"+serSis.hashCode());
         
         listaOP = serOP.findAll();
         listaSis = serSis.findAll();

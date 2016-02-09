@@ -136,7 +136,7 @@ public class ControladorOpcionesPerfil implements Serializable {
 
                 }
             }
-            System.out.println("[Debug] OpcionesPerfil:" + opcionesPerfil);
+            //System.out.println("[Debug] OpcionesPerfil:" + opcionesPerfil);
             guardar();
             cargarOpcionesPerfil();
 

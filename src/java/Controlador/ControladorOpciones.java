@@ -62,7 +62,7 @@ public class ControladorOpciones implements Serializable {
     public void actualizarOpcion() {
         //System.out.println("*************" + opcion.getCodigoSistema());
         serOpc.edit(opcion);
-        System.out.println("Actualizando Opcion: "+opcion+opcion.getSisCodigo());
+        //System.out.println("Actualizando Opcion: "+opcion+opcion.getSisCodigo());
         limpiar();
     }
 

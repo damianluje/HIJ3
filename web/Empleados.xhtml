@@ -19,6 +19,7 @@
                             <p:outputLabel value="Código:" />
                             <p:selectOneMenu value="#{controladorEmpleado.empleado.empCodigo}" valueChangeListener="#{controladorEmpleado.valueChangeMethod}" id="selectCodigo">
                                 <f:ajax event="change" render="@form"/>
+                                <f:selectItem itemLabel=""/>
                                 <f:selectItems value="#{controladorEmpleado.empleados}" var="empleado" itemValue="#{empleado.empCodigo}" itemLabel="#{empleado.empCodigo}-#{empleado.empNombres}" />
                             </p:selectOneMenu>
                             <p:outputLabel value="Nombres:"  />

@@ -59,7 +59,7 @@ public class ControladorPermisos {
 
     @PostConstruct
     public void cargarDatos() {
-        System.out.println("[DEBUG ControladorPermisos] serSis hash:"+serSis.hashCode());
+        //System.out.println("[DEBUG ControladorPermisos] serSis hash:"+serSis.hashCode());
         
         listaSis = serSis.findAll();
         
@@ -74,7 +74,7 @@ public class ControladorPermisos {
             return "No se ha iniciado sesion";
         }
         username = objUser.toString();
-        System.out.println("Usuario:" + username);
+        System.out.println("[INFO] Usuario:" + username);
         getPerfilByUsername();
         cargarDatos();
         crearOPvacios();
@@ -139,9 +139,9 @@ public class ControladorPermisos {
             
             for (Sistema sistema : listaSis) {
                 //System.out.println("**[DEBUG ControladorPermisos] contains "+serSis.contains(sistema));
-                System.out.println("[DEBUG ControladorPermisos] Sistema:"+sistema.getSisDescripcion());
+                //System.out.println("[DEBUG ControladorPermisos] Sistema:"+sistema.getSisDescripcion());
                 for (Opciones opcion : sistema.getOpcionesList()) {
-                    System.out.println("[DEBUG ControladorPermisos] "+opcion.getOpcDescripcion());
+                    //System.out.println("[DEBUG ControladorPermisos] "+opcion.getOpcDescripcion());
                     if (opcion.getOpcionesPerfilList() == null) {
                         opcion.setOpcionesPerfilList(new ArrayList<>());
                     }
@@ -168,7 +168,7 @@ public class ControladorPermisos {
                 serSis.edit(sistema);
                 //System.out.println("**[DEBUG ControladorPermisos] contains "+sistema.getSisDescripcion()+" "+serSis.contains(sistema));
             }
-            System.out.println("-----------------------------------------------");
+            //System.out.println("-----------------------------------------------");
             //serSis.clear();
         }else{
             System.out.println("perfil null en crearOPvacios");
