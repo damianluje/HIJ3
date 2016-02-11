@@ -98,6 +98,11 @@ public class ControladorPermisos {
                 }
             }
         }else{
+            Rol r=new Rol();
+            r.setLDelete(Boolean.FALSE);
+            r.setLInsert(Boolean.FALSE);
+            r.setLSelect(Boolean.FALSE);
+            r.setLUpdate(Boolean.FALSE);
             System.out.println("Perfil null en getRol");
         }
 

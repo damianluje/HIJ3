@@ -118,6 +118,7 @@ public class ControladorOP implements Serializable {
         for (Sistema sis : listaSis) {
             serSis.edit(sis);
         }
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Roles Guardados", ""));
     }
 
     public void valueChangeMethod(ValueChangeEvent e) {

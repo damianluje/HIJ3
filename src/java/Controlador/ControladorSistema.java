@@ -102,13 +102,14 @@ public class ControladorSistema implements Serializable {
     public void ingresarSistema() {
         try {
             sistema.setOpcionesList(new ArrayList<>());
+            sistema.setSisCodigo(null);
             serPer.create(sistema);
             this.sistemas = serPer.findAll();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sistema Ingresada", ""));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sistema Ingresado", ""));
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), ""));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "Error al ingresar el Sistema"));
         }
         limpiar();
     }

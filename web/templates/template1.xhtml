@@ -4,7 +4,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:head>
         <title>Facelet Title</title>
         <!--<h:outputStylesheet  name="css/style.css" />-->
@@ -14,6 +15,13 @@
 
         <f:view>
             <h:form>
+                <c:set var="opcAdmOpc" value="Administrar Opciones" />
+                <c:set var="opcAdmSis" value="Administrar Sistemas" />
+                <c:set var="opcAdmUsu" value="Administrar Usuarios" />
+                <c:set var="opcAdmPer" value="Administrar Perfiles" />
+                <c:set var="opcAdmRol" value="Administrar Roles" />
+                <c:set var="opcAdmEmp" value="Administrar Empleados" />
+                <c:set var="opcAdmPro" value="Administrar Proveedores" />
                 <p:growl id="messages" showDetail="false"/>
 
                 <div id="MENUSIDE">
@@ -21,24 +29,40 @@
                         <h3>MENU</h3>
                         <p:menu toggleable="true" >
                             <p:submenu label="Seguridades">
-                                <p:menuitem value="Sistemas" url="Sistemas.xhtml" icon="ui-icon-home"/>
-                                <p:menuitem value="Usuarios" url="Usuarios.xhtml" icon="ui-icon-home"/>
-                                <p:menuitem value="Opciones" url="Opciones.xhtml" icon="ui-icon-home"/>
-                                <p:menuitem value="Perfiles" url="Perfiles.xhtml" icon="ui-icon-home"/>
-                                <p:menuitem value="Roles" url="OP.xhtml" icon="ui-icon-home"/>
+                                <p:menuitem value="Sistemas" url="Sistemas.xhtml" icon="ui-icon-home" 
+                                            styleClass="#{view.viewId == '/Sistemas.xhtml' ? 'ui-state-active' : ''}"/>
+                                <p:menuitem value="Usuarios" url="Usuarios.xhtml" icon="ui-icon-home" 
+                                            styleClass="#{view.viewId == '/Usuarios.xhtml' ? 'ui-state-active' : ''}"/>
+                                <p:menuitem value="Opciones" url="Opciones.xhtml" icon="ui-icon-home"
+                                            styleClass="#{view.viewId == '/Opciones.xhtml' ? 'ui-state-active' : ''}"/>
+                                <p:menuitem value="Perfiles" url="Perfiles.xhtml" icon="ui-icon-home"
+                                            styleClass="#{view.viewId == '/Perfiles.xhtml' ? 'ui-state-active' : ''}"/>
+                                <p:menuitem value="Roles" url="OP.xhtml" icon="ui-icon-home"
+                                            styleClass="#{view.viewId == '/OP.xhtml' ? 'ui-state-active' : ''}"/>
                             </p:submenu>
                             <p:submenu label="Personal">
-                                <p:menuitem value="Empleados" url="Empleados.xhtml" icon="ui-icon-home"/>
+                                <p:menuitem value="Empleados" url="Empleados.xhtml" icon="ui-icon-home"
+                                            styleClass="#{view.viewId == '/Empleados.xhtml' ? 'ui-state-active' : ''}"/>
                             </p:submenu>
                             <p:submenu label="Salud">
-                                <p:menuitem value="Proveedores" url="Proveedores.xhtml" icon="ui-icon-home" disabled="true"/>
-                                <p:menuitem value="Tipo de Servicios" url="TipoServicios.xhtml" icon="ui-icon-home"/>
-                                <p:menuitem value="Pacientes" url="Pacientes.xhtml" icon="ui-icon-home"/>
-                                <p:menuitem value="Facturas" url="Facturas.xhtml" icon="ui-icon-home"/>
-                                <p:menuitem value="Detalles por Factura" url="DetallesFactura.xhtml" icon="ui-icon-home"/>
+                                <p:menuitem value="Proveedores" url="Proveedores.xhtml" icon="ui-icon-home" 
+                                            disabled="#{!controladorPermisos.getRol(opcAdmPro).LSelect 
+                                                        and !controladorPermisos.getRol(opcAdmPro).LInsert
+                                                        and !controladorPermisos.getRol(opcAdmPro).LUpdate
+                                                        and !controladorPermisos.getRol(opcAdmPro).LDelete}" 
+                                            styleClass="#{view.viewId == '/Proveedores.xhtml' ? 'ui-state-active' : ''}"/>
+                                <p:menuitem value="Tipo de Servicios" url="TipoServicios.xhtml" icon="ui-icon-home"
+                                            styleClass="#{view.viewId == '/TipoServicios.xhtml' ? 'ui-state-active' : ''}"/>
+                                <p:menuitem value="Pacientes" url="Pacientes.xhtml" icon="ui-icon-home"
+                                            styleClass="#{view.viewId == '/Pacientes.xhtml' ? 'ui-state-active' : ''}"/>
+                                <p:menuitem value="Facturas" url="Facturas.xhtml" icon="ui-icon-home"
+                                            styleClass="#{view.viewId == '/Facturas.xhtml' ? 'ui-state-active' : ''}"/>
+                                <p:menuitem value="Detalles por Factura" url="DetallesFactura.xhtml" icon="ui-icon-home"
+                                            styleClass="#{view.viewId == '/DetallesFactura.xhtml' ? 'ui-state-active' : ''}"/>
                             </p:submenu>
                             <p:submenu label="Acceso">
-                                <p:menuitem value="Admin" url="admin.xhtml" icon="ui-icon-home"/>
+                                <p:menuitem value="Admin" url="admin.xhtml" icon="ui-icon-home"
+                                            styleClass="#{view.viewId == '/admin.xhtml' ? 'ui-state-active' : ''}"/>
                             </p:submenu>
                         </p:menu>
                     </div>
@@ -46,7 +70,10 @@
 
                 <div id="CONTENTSIDE">
                     Usuario en el sistema: #{controladorPermisos.cargarUsuarioActual()}
-                    
+                    #{!controladorPermisos.getRol(opcAdmPro).LSelect 
+                                                        and !controladorPermisos.getRol(opcAdmPro).LInsert
+                                                        and !controladorPermisos.getRol(opcAdmPro).LUpdate
+                                                        and !controladorPermisos.getRol(opcAdmPro).LDelete}
                     <div id="CONTENTSIDEindent">
                         <ui:insert name="contenido">
                         </ui:insert>

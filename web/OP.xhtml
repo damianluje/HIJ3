@@ -13,6 +13,8 @@
         <ui:composition template="/templates/template1.xhtml">
             <ui:define name="contenido">
                 <h:form>
+                    <p:growl id="mensaje" autoUpdate="true" showSummary="true" showDetail="true"/>
+                    <p:messages autoUpdate="true" />
                     <p:selectOneMenu  valueChangeListener="#{controladorOP.valueChangeMethod}" id="selectPer" value="#{controladorOP.codPerfil}">
                         <f:ajax event="change" render="datos"/>
                         <f:selectItem itemLabel=""/>
@@ -23,22 +25,20 @@
                         <f:facet name="header">
                             Sistemas
                         </f:facet>
-                        <b>#{sis.sisCodigo}-#{sis.sisDescripcion}</b><br/>
-
                         <p:dataList value="#{sis.opcionesList}" var="opc" id="datos1">
                             <f:facet name="header">
                                 #{sis.sisDescripcion}
                             </f:facet>
                             #{opc.opcCodigo}-#{opc.opcDescripcion}<br/>
-                            
+
                             <p:selectBooleanCheckbox  value="#{controladorOP.getRol(opc.opcCodigo).LSelect}"/>
-                            Select   
+                            <i>Select  </i> 
                             <p:selectBooleanCheckbox  value="#{controladorOP.getRol(opc.opcCodigo).LInsert}"/>
-                            Insert   
+                            <i>Insert  </i>  
                             <p:selectBooleanCheckbox  value="#{controladorOP.getRol(opc.opcCodigo).LUpdate}"/>
-                            Update   
+                            <i>Update   </i> 
                             <p:selectBooleanCheckbox  value="#{controladorOP.getRol(opc.opcCodigo).LDelete}"/>
-                            Delete   
+                            <i>Delete   </i> 
 
                         </p:dataList>
 

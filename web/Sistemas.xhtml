@@ -23,6 +23,7 @@
                             <p:outputLabel value="Código:" />
                             <p:selectOneMenu value="#{controladorSistema.sistema.sisCodigo}" valueChangeListener="#{controladorSistema.valueChangeMethod}" id="selectCodigo">
                                 <f:ajax event="change" render="@form"/>
+                                <f:selectItem itemLabel=""/>
                                 <f:selectItems value="#{controladorSistema.sistemas}" var="sistema" itemValue="#{sistema.sisCodigo}" itemLabel="#{sistema.sisCodigo}-#{sistema.sisDescripcion}" />
                             </p:selectOneMenu>
                             <p:outputLabel value="Descripción:"  />
