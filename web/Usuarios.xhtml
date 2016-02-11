@@ -36,8 +36,8 @@
                             <p:outputLabel value="UsuId:" for="usuId" />
                             <p:inputText id="usuId" value="#{controladorUsuario.usuario.usuId}" title="UsuId" />
                             <p:outputLabel value="UsuPassword:"/>
-                            <p:password  id="firstname" value="#{controladorUsuario.password}">
-                                <p:ajax event="keyup" update="outHash" listener="#{controladorUsuario.handleKeyEvent}"/>
+                            <p:password  id="firstname" value="#{controladorUsuario.password}" feedback="true">
+                                <p:ajax event="keyup" update="outHash" listener="#{controladorUsuario.handleKeyEvent}"  />
                             </p:password>
                             <p:outputLabel value="Hash"/>
                             <h:outputText id="outHash" value="#{controladorUsuario.usuario.usuPassword}" />

@@ -12,19 +12,19 @@
         <ui:composition template="/templates/template1.xhtml">
             <ui:define name="contenido">
                 <h:form>
-                    <h3>JSF Login Logout</h3>
-                    <h:outputText value="Username" />
-                    <h:inputText id="username" value="#{controladorLogin.user}"></h:inputText>
-                    <h:message for="username"></h:message>
+                    <h3>Ingreso al Sistema</h3>
+                    <h:outputText value="Usuario: " />
+                    <p:inputText id="username" value="#{controladorLogin.user}"></p:inputText>
+                    <p:message for="username"></p:message>
+                    
+
+                    <h:outputText value="Contraseña: " />
+                    <p:password id="password" value="#{controladorLogin.pwd}"></p:password>
+                    <p:message for="password"></p:message>
                     <br /><br />
 
-                    <h:outputText value="Password" />
-                    <h:inputSecret id="password" value="#{controladorLogin.pwd}"></h:inputSecret>
-                    <h:message for="password"></h:message>
-                    <br /><br />
-
-                    <h:commandButton action="#{controladorLogin.validateUsernamePassword}"
-                                     value="Login"></h:commandButton>
+                    <p:commandButton action="#{controladorLogin.validateUsernamePassword}"
+                                     value="Ingresar"></p:commandButton>
                 </h:form>
             </ui:define>
         </ui:composition>

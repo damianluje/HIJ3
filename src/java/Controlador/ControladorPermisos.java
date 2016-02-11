@@ -90,7 +90,7 @@ public class ControladorPermisos {
                     if (opc.getOpcDescripcion().equals(mod)) {
                         for (OpcionesPerfil opp : opc.getOpcionesPerfilList()) {
                             if (opp.getOpcionesPerfilPK().getPerCodigo() == perfil.getPerCodigo()) {
-                                System.out.println("[DEBUG ControladorPermisos] "+opp.getRol());
+                                //System.out.println("[DEBUG ControladorPermisos] "+opp.getRol());
                                 return opp.getRol();
                             }
                         }

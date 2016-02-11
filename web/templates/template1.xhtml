@@ -22,6 +22,8 @@
                 <c:set var="opcAdmRol" value="Administrar Roles" />
                 <c:set var="opcAdmEmp" value="Administrar Empleados" />
                 <c:set var="opcAdmPro" value="Administrar Proveedores" />
+                
+                
                 <p:growl id="messages" showDetail="false"/>
 
                 <div id="MENUSIDE">
@@ -30,18 +32,38 @@
                         <p:menu toggleable="true" >
                             <p:submenu label="Seguridades">
                                 <p:menuitem value="Sistemas" url="Sistemas.xhtml" icon="ui-icon-home" 
+                                            disabled="#{!controladorPermisos.getRol(opcAdmSis).LSelect 
+                                                        and !controladorPermisos.getRol(opcAdmSis).LInsert
+                                                        and !controladorPermisos.getRol(opcAdmSis).LUpdate
+                                                        and !controladorPermisos.getRol(opcAdmSis).LDelete}" 
                                             styleClass="#{view.viewId == '/Sistemas.xhtml' ? 'ui-state-active' : ''}"/>
                                 <p:menuitem value="Usuarios" url="Usuarios.xhtml" icon="ui-icon-home" 
+                                            disabled="#{!controladorPermisos.getRol(opcAdmUsu).LSelect 
+                                                        and !controladorPermisos.getRol(opcAdmUsu).LInsert
+                                                        and !controladorPermisos.getRol(opcAdmUsu).LUpdate
+                                                        and !controladorPermisos.getRol(opcAdmUsu).LDelete} "
                                             styleClass="#{view.viewId == '/Usuarios.xhtml' ? 'ui-state-active' : ''}"/>
                                 <p:menuitem value="Opciones" url="Opciones.xhtml" icon="ui-icon-home"
+                                            disabled="#{!controladorPermisos.getRol(opcAdmOpc).LSelect 
+                                                        and !controladorPermisos.getRol(opcAdmOpc).LInsert
+                                                        and !controladorPermisos.getRol(opcAdmOpc).LUpdate
+                                                        and !controladorPermisos.getRol(opcAdmOpc).LDelete}" 
                                             styleClass="#{view.viewId == '/Opciones.xhtml' ? 'ui-state-active' : ''}"/>
                                 <p:menuitem value="Perfiles" url="Perfiles.xhtml" icon="ui-icon-home"
+                                            disabled="#{!controladorPermisos.getRol(opcAdmPer).LSelect 
+                                                        and !controladorPermisos.getRol(opcAdmPer).LInsert
+                                                        and !controladorPermisos.getRol(opcAdmPer).LUpdate
+                                                        and !controladorPermisos.getRol(opcAdmPer).LDelete}"  
                                             styleClass="#{view.viewId == '/Perfiles.xhtml' ? 'ui-state-active' : ''}"/>
                                 <p:menuitem value="Roles" url="OP.xhtml" icon="ui-icon-home"
                                             styleClass="#{view.viewId == '/OP.xhtml' ? 'ui-state-active' : ''}"/>
                             </p:submenu>
                             <p:submenu label="Personal">
                                 <p:menuitem value="Empleados" url="Empleados.xhtml" icon="ui-icon-home"
+                                            disabled="#{!controladorPermisos.getRol(opcAdmEmp).LSelect 
+                                                        and !controladorPermisos.getRol(opcAdmEmp).LInsert
+                                                        and !controladorPermisos.getRol(opcAdmEmp).LUpdate
+                                                        and !controladorPermisos.getRol(opcAdmEmp).LDelete}" 
                                             styleClass="#{view.viewId == '/Empleados.xhtml' ? 'ui-state-active' : ''}"/>
                             </p:submenu>
                             <p:submenu label="Salud">
@@ -70,10 +92,7 @@
 
                 <div id="CONTENTSIDE">
                     Usuario en el sistema: #{controladorPermisos.cargarUsuarioActual()}
-                    #{!controladorPermisos.getRol(opcAdmPro).LSelect 
-                                                        and !controladorPermisos.getRol(opcAdmPro).LInsert
-                                                        and !controladorPermisos.getRol(opcAdmPro).LUpdate
-                                                        and !controladorPermisos.getRol(opcAdmPro).LDelete}
+                    
                     <div id="CONTENTSIDEindent">
                         <ui:insert name="contenido">
                         </ui:insert>
