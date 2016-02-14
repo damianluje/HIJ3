@@ -60,9 +60,9 @@ public class ControladorPermisos {
     @PostConstruct
     public void cargarDatos() {
         //System.out.println("[DEBUG ControladorPermisos] serSis hash:"+serSis.hashCode());
-        
+
         listaSis = serSis.findAll();
-        
+
     }
 
     public String cargarUsuarioActual() {
@@ -83,8 +83,10 @@ public class ControladorPermisos {
     }
 
     public Rol getRol(String mod) {
+        //System.out.println("[DEBUG ControladorPermisos getRol] mod: " + mod);
         if (perfil != null) {
-            listaSis=serSis.findAll();
+            listaSis = serSis.findAll();
+
             for (Sistema sis : listaSis) {
                 for (Opciones opc : sis.getOpcionesList()) {
                     if (opc.getOpcDescripcion().equals(mod)) {
@@ -97,13 +99,15 @@ public class ControladorPermisos {
                     }
                 }
             }
-        }else{
-            Rol r=new Rol();
+        } else {
+            Rol r = new Rol();
             r.setLDelete(Boolean.FALSE);
             r.setLInsert(Boolean.FALSE);
             r.setLSelect(Boolean.FALSE);
             r.setLUpdate(Boolean.FALSE);
-            System.out.println("Perfil null en getRol");
+            //System.out.println("Perfil null en getRol");
+            
+            return r;
         }
 
         return null;
@@ -121,17 +125,19 @@ public class ControladorPermisos {
             }
             if (usuario != null) {
                 for (Perfil per : listaPer) {
+                    if (usuario.getPerCodigo() == null) {
+                        return null;
+                    }
                     if (per.getPerCodigo() == usuario.getPerCodigo().getPerCodigo()) {
                         perfil = per;
                         return perfil;
                     }
                 }
-            }else{
+            } else {
                 System.out.println("usuario null en getPerfilByUsername");
             }
             return null;
-        }
-        else{
+        } else {
             System.out.println("username null en getPerfilByUsername");
         }
         return null;
@@ -141,7 +147,7 @@ public class ControladorPermisos {
         if (perfil != null) {
             serSis.clear();
             cargarDatos();
-            
+
             for (Sistema sistema : listaSis) {
                 //System.out.println("**[DEBUG ControladorPermisos] contains "+serSis.contains(sistema));
                 //System.out.println("[DEBUG ControladorPermisos] Sistema:"+sistema.getSisDescripcion());
@@ -175,9 +181,19 @@ public class ControladorPermisos {
             }
             //System.out.println("-----------------------------------------------");
             //serSis.clear();
-        }else{
-            System.out.println("perfil null en crearOPvacios");
+        } else {
+            //System.out.println("perfil null en crearOPvacios");
+
         }
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
+    
 }

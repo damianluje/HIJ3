@@ -49,6 +49,8 @@ public class ControladorUsuario implements Serializable {
     private Integer codEmpleado;
     private Integer codPerfil;
     private String password;
+    private String passwordOriginal;
+    private String hashOriginal;
 
     public ControladorUsuario() {
         usuario = new Usuario();
@@ -75,6 +77,19 @@ public class ControladorUsuario implements Serializable {
         //System.out.println("*************" + usuario.getCodigoUsuario());
         serUsu.edit(usuario);
         limpiar();
+    }
+
+    public void actualizarPass() {
+        System.out.println("[DEBUG ControladorUsuario] usuario.getUsuPassword(): " + usuario.getUsuPassword());
+        System.out.println("[DEBUG ControladorUsuario] hashMD5(passwordOriginal): " + hashMD5(passwordOriginal));
+        if (hashMD5(passwordOriginal).equals(usuario.getUsuPassword())) {
+
+            usuario.setUsuPassword(hashMD5(password));
+            actualizarUsuario();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Contraseña Cambiada", ""));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Error al validar la contraseña actual", ""));
+        }
     }
 
     public void eliminarUsuario() {
@@ -117,13 +132,25 @@ public class ControladorUsuario implements Serializable {
 
     public void valueChangeMethodPer(ValueChangeEvent e) {
 
-        for (int i = 0; i < perfiles.size(); i++) {
-            Perfil per = perfiles.get(i);
-            if (per.getPerCodigo() == Integer.parseInt(e.getNewValue().toString())) {
-                perfil = per;
-                usuario.setPerCodigo(perfil);
+        if (e.getNewValue() == null) {
+            perfil = null;
+            usuario.setPerCodigo(null);
+            System.out.println("[DEBUG ControladorUsuario] Seleccionado perfil null");
+        } else {
+            if (e.getNewValue().toString().isEmpty()) {
+                perfil = null;
+                usuario.setPerCodigo(null);
+                System.out.println("[DEBUG ControladorUsuario] Seleccionado perfil null");
+            }
+            for (int i = 0; i < perfiles.size(); i++) {
+                Perfil per = perfiles.get(i);
+                if (per.getPerCodigo() == Integer.parseInt(e.getNewValue().toString())) {
+                    perfil = per;
+                    usuario.setPerCodigo(perfil);
+                }
             }
         }
+
     }
 
     public Empleado getEmpleado() {
@@ -287,6 +314,26 @@ public class ControladorUsuario implements Serializable {
 
     public void handleKeyEvent() {
         usuario.setUsuPassword(hashMD5(password));
+    }
+
+    public void handleKeyEventPassOriginal() {
+        this.setHashOriginal(hashMD5(passwordOriginal));
+    }
+
+    public String getPasswordOriginal() {
+        return passwordOriginal;
+    }
+
+    public void setPasswordOriginal(String passwordOriginal) {
+        this.passwordOriginal = passwordOriginal;
+    }
+
+    public String getHashOriginal() {
+        return hashOriginal;
+    }
+
+    public void setHashOriginal(String hashOriginal) {
+        this.hashOriginal = hashOriginal;
     }
 
 }

@@ -22,6 +22,7 @@
                 <c:set var="opcAdmRol" value="Administrar Roles" />
                 <c:set var="opcAdmEmp" value="Administrar Empleados" />
                 <c:set var="opcAdmPro" value="Administrar Proveedores" />
+                <c:set var="opcAdmUsuxPer" value="Administrar UsuarioxPerfil" />
                 
                 
                 <p:growl id="messages" showDetail="false"/>
@@ -41,7 +42,7 @@
                                             disabled="#{!controladorPermisos.getRol(opcAdmUsu).LSelect 
                                                         and !controladorPermisos.getRol(opcAdmUsu).LInsert
                                                         and !controladorPermisos.getRol(opcAdmUsu).LUpdate
-                                                        and !controladorPermisos.getRol(opcAdmUsu).LDelete} "
+                                                        and !controladorPermisos.getRol(opcAdmUsu).LDelete}" 
                                             styleClass="#{view.viewId == '/Usuarios.xhtml' ? 'ui-state-active' : ''}"/>
                                 <p:menuitem value="Opciones" url="Opciones.xhtml" icon="ui-icon-home"
                                             disabled="#{!controladorPermisos.getRol(opcAdmOpc).LSelect 
@@ -54,6 +55,12 @@
                                                         and !controladorPermisos.getRol(opcAdmPer).LInsert
                                                         and !controladorPermisos.getRol(opcAdmPer).LUpdate
                                                         and !controladorPermisos.getRol(opcAdmPer).LDelete}"  
+                                            styleClass="#{view.viewId == '/Perfiles.xhtml' ? 'ui-state-active' : ''}"/>
+                                <p:menuitem value="Usuarios por Perfil" url="UsuarioxPerfil.xhtml" icon="ui-icon-home"
+                                            disabled="#{!controladorPermisos.getRol(opcAdmUsuxPer).LSelect 
+                                                        and !controladorPermisos.getRol(opcAdmUsuxPer).LInsert
+                                                        and !controladorPermisos.getRol(opcAdmUsuxPer).LUpdate
+                                                        and !controladorPermisos.getRol(opcAdmUsuxPer).LDelete}"  
                                             styleClass="#{view.viewId == '/Perfiles.xhtml' ? 'ui-state-active' : ''}"/>
                                 <p:menuitem value="Roles" url="OP.xhtml" icon="ui-icon-home"
                                             styleClass="#{view.viewId == '/OP.xhtml' ? 'ui-state-active' : ''}"/>
@@ -85,14 +92,15 @@
                             <p:submenu label="Acceso">
                                 <p:menuitem value="Admin" url="admin.xhtml" icon="ui-icon-home"
                                             styleClass="#{view.viewId == '/admin.xhtml' ? 'ui-state-active' : ''}"/>
+                                <p:menuitem value="Cambiar Contraseña" url="CambiarPass.xhtml" icon="ui-icon-home"
+                                            styleClass="#{view.viewId == '/CambiarPass.xhtml' ? 'ui-state-active' : ''}"/>
                             </p:submenu>
                         </p:menu>
                     </div>
                 </div>
 
                 <div id="CONTENTSIDE">
-                    Usuario en el sistema: #{controladorPermisos.cargarUsuarioActual()}
-                    
+                    Usuario en el sistema: #{controladorPermisos.cargarUsuarioActual()}<br/>
                     <div id="CONTENTSIDEindent">
                         <ui:insert name="contenido">
                         </ui:insert>
