@@ -14,11 +14,12 @@
                     <h:form>
                         <p:growl id="mensaje" autoUpdate="true" showSummary="true" showDetail="true"/>
                         <p:messages autoUpdate="true" />
-                        <h3><h:outputText value="Factura"/></h3>
+                        <h3><h:outputText value="Cebecera"/></h3>
                         <p:panelGrid columns="6">
                             <p:outputLabel value="Número:" />
                             <p:selectOneMenu value="#{controladorFactura.factura.facCodigo}" valueChangeListener="#{controladorFactura.valueChangeMethod}" id="selectCodigo">
                                 <f:ajax event="change" render="@form"/>
+                                <f:selectItem itemLabel=""></f:selectItem>
                                 <f:selectItems value="#{controladorFactura.facturas}" var="factura" itemValue="#{factura.facCodigo}" itemLabel="N:#{factura.facCodigo}" />
                             </p:selectOneMenu>
                             
@@ -48,66 +49,64 @@
                             <f:convertDateTime pattern="dd/MM/yyyy" />
                             </p:calendar>
                             </p:panelGrid>
-                        <p:commandButton action="#{controladorFactura.ingresarFactura()}" value="Insertar" update="tabla selectCodigo" ></p:commandButton>
-                        <p:commandButton action="#{controladorFactura.actualizarFactura()}" value="Modificar" update="tabla selectCodigo"></p:commandButton>
-                        <p:commandButton action="#{controladorFactura.eliminarFactura()}" value="Eliminar" update="tabla selectCodigo"></p:commandButton>
-                   
-                        <h1><h:outputText value="Lista de Facturas"/></h1>
-                        <p:dataTable value="#{controladorFactura.facturas}" var="item" id="tabla">
-                            <p:column>
+                        <p:commandButton action="#{controladorFactura.ingresarFactura()}" value="Insertar" update="tabla selectCodigo selectDetalle" ></p:commandButton>
+                        <p:commandButton action="#{controladorFactura.actualizarFactura()}" value="Modificar" update="tabla selectCodigo selectDetalle"></p:commandButton>
+                        <p:commandButton action="#{controladorFactura.eliminarFactura()}" value="Eliminar" update="tabla selectCodigo selectDetalle"></p:commandButton>
+                        <h3><h:outputText value="Detalle"/></h3>
+                                         
+                        
+                        
+                        
+                        <p:panelGrid columns="7">
+                            
+                            
+                            <p:outputLabel value="Código:" />
+                            <p:selectOneMenu value="#{controladorFactura.codDet}" valueChangeListener="#{controladorFactura.valueChangeMethodFactura}" id="selectDetalle">
+                                <f:ajax event="change" render="@form"/>
+                                
+                                <f:selectItems value="#{controladorFactura.factura.detalleFacturaList}" var="factura" itemValue="#{factura.dfaCodigo}" itemLabel="#{factura.dfaCodigo}" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="N: #{controladorFactura.factura.facCodigo}"/>
+                            <p:outputLabel value="Tipo de Servicio:" />
+                            <p:selectOneMenu value="#{controladorFactura.codDet}" valueChangeListener="#{controladorFactura.valueChangeMethodTipoServicio}" id="selectTipoServicio">
+                                <f:ajax event="change" render="@form"/>
+                                <f:selectItems value="#{controladorTipoServicio.tipoServicios}" var="tipo" itemValue="#{tipo.tsvCodigo}" itemLabel="#{tipo.tsvNombre}  #{tipo.tsvCosto}" />
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Cantidad:" />
+                            <p:inputText id="cantidad" value="#{controladorFactura.detalle.dfaCantidad}" title="cantidad" />
+                 
+                            </p:panelGrid>
+                        <p:commandButton action="#{controladorFactura.ingresarDetalleFactura()}" value="Insertar" update="tabla selectDetalle" ></p:commandButton>
+                        <p:commandButton action="#{controladorFactura.actualizarDetalleFactura()}" value="Modificar" update="tabla selectDetalle"></p:commandButton>
+                        <p:commandButton action="#{controladorFactura.eliminarDetalleFactura()}" value="Eliminar" update="tabla selectDetalle"></p:commandButton>
+                        
+                        <h1><h:outputText value="Lista de Detalles"/></h1>
+                        <p:dataTable value="#{controladorFactura.factura.detalleFacturaList}" var="item" id="tabla">
+                             <p:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Número:"/>
+                                    <h:outputText value="Código de Detalle"/>
                                 </f:facet>
-                                <h:outputText value="N:#{item.facCodigo}"/>
+                                 <h:outputText value="#{item.dfaCodigo}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Paciente"/>
+                                    <h:outputText value="Tipo de Servicio:"/>
                                 </f:facet>
-                                <h:outputText value="#{item.pacCodigo.pacCodigo}-#{item.pacCodigo.pacNombre}"/>
+                                <h:outputText value="#{item.tsvCodigo.tsvCodigo}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Empleado"/>
+                                    <h:outputText value="Costo"/>
                                 </f:facet>
-                                <h:outputText value="#{item.empCodigo.empNombres}"/>
+                                <h:outputText value="#{item.tsvCodigo.tsvCosto}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
-                                    <h:outputText value="Fecha"/>
+                                    <h:outputText value="Cantidad"/>
                                 </f:facet>
-                                <h:outputText value="#{item.sefacFecha}"/>
+                                <h:outputText value="#{item.dfaCantidad}"/>
                             </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Dirección"/>
-                                </f:facet>
-                                <h:outputText value="#{item.sefacDireccion}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Forma de Pago"/>
-                                </f:facet>
-                                <h:outputText value="#{item.sefacFormaPago}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Subtotal"/>
-                                </f:facet>
-                                <h:outputText value="#{item.sefacSubtotal}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Iva"/>
-                                </f:facet>
-                                <h:outputText value="#{item.sefacIva}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Total"/>
-                                </f:facet>
-                                <h:outputText value="#{item.sefacTotal}"/>
-                            </p:column>
+                            
                             </p:dataTable>
                     </h:form>
                 </f:view>

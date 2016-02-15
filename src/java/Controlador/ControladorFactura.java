@@ -4,12 +4,15 @@
  * and open the template in the editor.
  */
 package Controlador;
+import Modelo.DetalleFactura;
 import Modelo.Empleado;
 import Modelo.Factura;
 import Modelo.Proveedor;
 import Modelo.Factura;
 import Modelo.Factura;
 import Modelo.Paciente;
+import Modelo.TipoServicio;
+import Servicios.DetalleFacturaFacade;
 import Servicios.EmpleadoFacade;
 import Servicios.FacturaFacade;
 import Servicios.PacienteFacade;
@@ -25,6 +28,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import Servicios.FacturaFacade;
 import Servicios.FacturaFacade;
+import Servicios.TipoServicioFacade;
 import java.util.AbstractList;
 import javax.faces.event.ValueChangeEvent;
 /**
@@ -44,10 +48,54 @@ public class ControladorFactura implements Serializable{
     @EJB
     private EmpleadoFacade serEmp;
     private int codEmp;
+    @EJB
+    private TipoServicioFacade serTip;    
+    @EJB
+    private DetalleFacturaFacade serDet;
+    private DetalleFactura detalle;
+    private List<DetalleFactura> detalles;
+    private int codDet;
+    private int codFac;
 
+    public int getCodFac() {
+        return codFac;
+    }
+
+    public void setCodFac(int codFac) {
+        this.codFac = codFac;
+    }
+
+    public int getCodDet() {
+        return codDet;
+    }
+
+    public void setCodDet(int codDet) {
+        this.codDet = codDet;
+        
+    }
+
+    public DetalleFacturaFacade getSerDet() {
+        return serDet;
+    }
+
+    public void setSerDet(DetalleFacturaFacade serDet) {
+        this.serDet = serDet;
+    }
+
+    public DetalleFactura getDetalle() {
+        return detalle;
+    }
+
+    public void setDetalle(DetalleFactura detalle) {
+        this.detalle = detalle;
+        
+    }
+    
     public ControladorFactura() {
         factura=new Factura();
         facturas=new ArrayList<>();
+        detalle= new DetalleFactura();
+        detalles=new ArrayList<>();
     }
     @PostConstruct
     public void cargarDatos() {
@@ -55,11 +103,18 @@ public class ControladorFactura implements Serializable{
     }
     public void limpiar() {
         factura = new Factura();
+        detalle =new DetalleFactura();
     }
     public void actualizarFactura() {
         //System.out.println("*************" + opcion.getCodigoSistema());
         serFac.edit(factura);
         System.out.println("Actualizando Opcion: "+factura+factura.getFacCodigo());
+        limpiar();
+    }
+    public void actualizarDetalleFactura() {
+        //System.out.println("*************" + opcion.getCodigoSistema());
+        serDet.edit(detalle);
+        System.out.println("Actualizando Detalle: "+detalle+detalle.getDfaCodigo());
         limpiar();
     }
     public void eliminarFactura() {
@@ -99,13 +154,53 @@ public class ControladorFactura implements Serializable{
         factura.setEmpCodigo(pro);
         System.out.println("Proveedor: "+pro.getEmpCodigo());    
     }
-    
+     public void valueChangeMethodTipoServicio(ValueChangeEvent e) {
+
+         TipoServicio pro=serTip.find(Integer.parseInt(e.getNewValue().toString()));
+        
+        detalle.setTsvCodigo(pro);  
+    }
+    public void valueChangeMethodFactura(ValueChangeEvent e) {
+
+        for (int i = 0; i < factura.getDetalleFacturaList().size(); i++) {
+            DetalleFactura opc = factura.getDetalleFacturaList().get(i);
+            if (opc.getDfaCodigo() == Integer.parseInt(e.getNewValue().toString())) {
+                detalle = opc;
+                }
+        }
+    }
     public void ingresarFactura() {
         try {
             System.out.println("Factura:" + factura+factura.getFacCodigo());
             serFac.create(factura);
             this.facturas = serFac.findAll();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Factura Ingresado", ""));
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "-_-"));
+        }
+        limpiar();
+    }
+    public void ingresarDetalleFactura() {
+        try {
+            System.out.println("Detalle Factura:" + detalle+detalle.getDfaCodigo());
+            detalle.setFacCodigo(factura);
+            serDet.create(detalle);
+            this.detalles= serDet.findAll();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Detalle Ingresado: Porfavor seleccione en la cabezera la Factura N:"+ detalle.getFacCodigo().getFacCodigo() , ""));
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "-_-"));
+        }
+        limpiar();
+    }
+    public void eliminarDetalleFactura() {
+        try {
+            serDet.remove(detalle);
+            this.detalles= serDet.findAll();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Detalle Eliminado: Porfavor seleccione en la cabezera la Factura N:"+ factura.getFacCodigo() , ""));
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

@@ -6,7 +6,78 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:body>
-        <ui:composition template="/templates/template1.xhtml"></ui:composition>
+        <ui:composition template="/templates/template1.xhtml">
+            <ui:define name="contenido">
+
+                <f:view>
+
+                    <h:form>
+                        <h1><h:outputText value="Historial de Facturas"/></h1>
+                        <p:dataTable value="#{controladorFactura.facturas}" var="item" id="tabla">
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Número:"/>
+                                </f:facet>
+                                <h:outputText value="N:#{item.facCodigo}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Paciente"/>
+                                </f:facet>
+                                <h:outputText value="#{item.pacCodigo.pacCodigo}-#{item.pacCodigo.pacNombre}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Empleado"/>
+                                </f:facet>
+                                <h:outputText value="#{item.empCodigo.empNombres}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Fecha"/>
+                                </f:facet>
+                                <h:outputText value="#{item.sefacFecha}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Dirección"/>
+                                </f:facet>
+                                <h:outputText value="#{item.sefacDireccion}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Forma de Pago"/>
+                                </f:facet>
+                                <h:outputText value="#{item.sefacFormaPago}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Subtotal"/>
+                                </f:facet>
+                                <h:outputText value="#{item.sefacSubtotal}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Iva"/>
+                                </f:facet>
+                                <h:outputText value="#{item.sefacIva}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Total"/>
+                                </f:facet>
+                                <h:outputText value="#{item.sefacTotal}"/>
+                            </p:column>
+                            </p:dataTable>
+                        
+                    </h:form>
+                </f:view>
+
+
+
+            </ui:define>
+        </ui:composition>
     </h:body>
 </html>
+
 

@@ -106,6 +106,10 @@ public class Factura implements Serializable {
     }
 
     public Double getSefacSubtotal() {
+        sefacSubtotal=0.0;
+        for (DetalleFactura detalleFactura : detalleFacturaList) {
+            sefacSubtotal+=detalleFactura.getTsvCodigo().getTsvCosto();
+        }
         return sefacSubtotal;
     }
 
@@ -114,6 +118,7 @@ public class Factura implements Serializable {
     }
 
     public Double getSefacTotal() {
+        sefacTotal=sefacIva+sefacSubtotal;
         return sefacTotal;
     }
 
@@ -122,6 +127,7 @@ public class Factura implements Serializable {
     }
 
     public Double getSefacIva() {
+        sefacIva=sefacSubtotal*0.12;
         return sefacIva;
     }
 
