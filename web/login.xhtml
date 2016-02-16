@@ -11,12 +11,15 @@
     <h:body>
         <ui:composition template="/templates/template1.xhtml">
             <ui:define name="contenido">
+                <p:growl id="mensaje" autoUpdate="true" showSummary="true" showDetail="true"/>
+                <p:messages autoUpdate="true" />
                 <h:form>
+
                     <h3>Ingreso al Sistema</h3>
                     <h:outputText value="Usuario: " />
                     <p:inputText id="username" value="#{controladorLogin.user}"></p:inputText>
                     <p:message for="username"></p:message>
-                    
+
 
                     <h:outputText value="Contraseña: " />
                     <p:password id="password" value="#{controladorLogin.pwd}"></p:password>
