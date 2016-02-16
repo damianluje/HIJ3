@@ -188,6 +188,7 @@ public class ControladorFactura implements Serializable{
             detalle.setFacCodigo(factura);
             serDet.create(detalle);
             this.detalles= serDet.findAll();
+            this.facturas = serFac.findAll();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Detalle Ingresado: Porfavor seleccione en la cabezera la Factura N:"+ detalle.getFacCodigo().getFacCodigo() , ""));
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -200,6 +201,7 @@ public class ControladorFactura implements Serializable{
         try {
             serDet.remove(detalle);
             this.detalles= serDet.findAll();
+            this.facturas = serFac.findAll();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Detalle Eliminado: Porfavor seleccione en la cabezera la Factura N:"+ factura.getFacCodigo() , ""));
         } catch (Exception e) {
             // TODO Auto-generated catch block
