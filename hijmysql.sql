@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     02/02/2016 0:01:51                           */
+/* Created on:     18/02/2016 17:33:25                          */
 /*==============================================================*/
 
 
@@ -28,6 +28,8 @@ drop table if exists XESIS_SISTEMA;
 
 drop table if exists XEUSU_USUARIO;
 
+drop table if exists XEVEN_VENTANA;
+
 /*==============================================================*/
 /* Table: PEEMP_EMPLEADO                                        */
 /*==============================================================*/
@@ -48,10 +50,10 @@ create table ROL
 (
    XEPER_CODIGO         int not null,
    XEOPC_CODIGO         int not null,
-   ROL_INSERT           boolean,
-   ROL_UPDATE           boolean,
-   ROL_DELETE           boolean,
-   ROL_SELECT           boolean,
+   ROL_INSERT           bool,
+   ROL_UPDATE           bool,
+   ROL_DELETE           bool,
+   ROL_SELECT           bool,
    primary key (XEPER_CODIGO, XEOPC_CODIGO)
 );
 
@@ -135,7 +137,7 @@ create table XEOPC_OPCIONES
 (
    XEOPC_CODIGO         int not null auto_increment,
    XESIS_CODIGO         int not null,
-   XEOPC_DESCIPCION     varchar(100),
+   XEOPC_DESCRIPCION    varchar(100),
    primary key (XEOPC_CODIGO)
 );
 
@@ -184,6 +186,17 @@ create table XEUSU_USUARIO
    primary key (XEUSU_CODIGO)
 );
 
+/*==============================================================*/
+/* Table: XEVEN_VENTANA                                         */
+/*==============================================================*/
+create table XEVEN_VENTANA
+(
+   XEVEN_CODIGO         int not null auto_increment,
+   XEOPC_CODIGO         int,
+   XEVEN_PAGINA         varchar(100) not null,
+   primary key (XEVEN_CODIGO)
+);
+
 alter table ROL add constraint FK_RELATIONSHIP_12 foreign key (XEPER_CODIGO, XEOPC_CODIGO)
       references XEOPP_OPCIONES_PERFIL (XEPER_CODIGO, XEOPC_CODIGO) on delete restrict on update restrict;
 
@@ -216,4 +229,7 @@ alter table XEUSU_USUARIO add constraint FK_RELATIONSHIP_14 foreign key (PEEMP_C
 
 alter table XEUSU_USUARIO add constraint FK_RELATIONSHIP_6 foreign key (XEPER_CODIGO)
       references XEPER_PERFIL (XEPER_CODIGO) on delete restrict on update restrict;
+
+alter table XEVEN_VENTANA add constraint FK_RELATIONSHIP_15 foreign key (XEOPC_CODIGO)
+      references XEOPC_OPCIONES (XEOPC_CODIGO) on delete restrict on update restrict;
 
