@@ -72,7 +72,7 @@ public class Factura implements Serializable {
     @ManyToOne
     private Empleado emp_codigo;
     @OneToMany(mappedBy = "fac_codigo")
-    private List<DetalleFactura> detalleFacturaList;
+    public List<DetalleFactura> detalleFacturaList;
 
     public Factura() {
     }
