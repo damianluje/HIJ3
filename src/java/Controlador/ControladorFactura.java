@@ -56,7 +56,18 @@ public class ControladorFactura implements Serializable{
     private List<DetalleFactura> detalles;
     private int codDet;
     private int codFac;
+    private int codTip;
 
+    public int getConTip() {
+        return codTip;
+    }
+
+    public void setConTip(int codTip) {
+        this.codTip = codTip;
+        TipoServicio emp=serTip.find(codTip);
+        detalle.setTsvCodigo(emp);
+    }
+    
     public int getCodFac() {
         return codFac;
     }
@@ -161,12 +172,13 @@ public class ControladorFactura implements Serializable{
         detalle.setTsvCodigo(pro);  
     }
     public void valueChangeMethodFactura(ValueChangeEvent e) {
-
+        if(factura.getDetalleFacturaList()!=null){
         for (int i = 0; i < factura.getDetalleFacturaList().size(); i++) {
             DetalleFactura opc = factura.getDetalleFacturaList().get(i);
             if (opc.getDfaCodigo() == Integer.parseInt(e.getNewValue().toString())) {
                 detalle = opc;
                 }
+        }
         }
     }
     public void ingresarFactura() {
@@ -180,33 +192,52 @@ public class ControladorFactura implements Serializable{
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "-_-"));
         }
-        limpiar();
+        limpiarDetalle();
     }
     public void ingresarDetalleFactura() {
         try {
             System.out.println("Detalle Factura:" + detalle+detalle.getDfaCodigo());
             detalle.setFacCodigo(factura);
             serDet.create(detalle);
-            this.detalles= serDet.findAll();
+            this.facturas = serFac.findAll();
+             List<DetalleFactura> det=serDet.findAll();
+             List<DetalleFactura> detalles=new ArrayList<>();
+             for (int i = 0; i <det.size(); i++) {
+                 if(det.get(i).getFacCodigo().getFacCodigo()==factura.getFacCodigo())
+                 {   
+                     detalles.add(det.get(i));
+                 }
+             }
+             this.factura.detalleFacturaList=detalles;
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Detalle Ingresado: Porfavor seleccione en la cabezera la Factura N:"+ detalle.getFacCodigo().getFacCodigo() , ""));
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "-_-"));
         }
-        limpiar();
+        limpiarDetalle();
     }
     public void eliminarDetalleFactura() {
         try {
             serDet.remove(detalle);
-            this.detalles= serDet.findAll();
+            
+             this.facturas = serFac.findAll();
+             List<DetalleFactura> det=serDet.findAll();
+             List<DetalleFactura> detalles=new ArrayList<>();
+             for (int i = 0; i <det.size(); i++) {
+                 if(det.get(i).getFacCodigo().getFacCodigo()==factura.getFacCodigo())
+                 {   
+                     detalles.add(det.get(i));
+                 }
+             }
+             this.factura.detalleFacturaList=detalles;
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Detalle Eliminado: Porfavor seleccione en la cabezera la Factura N:"+ factura.getFacCodigo() , ""));
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), "-_-"));
         }
-        limpiar();
+        limpiarDetalle();
     }
 
     public FacturaFacade getSerFac() {
@@ -251,10 +282,11 @@ public class ControladorFactura implements Serializable{
     public void setCodEmp(int codEmp) {
         this.codEmp = codEmp;
         Empleado emp=serEmp.find(codEmp);
-        
         factura.setEmpCodigo(emp);
     }
-    
+    private void limpiarDetalle() {
+         detalle =new DetalleFactura();
+     }
     
 }
 
