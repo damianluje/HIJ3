@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:body>
+        <ui:composition template="/templates/template1.xhtml">
+            <ui:define name="contenido">
+                <c:set var="ventanaActual" value="#{view.viewId}" />
+                <f:view>
+                    Permiso en el modulo: C:#{controladorPermisos.getRol(ventanaActual).LInsert}
+                    R:#{controladorPermisos.getRol(ventanaActual).LSelect} 
+                    U:#{controladorPermisos.getRol(ventanaActual).LUpdate} 
+                    D:#{controladorPermisos.getRol(ventanaActual).LDelete}
+                    <h:form>
+                        <p:growl id="mensaje" autoUpdate="true" showSummary="true" showDetail="true"/>
+                        <p:messages autoUpdate="true" />
+                        <h3><h:outputText value="Opción"/></h3>
+
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Código:" />
+                            <p:selectOneMenu value="#{controladorVentana.ventana.venCodigo}" valueChangeListener="#{controladorVentana.valueChangeMethod}" id="selectCodigo">
+                                <f:ajax event="change" render="@form"/>
+                                <f:selectItem itemLabel=""/>
+                                <f:selectItems value="#{controladorVentana.ventanas}" var="varVen" itemValue="#{varVen.venCodigo}" itemLabel="#{varVen.venCodigo}-#{varVen.venPagina}" />
+                            </p:selectOneMenu>
+
+
+                            <p:outputLabel value="Pagina:"  />
+                            <p:inputText id="xeopcDescipcion" value="#{controladorVentana.ventana.venPagina}" title="Pagina" />
+
+                            <p:outputLabel value="Opción:" />
+                            <p:selectOneMenu  valueChangeListener="#{controladorVentana.valueChangeMethod1}" id="selectSis" value="#{controladorVentana.codOpc}">
+                                <f:ajax event="change" />
+                                <f:selectItem itemLabel=""/>
+                                <f:selectItems value="#{controladorVentana.opciones}" var="opciones" itemValue="#{opciones.opcCodigo}" itemLabel="#{opciones.opcCodigo}-#{opciones.opcDescripcion}" />
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+
+                        <p:commandButton action="#{controladorVentana.ingresarVentana()}" value="Insertar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol(ventanaActual).LInsert}"></p:commandButton>
+                        <p:commandButton action="#{controladorVentana.actualizarVentana()}" value="Modificar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol(ventanaActual).LUpdate}"></p:commandButton>
+                        <p:commandButton action="#{controladorVentana.eliminarVentana()}" value="Eliminar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol(ventanaActual).LDelete}"></p:commandButton>
+
+                        <p:panel id="panelSis" visible="#{controladorPermisos.getRol(ventanaActual).LSelect}">
+                            <h1><h:outputText value="Lista de Ventanas"/></h1>
+
+
+
+                            <p:dataTable value="#{controladorVentana.ventanas}" var="item" id="tabla">
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="VenCodigo"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.venCodigo}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="VenPagina"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.venPagina}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="OpcCodigo"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.opcCodigo}"/>
+                                </p:column>
+                            </p:dataTable>
+
+
+                        </p:panel>
+                    </h:form>
+                </f:view>
+
+
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

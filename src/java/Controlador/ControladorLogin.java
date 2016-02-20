@@ -90,7 +90,7 @@ public class ControladorLogin implements Serializable {
         if (valid) {
             HttpSession session = SessionBean.getSession();
             session.setAttribute("username", user);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Ingresando ...", ""));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Ingresando ...", ""));
             return "admin";
         } else {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Contraseña incorrecta", ""));

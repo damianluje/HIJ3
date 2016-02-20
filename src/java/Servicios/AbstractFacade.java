@@ -28,7 +28,10 @@ public abstract class AbstractFacade<T> {
     }
 
     public void clearAll() {
-        getEntityManager().getEntityManagerFactory().getCache().evictAll();
+        try {
+            getEntityManager().getEntityManagerFactory().getCache().evictAll();
+        } catch (Exception e) {
+        }
     }
 
     public void create(T entity) {

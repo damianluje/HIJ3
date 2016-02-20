@@ -133,8 +133,5 @@ public class Rol implements Serializable {
     public String toString() {
         return "Rol{" + "rolPK=" + rolPK + ", lIn_sert=" + lIn_sert + ", lUp_date=" + lUp_date + ", lDe_lete=" + lDe_lete + ", lSe_lect=" + lSe_lect + '}';
     }
-
-    
-    
     
 }

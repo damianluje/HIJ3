@@ -226,7 +226,7 @@ public class ControladorUsuario implements Serializable {
     public void ingresarUsuario() {
         try {
             //usuario.setOpcionesList(new ArrayList<>());
-
+            
             serUsu.create(usuario);
             this.usuarios = serUsu.findAll();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuario Ingresada", ""));

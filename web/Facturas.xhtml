@@ -4,13 +4,14 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
     <h:body>
         <ui:composition template="/templates/template1.xhtml">
             <ui:define name="contenido">
 
                 <f:view>
-
+                    <c:set var="ventanaActual" value="#{view.viewId}" />
                     <h:form>
                         <p:growl id="mensaje" autoUpdate="true" showSummary="true" showDetail="true"/>
                         <p:messages autoUpdate="true" />
@@ -22,7 +23,7 @@
                                 <f:selectItem itemLabel=""></f:selectItem>
                                 <f:selectItems value="#{controladorFactura.facturas}" var="factura" itemValue="#{factura.facCodigo}" itemLabel="N:#{factura.facCodigo}" />
                             </p:selectOneMenu>
-                            
+
                             <p:outputLabel value="Paciente:" />
                             <p:selectOneMenu value="#{controladorFactura.codPac}" valueChangeListener="#{controladorFactura.valueChangeMethodPaciente}" id="selectCodigoPaciente">
                                 <f:ajax event="change" render="@form"/>
@@ -37,7 +38,7 @@
                             <p:inputText id="fac_dir" value="#{controladorFactura.factura.sefacDireccion}" title="fac_dir" />
                             <p:outputLabel value="Forma de Pago:"  />
                             <p:selectOneMenu value="#{controladorFactura.factura.sefacFormaPago}" id="selectFormaPago">
-                                
+
                                 <f:selectItem itemValue="cheque" itemLabel="cheque"/>
                                 <f:selectItem itemValue="efectivo" itemLabel="efectivo"/>
                                 <f:selectItem itemValue="tarjeta de crédito" itemLabel="tarjeta de crédito"/>
@@ -46,24 +47,24 @@
                             </p:selectOneMenu>
                             <p:outputLabel value="Fecha:"  />
                             <p:calendar id="popup" value="#{controladorFactura.factura.sefacFecha}" pattern="dd/MM/yyyy" >
-                            <f:convertDateTime pattern="dd/MM/yyyy" />
+                                <f:convertDateTime pattern="dd/MM/yyyy" />
                             </p:calendar>
-                            </p:panelGrid>
+                        </p:panelGrid>
                         <p:commandButton action="#{controladorFactura.ingresarFactura()}" value="Insertar" update="selectCodigo" ></p:commandButton>
                         <p:commandButton action="#{controladorFactura.actualizarFactura()}" value="Modificar" update="selectCodigo "></p:commandButton>
                         <p:commandButton action="#{controladorFactura.eliminarFactura()}" value="Eliminar" update="selectCodigo "></p:commandButton>
                         <h3><h:outputText value="Detalle"/></h3>
-                                         
-                        
-                        
-                        
+
+
+
+
                         <p:panelGrid columns="7">
-                            
-                            
+
+
                             <p:outputLabel value="Código:" />
                             <p:selectOneMenu value="#{controladorFactura.codDet}" valueChangeListener="#{controladorFactura.valueChangeMethodFactura}" id="selectDetalle">
                                 <f:ajax event="change" render="@form"/>
-                                
+
                                 <f:selectItems value="#{controladorFactura.factura.detalleFacturaList}" var="factura" itemValue="#{factura.dfaCodigo}" itemLabel="#{factura.dfaCodigo}" />
                             </p:selectOneMenu>
                             <p:outputLabel value="N: #{controladorFactura.factura.facCodigo}"/>
@@ -74,19 +75,19 @@
                             </p:selectOneMenu>
                             <p:outputLabel value="Cantidad:" />
                             <p:inputText id="cantidad" value="#{controladorFactura.detalle.dfaCantidad}" title="cantidad" />
-                 
-                            </p:panelGrid>
+
+                        </p:panelGrid>
                         <p:commandButton action="#{controladorFactura.ingresarDetalleFactura()}" value="Insertar" update="tabla selectDetalle" ></p:commandButton>
                         <p:commandButton action="#{controladorFactura.actualizarDetalleFactura()}" value="Modificar" update="tabla selectDetalle"></p:commandButton>
                         <p:commandButton action="#{controladorFactura.eliminarDetalleFactura()}" value="Eliminar" update="tabla selectDetalle"></p:commandButton>
-                        
+
                         <h1><h:outputText value="Lista de Detalles"/></h1>
                         <p:dataTable value="#{controladorFactura.factura.detalleFacturaList}" var="item" id="tabla">
-                             <p:column>
+                            <p:column>
                                 <f:facet name="header">
                                     <h:outputText value="Código de Detalle"/>
                                 </f:facet>
-                                 <h:outputText value="#{item.dfaCodigo}"/>
+                                <h:outputText value="#{item.dfaCodigo}"/>
                             </p:column>
                             <p:column>
                                 <f:facet name="header">
@@ -106,8 +107,8 @@
                                 </f:facet>
                                 <h:outputText value="#{item.dfaCantidad}"/>
                             </p:column>
-                            
-                            </p:dataTable>
+
+                        </p:dataTable>
                     </h:form>
                 </f:view>
 
