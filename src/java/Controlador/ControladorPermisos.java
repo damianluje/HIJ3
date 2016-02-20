@@ -11,11 +11,13 @@ import Modelo.Perfil;
 import Modelo.Rol;
 import Modelo.Sistema;
 import Modelo.Usuario;
+import Modelo.Ventana;
 import Servicios.OpcionesFacade;
 import Servicios.OpcionesPerfilFacade;
 import Servicios.PerfilFacade;
 import Servicios.SistemaFacade;
 import Servicios.UsuarioFacade;
+import Servicios.VentanaFacade;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -41,9 +43,13 @@ public class ControladorPermisos {
     @EJB
     private PerfilFacade serPer;
 
+    @EJB
+    private VentanaFacade serVen;
+
     private List<Sistema> listaSis;
     private List<Perfil> listaPer;
     private List<Usuario> listaUsu;
+    private List<Ventana> listaVen;
 
     private Perfil perfil;
     private Integer codPerfil;
@@ -82,6 +88,20 @@ public class ControladorPermisos {
 
     }
 
+    public Opciones getOpcByVen(String url) {
+        listaVen = serVen.findAll();
+        System.out.println("URL: "+url);
+        for (Ventana ven : listaVen) {
+            System.out.println("URL Ventana:"+ven.getVenPagina());
+            if (ven.getVenPagina().trim().equals(url.trim())) {
+                System.out.println("[DEBUG ControladorPermisos getOpcByVen] ven:" + ven);
+                return ven.getOpcCodigo();
+            }
+        }
+        System.out.println("[DEBUG ControladorPermisos getOpcByVen] ven: no encontrado");
+        return null;
+    }
+
     public Rol getRol(String mod) {
         //System.out.println("[DEBUG ControladorPermisos getRol] mod: " + mod);
         if (perfil != null) {
@@ -89,16 +109,25 @@ public class ControladorPermisos {
 
             for (Sistema sis : listaSis) {
                 for (Opciones opc : sis.getOpcionesList()) {
-                    if (opc.getOpcDescripcion().equals(mod)) {
-                        for (OpcionesPerfil opp : opc.getOpcionesPerfilList()) {
-                            if (opp.getOpcionesPerfilPK().getPerCodigo() == perfil.getPerCodigo()) {
-                                //System.out.println("[DEBUG ControladorPermisos] "+opp.getRol());
-                                return opp.getRol();
+                    if (getOpcByVen(mod)!=null) {
+
+                        if (opc.getOpcDescripcion().equals(getOpcByVen(mod).getOpcDescripcion())) {
+                            for (OpcionesPerfil opp : opc.getOpcionesPerfilList()) {
+                                if (opp.getOpcionesPerfilPK().getPerCodigo() == perfil.getPerCodigo()) {
+                                    //System.out.println("[DEBUG ControladorPermisos] "+opp.getRol());
+                                    return opp.getRol();
+                                }
                             }
                         }
                     }
                 }
             }
+            Rol r = new Rol();
+            r.setLDelete(Boolean.FALSE);
+            r.setLInsert(Boolean.FALSE);
+            r.setLSelect(Boolean.FALSE);
+            r.setLUpdate(Boolean.FALSE);
+            return r;
         } else {
             Rol r = new Rol();
             r.setLDelete(Boolean.FALSE);
@@ -106,11 +135,10 @@ public class ControladorPermisos {
             r.setLSelect(Boolean.FALSE);
             r.setLUpdate(Boolean.FALSE);
             //System.out.println("Perfil null en getRol");
-            
+
             return r;
         }
 
-        return null;
     }
 
     public Perfil getPerfilByUsername() {
@@ -194,6 +222,13 @@ public class ControladorPermisos {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
-    
+
+    public List<Ventana> getListaVen() {
+        return listaVen;
+    }
+
+    public void setListaVen(List<Ventana> listaVen) {
+        this.listaVen = listaVen;
+    }
+
 }

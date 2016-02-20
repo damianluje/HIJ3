@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Opciones.findAll", query = "SELECT o FROM Opciones o"),
     @NamedQuery(name = "Opciones.findByXeopcCodigo", query = "SELECT o FROM Opciones o WHERE o.opc_codigo = :opc_codigo"),
-    @NamedQuery(name = "Opciones.findByXeopcDescipcion", query = "SELECT o FROM Opciones o WHERE o.opc_descipcion = :opc_descipcion")})
+    @NamedQuery(name = "Opciones.findByXeopcDescripcion", query = "SELECT o FROM Opciones o WHERE o.opc_descripcion = :opc_descripcion")})
 public class Opciones implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,10 +43,12 @@ public class Opciones implements Serializable {
     @Column(name = "XEOPC_CODIGO")
     private Integer opc_codigo;
     @Size(max = 100)
-    @Column(name = "XEOPC_DESCIPCION")
-    private String opc_descipcion;
+    @Column(name = "XEOPC_DESCRIPCION")
+    private String opc_descripcion;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "opciones")
     private List<OpcionesPerfil> opcionesPerfilList;
+    @OneToMany(mappedBy = "opc_codigo")
+    private List<Ventana> ventanaList;
     @JoinColumn(name = "XESIS_CODIGO", referencedColumnName = "XESIS_CODIGO")
     @ManyToOne(optional = false)
     private Sistema sis_codigo;
@@ -67,11 +69,11 @@ public class Opciones implements Serializable {
     }
 
     public String getOpcDescripcion() {
-        return opc_descipcion;
+        return opc_descripcion;
     }
 
-    public void setOpcDescripcion(String opc_descipcion) {
-        this.opc_descipcion = opc_descipcion;
+    public void setOpcDescripcion(String opc_descripcion) {
+        this.opc_descripcion = opc_descripcion;
     }
 
     @XmlTransient
@@ -81,6 +83,15 @@ public class Opciones implements Serializable {
 
     public void setOpcionesPerfilList(List<OpcionesPerfil> opcionesPerfilList) {
         this.opcionesPerfilList = opcionesPerfilList;
+    }
+
+    @XmlTransient
+    public List<Ventana> getVentanaList() {
+        return ventanaList;
+    }
+
+    public void setVentanaList(List<Ventana> ventanaList) {
+        this.ventanaList = ventanaList;
     }
 
     public Sistema getSisCodigo() {

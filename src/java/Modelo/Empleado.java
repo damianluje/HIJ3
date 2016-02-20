@@ -62,7 +62,7 @@ public class Empleado implements Serializable {
     private List<Factura> facturaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "emp_codigo")
     private List<Usuario> usuarioList;
-
+    
     public Empleado() {
     }
 
