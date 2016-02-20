@@ -9,46 +9,41 @@
     <h:body>
         <ui:composition template="/templates/template1.xhtml">
             <ui:define name="contenido">
-                <c:set var="opcionActual" value="Administrar Usuarios" />
+                <c:set var="ventanaActual" value="#{view.viewId}" />
                 <f:view>
-                    Permiso en el modulo: C:#{controladorPermisos.getRol(opcionActual).LInsert}
-                    R:#{controladorPermisos.getRol(opcionActual).LSelect} 
-                    U:#{controladorPermisos.getRol(opcionActual).LUpdate} 
-                    D:#{controladorPermisos.getRol(opcionActual).LDelete}
+                    Permiso en el modulo: C:#{controladorPermisos.getRol(ventanaActual).LInsert}
+                    R:#{controladorPermisos.getRol(ventanaActual).LSelect} 
+                    U:#{controladorPermisos.getRol(ventanaActual).LUpdate} 
+                    D:#{controladorPermisos.getRol(ventanaActual).LDelete}
 
                     <h:form>
                         <p:growl id="mensaje" autoUpdate="true" showSummary="true" showDetail="true"/>
                         <p:messages autoUpdate="true" />
-                        <h3><h:outputText value="Opción"/></h3>
 
 
-
-
-
-                        <h1><h:outputText value="Create/Edit"/></h1>
                         <p:panelGrid columns="2">
-                            <p:outputLabel value="UsuCodigo:"  />
+                            <p:outputLabel value="Código:"  />
                             <p:selectOneMenu value="#{controladorUsuario.usuario.usuCodigo}" valueChangeListener="#{controladorUsuario.valueChangeMethod}" id="selectCodigo">
                                 <f:ajax event="change" render="@form"/>
                                 <f:selectItem itemLabel=""/>
                                 <f:selectItems value="#{controladorUsuario.usuarios}" var="varUsuCod" itemValue="#{varUsuCod.usuCodigo}" itemLabel="#{varUsuCod.usuCodigo}-#{varUsuCod.usuId}" />
                             </p:selectOneMenu>
-                            <p:outputLabel value="UsuId:" for="usuId" />
+                            <p:outputLabel value="ID: " for="usuId" />
                             <p:inputText id="usuId" value="#{controladorUsuario.usuario.usuId}" title="UsuId" />
-                            <p:outputLabel value="UsuPassword:"/>
+                            <p:outputLabel value="Password:"/>
                             <p:password  id="firstname" value="#{controladorUsuario.password}" feedback="true">
                                 <p:ajax event="keyup" update="outHash" listener="#{controladorUsuario.handleKeyEvent}"  />
                             </p:password>
                             <p:outputLabel value="Hash"/>
                             <h:outputText id="outHash" value="#{controladorUsuario.usuario.usuPassword}" />
-                            <p:outputLabel value="EmpCodigo:"  />
+                            <p:outputLabel value="Empleado:"  />
                             <p:selectOneMenu value="#{controladorUsuario.codEmpleado}" valueChangeListener="#{controladorUsuario.valueChangeMethodEmp}" >
                                 <f:ajax event="change"/>
                                 <f:selectItem itemLabel=""/>
                                 <f:selectItems value="#{controladorUsuario.empleados}" var="varEmpCod" itemValue="#{varEmpCod.empCodigo}"
                                                itemLabel="#{varEmpCod.empCodigo}-#{varEmpCod.empApellidos} #{varEmpCod.empNombres}" />
                             </p:selectOneMenu>
-                            <p:outputLabel value="PerCodigo:"  />
+                            <p:outputLabel value="Perfil:"  />
                             <p:selectOneMenu value="#{controladorUsuario.codPerfil}" valueChangeListener="#{controladorUsuario.valueChangeMethodPer}" >
                                 <f:ajax event="change"/>
                                 <f:selectItem itemLabel=""/>
@@ -59,11 +54,11 @@
 
 
 
-                        <p:commandButton action="#{controladorUsuario.ingresarUsuario()}" value="Insertar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol(opcionActual).LInsert}"></p:commandButton>
-                        <p:commandButton action="#{controladorUsuario.actualizarUsuario()}" value="Modificar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol(opcionActual).LUpdate}"></p:commandButton>
-                        <p:commandButton action="#{controladorUsuario.eliminarUsuario()}" value="Eliminar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol(opcionActual).LDelete}"></p:commandButton>
+                        <p:commandButton action="#{controladorUsuario.ingresarUsuario()}" value="Insertar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol(ventanaActual).LInsert}"></p:commandButton>
+                        <p:commandButton action="#{controladorUsuario.actualizarUsuario()}" value="Modificar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol(ventanaActual).LUpdate}"></p:commandButton>
+                        <p:commandButton action="#{controladorUsuario.eliminarUsuario()}" value="Eliminar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol(ventanaActual).LDelete}"></p:commandButton>
 
-                        <p:panel id="panelSis" visible="#{controladorPermisos.getRol(opcionActual).LSelect}">
+                        <p:panel id="panelSis" visible="#{controladorPermisos.getRol(ventanaActual).LSelect}">
                             <h1><h:outputText value="Lista de Usuarios"/></h1>
 
 

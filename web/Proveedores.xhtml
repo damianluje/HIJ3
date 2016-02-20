@@ -4,13 +4,14 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
-     <h:body>
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <h:body>
         <ui:composition template="/templates/template1.xhtml">
             <ui:define name="contenido">
 
                 <f:view>
-
+                    <c:set var="ventanaActual" value="#{view.viewId}" />
                     <h:form>
                         <p:growl id="mensaje" autoUpdate="true" showSummary="true" showDetail="true"/>
                         <p:messages autoUpdate="true" />
@@ -27,38 +28,40 @@
                             <p:inputText id="pro_porcentaje_deducible" value="#{controladorProveedor.proveedor.proPorcentajeDeducible}" title="pro_porcentaje_deducible" />
                             <p:outputLabel value="Área Geográfica:"  />
                             <p:inputText id="pro_area_geografica" value="#{controladorProveedor.proveedor.proAreaGeografica}" title="pro_area_geografica" />
-                            </p:panelGrid>
-                        <p:commandButton action="#{controladorProveedor.ingresarProveedor()}" value="Insertar" update="tabla selectCodigo" ></p:commandButton>
-                        <p:commandButton action="#{controladorProveedor.actualizarProveedor()}" value="Modificar" update="tabla selectCodigo"></p:commandButton>
-                        <p:commandButton action="#{controladorProveedor.eliminarProveedor()}" value="Eliminar" update="tabla selectCodigo"></p:commandButton>
-                   
-                        <h1><h:outputText value="Lista de Proveedores"/></h1>
-                        <p:dataTable value="#{controladorProveedor.proveedors}" var="item" id="tabla">
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Código"/>
-                                </f:facet>
-                                <h:outputText value="#{item.proCodigo}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Nombre"/>
-                                </f:facet>
-                                <h:outputText value="#{item.proNombre}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Porcenaje Deducible"/>
-                                </f:facet>
-                                <h:outputText value="#{item.proPorcentajeDeducible}"/>
-                            </p:column>
-                            <p:column>
-                                <f:facet name="header">
-                                    <h:outputText value="Área Geográfica"/>
-                                </f:facet>
-                                <h:outputText value="#{item.proAreaGeografica}"/>
-                            </p:column>
+                        </p:panelGrid>
+                        <p:commandButton action="#{controladorProveedor.ingresarProveedor()}" value="Insertar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol(ventanaActual).LInsert}"></p:commandButton>
+                        <p:commandButton action="#{controladorProveedor.actualizarProveedor()}" value="Modificar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol(ventanaActual).LUpdate}"></p:commandButton>
+                        <p:commandButton action="#{controladorProveedor.eliminarProveedor()}" value="Eliminar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol(ventanaActual).LDelete}"></p:commandButton>
+
+                        <p:panel id="panelSis" visible="#{controladorPermisos.getRol(ventanaActual).LSelect}">
+                            <h1><h:outputText value="Lista de Proveedores"/></h1>
+                            <p:dataTable value="#{controladorProveedor.proveedors}" var="item" id="tabla">
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Código"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.proCodigo}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Nombre"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.proNombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Porcenaje Deducible"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.proPorcentajeDeducible}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Área Geográfica"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.proAreaGeografica}"/>
+                                </p:column>
                             </p:dataTable>
+                        </p:panel>
                     </h:form>
                 </f:view>
 

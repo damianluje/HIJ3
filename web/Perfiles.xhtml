@@ -9,12 +9,12 @@
     <h:body>
         <ui:composition template="/templates/template1.xhtml">
             <ui:define name="contenido">
-                <c:set var="opcionActual" value="Administrar Perfiles" />
+                <c:set var="ventanaActual" value="#{view.viewId}" />
                 <f:view>
-                    Permiso en el modulo: C:#{controladorPermisos.getRol(opcionActual).LInsert}
-                    R:#{controladorPermisos.getRol(opcionActual).LSelect} 
-                    U:#{controladorPermisos.getRol(opcionActual).LUpdate} 
-                    D:#{controladorPermisos.getRol(opcionActual).LDelete}
+                    Permiso en el modulo: C:#{controladorPermisos.getRol(ventanaActual).LInsert}
+                    R:#{controladorPermisos.getRol(ventanaActual).LSelect} 
+                    U:#{controladorPermisos.getRol(ventanaActual).LUpdate} 
+                    D:#{controladorPermisos.getRol(ventanaActual).LDelete}
                     <h:form>
                         <p:growl id="mensaje" autoUpdate="true" showSummary="true" showDetail="true"/>
                         <p:messages autoUpdate="true" />
@@ -29,10 +29,10 @@
                             <p:outputLabel value="Descripción:"  />
                             <p:inputText id="sis_descripcion" value="#{controladorPerfil.perfil.perDescripcion}" title="Sis_descripcion" />
                         </p:panelGrid>
-                        <p:commandButton action="#{controladorPerfil.ingresarPerfil()}" value="Insertar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol(opcionActual).LInsert}"></p:commandButton>
-                        <p:commandButton action="#{controladorPerfil.actualizarPerfil()}" value="Modificar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol(opcionActual).LUpdate}"></p:commandButton>
-                        <p:commandButton action="#{controladorPerfil.eliminarPerfil()}" value="Eliminar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol(opcionActual).LDelete}"></p:commandButton>
-                        <p:panel id="panelSis" visible="#{controladorPermisos.getRol(opcionActual).LSelect}">
+                        <p:commandButton action="#{controladorPerfil.ingresarPerfil()}" value="Insertar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol(ventanaActual).LInsert}"></p:commandButton>
+                        <p:commandButton action="#{controladorPerfil.actualizarPerfil()}" value="Modificar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol(ventanaActual).LUpdate}"></p:commandButton>
+                        <p:commandButton action="#{controladorPerfil.eliminarPerfil()}" value="Eliminar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol(ventanaActual).LDelete}"></p:commandButton>
+                        <p:panel id="panelSis" visible="#{controladorPermisos.getRol(ventanaActual).LSelect}">
                             <h1><h:outputText value="Lista de Perfiles"/></h1>
                             <p:dataTable value="#{controladorPerfil.perfils}" var="item" id="tabla">
                                 <p:column>

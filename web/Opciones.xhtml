@@ -9,12 +9,12 @@
     <h:body>
         <ui:composition template="/templates/template1.xhtml">
             <ui:define name="contenido">
-                <c:set var="opcionActual" value="Administrar Opciones" />
+                <c:set var="ventanaActual" value="#{view.viewId}" />
                 <f:view>
-                    Permiso en el modulo: C:#{controladorPermisos.getRol(opcionActual).LInsert}
-                    R:#{controladorPermisos.getRol(opcionActual).LSelect} 
-                    U:#{controladorPermisos.getRol(opcionActual).LUpdate} 
-                    D:#{controladorPermisos.getRol(opcionActual).LDelete}
+                    Permiso en el modulo: C:#{controladorPermisos.getRol(ventanaActual).LInsert}
+                    R:#{controladorPermisos.getRol(ventanaActual).LSelect} 
+                    U:#{controladorPermisos.getRol(ventanaActual).LUpdate} 
+                    D:#{controladorPermisos.getRol(ventanaActual).LDelete}
                     <h:form>
                         <p:growl id="mensaje" autoUpdate="true" showSummary="true" showDetail="true"/>
                         <p:messages autoUpdate="true" />
@@ -40,11 +40,11 @@
                             </p:selectOneMenu>
                         </p:panelGrid>
 
-                        <p:commandButton action="#{controladorOpciones.ingresarOpcion()}" value="Insertar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol(opcionActual).LInsert}"></p:commandButton>
-                        <p:commandButton action="#{controladorOpciones.actualizarOpcion()}" value="Modificar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol(opcionActual).LUpdate}"></p:commandButton>
-                        <p:commandButton action="#{controladorOpciones.eliminarOpcion()}" value="Eliminar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol(opcionActual).LDelete}"></p:commandButton>
+                        <p:commandButton action="#{controladorOpciones.ingresarOpcion()}" value="Insertar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol(ventanaActual).LInsert}"></p:commandButton>
+                        <p:commandButton action="#{controladorOpciones.actualizarOpcion()}" value="Modificar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol(ventanaActual).LUpdate}"></p:commandButton>
+                        <p:commandButton action="#{controladorOpciones.eliminarOpcion()}" value="Eliminar" update="tabla selectCodigo" disabled="#{!controladorPermisos.getRol(ventanaActual).LDelete}"></p:commandButton>
 
-                        <p:panel id="panelSis" visible="#{controladorPermisos.getRol(opcionActual).LSelect}">
+                        <p:panel id="panelSis" visible="#{controladorPermisos.getRol(ventanaActual).LSelect}">
                             <h1><h:outputText value="Lista de Opciones"/></h1>
 
                             <p:dataTable value="#{controladorOpciones.opciones}" var="item" id="tabla" >

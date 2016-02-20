@@ -9,12 +9,12 @@
     <h:body>
         <ui:composition template="/templates/template1.xhtml">
             <ui:define name="contenido">
-                <c:set var="opcionActual" value="Administrar UsuarioxPerfil" />
+                <c:set var="ventanaActual" value="#{view.viewId}" />
                 <f:view>
-                    Permiso en el modulo: C:#{controladorPermisos.getRol(opcionActual).LInsert}
-                    R:#{controladorPermisos.getRol(opcionActual).LSelect} 
-                    U:#{controladorPermisos.getRol(opcionActual).LUpdate} 
-                    D:#{controladorPermisos.getRol(opcionActual).LDelete}
+                    Permiso en el modulo: C:#{controladorPermisos.getRol(ventanaActual).LInsert}
+                    R:#{controladorPermisos.getRol(ventanaActual).LSelect} 
+                    U:#{controladorPermisos.getRol(ventanaActual).LUpdate} 
+                    D:#{controladorPermisos.getRol(ventanaActual).LDelete}
                     <h:form>
                         <p:growl id="mensaje" autoUpdate="true" showSummary="true" showDetail="true"/>
                         <p:messages autoUpdate="true" />

@@ -37,7 +37,6 @@
 
                 <div id="MENUSIDE">
                     <div id="MENUSIDEindent">
-                        <h3>MENU</h3>
                         <p:menu toggleable="true" >
                             <p:submenu label="Seguridades">
                                 <p:menuitem value="Sistemas" url="Sistemas.xhtml" icon="ui-icon-home" 
@@ -69,7 +68,7 @@
                                                         and !controladorPermisos.getRol(opcAdmUsuxPer).LInsert
                                                         and !controladorPermisos.getRol(opcAdmUsuxPer).LUpdate
                                                         and !controladorPermisos.getRol(opcAdmUsuxPer).LDelete}"  
-                                            styleClass="#{view.viewId == '/Perfiles.xhtml' ? 'ui-state-active' : ''}"/>
+                                            styleClass="#{view.viewId == '/UsuarioxPerfil.xhtml' ? 'ui-state-active' : ''}"/>
                                 <p:menuitem value="Roles" url="OP.xhtml" icon="ui-icon-home"
                                             styleClass="#{view.viewId == '/OP.xhtml' ? 'ui-state-active' : ''}"/>
                                 <p:menuitem value="Ventanas" url="Ventanas.xhtml" icon="ui-icon-home"
@@ -91,12 +90,28 @@
                                                         and !controladorPermisos.getRol(opcAdmPro).LDelete}" 
                                             styleClass="#{view.viewId == '/Proveedores.xhtml' ? 'ui-state-active' : ''}"/>
                                 <p:menuitem value="Tipo de Servicios" url="TipoServicios.xhtml" icon="ui-icon-home"
+                                            disabled="#{!controladorPermisos.getRol(opcAdmTsv).LSelect 
+                                                        and !controladorPermisos.getRol(opcAdmTsv).LInsert
+                                                        and !controladorPermisos.getRol(opcAdmTsv).LUpdate
+                                                        and !controladorPermisos.getRol(opcAdmTsv).LDelete}" 
                                             styleClass="#{view.viewId == '/TipoServicios.xhtml' ? 'ui-state-active' : ''}"/>
                                 <p:menuitem value="Pacientes" url="Pacientes.xhtml" icon="ui-icon-home"
+                                            disabled="#{!controladorPermisos.getRol(opcAdmPac).LSelect 
+                                                        and !controladorPermisos.getRol(opcAdmPac).LInsert
+                                                        and !controladorPermisos.getRol(opcAdmPac).LUpdate
+                                                        and !controladorPermisos.getRol(opcAdmPac).LDelete}" 
                                             styleClass="#{view.viewId == '/Pacientes.xhtml' ? 'ui-state-active' : ''}"/>
                                 <p:menuitem value="Facturar" url="Facturas.xhtml" icon="ui-icon-home"
+                                            disabled="#{!controladorPermisos.getRol(opcAdmFac).LSelect 
+                                                        and !controladorPermisos.getRol(opcAdmFac).LInsert
+                                                        and !controladorPermisos.getRol(opcAdmFac).LUpdate
+                                                        and !controladorPermisos.getRol(opcAdmFac).LDelete}" 
                                             styleClass="#{view.viewId == '/Facturas.xhtml' ? 'ui-state-active' : ''}"/>
                                 <p:menuitem value="Historial de Facturas" url="DetallesFactura.xhtml" icon="ui-icon-home"
+                                            disabled="#{!controladorPermisos.getRol(opcAdmDFac).LSelect 
+                                                        and !controladorPermisos.getRol(opcAdmDFac).LInsert
+                                                        and !controladorPermisos.getRol(opcAdmDFac).LUpdate
+                                                        and !controladorPermisos.getRol(opcAdmDFac).LDelete}" 
                                             styleClass="#{view.viewId == '/DetallesFactura.xhtml' ? 'ui-state-active' : ''}"/>
                             </p:submenu>
                             <p:submenu label="Acceso">
