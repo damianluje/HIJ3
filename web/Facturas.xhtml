@@ -69,7 +69,7 @@
                             </p:selectOneMenu>
                             <p:outputLabel value="N: #{controladorFactura.factura.facCodigo}"/>
                             <p:outputLabel value="Tipo de Servicio:" />
-                            <p:selectOneMenu value="#{controladorFactura.conTip}" valueChangeListener="#{controladorFactura.valueChangeMethodTipoServicio}" id="selectTipoServicio">
+                            <p:selectOneMenu value="#{controladorFactura.codTip}" valueChangeListener="#{controladorFactura.valueChangeMethodTipoServicio}" id="selectTipoServicio">
                                 <f:ajax event="change" render="@form"/>
                                 <f:selectItems value="#{controladorTipoServicio.tipoServicios}" var="tipo" itemValue="#{tipo.tsvCodigo}" itemLabel="#{tipo.tsvNombre}  #{tipo.tsvCosto}" />
                             </p:selectOneMenu>

@@ -58,11 +58,11 @@ public class ControladorFactura implements Serializable{
     private int codFac;
     private int codTip;
 
-    public int getConTip() {
+    public int getCodTip() {
         return codTip;
     }
 
-    public void setConTip(int codTip) {
+    public void setCodTip(int codTip) {
         this.codTip = codTip;
         TipoServicio emp=serTip.find(codTip);
         detalle.setTsvCodigo(emp);
@@ -169,7 +169,7 @@ public class ControladorFactura implements Serializable{
 
          TipoServicio pro=serTip.find(Integer.parseInt(e.getNewValue().toString()));
         
-        detalle.setTsvCodigo(pro);  
+        detalle.setTsvCodigo(pro);
     }
     public void valueChangeMethodFactura(ValueChangeEvent e) {
         if(factura.getDetalleFacturaList()!=null){
